@@ -1,0 +1,28 @@
+
+JARAMILLO BD
+	Se agrega una nueva columna a la tabla APP_USER llamado rut(VARCHAR(13))
+	Se cambian los nombres de los tipos de ususarios en USER_TYPE
+	Se agrega CASCADE CONSTRAINTS a las tablas APP_USER, USER_TYPE Y USER_STATUS
+	
+PUBLICACIONES_BD
+	Se cambian los nombres de los estados de las publicaciones
+	Se cambia la variable "create_at" a "created_at" en las tablas PUBLICATION Y PUBLIC_STATUS
+	Se agrega CASCADE CONSTRAINTS a la tabla PUBLICATION
+	
+PRESTACIONES_BD
+	Se agrega la columna  a la tabla PRODUCT				stock_alert
+	Se agrega la columna  a la tabla PRODUCT				price
+	
+	Se cambia la variable "create_at" a "created_at" en las tablas SERVICE, SERVICE_STATUS, PRODUCT, PRODUCT_STATUS Y UNIT
+	Se cambia la variable "update_at" a "updated_at" en las tablas SERVICE, SERVICE_STATUS, PRODUCT, PRODUCT_STATUS Y UNIT
+	
+	Se cambia el tipo de conversión de minutos de float a numeric(15) (00.25 a 25 en minutos)
+	
+GENERAL
+
+	Se cambia el idioma de los estados y tipos de todas las tablas a español por temas de front
+	Se unifican todos los script en 1, separandolos por modulo
+	
+	SE ELIMINAN TODOS LOS SCRIPT DE BD PARA CADA MODULO, TODO ESTA EN EL ARCHIVO "JARAMILLO_BD_FINAL"
+	SE CAMBIA EL ID DE LOS PRODUCTOS Y SERVICIOS
+	SE AGREGAN NUEVOS USARIOS (CAJERO, VENDEDOR Y CLIENTE)

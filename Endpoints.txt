@@ -1,0 +1,146 @@
+				Endpoints API
+
+
+/* ----------------------------------------------------------------------------------------------- */
+/* -------------------------------- Administracion de sesiones -------------------------------- */
+/* ----------------------------------------------------------------------------------------------- */
+
+http://localhost:8888/user-auth (POST)           :Login (Nombre de usuario, hash)
+http://localhost:8888/user-auth/register         :Registro(Usuario completo, excepto id y weas para saber cuando se updateo)
+http://localhost:8888/user-auth/confirm-account  :Metodo que recibe un token de confirmacion de mail en un string.
+http://localhost:8888/user-auth/Recover-pass    :Recuperacion de contraseña, recibe email.
+
+
+/* ----------------------------------------------------------------------------------------------- */
+/* -------------------------------- Administracion de Usuarios -------------------------------- */
+/* ----------------------------------------------------------------------------------------------- */
+
+http://localhost:8888/user-adm/user-status		GET		
+	Recibe
+		Nada
+	Retorna
+		json con todos los user_status
+
+http://localhost:8888/user-adm/user-type			GET			
+	Recibe
+		Nada
+	Retorna
+		json con todos los user_type
+		
+http://localhost:8888/user-adm/users				GET			
+	Recibe
+		token		Token de Autorización
+	Retorna
+		json con todos los app_user
+		
+http://localhost:8888/user-adm/users/{userId}		GET			
+	Recibe
+		token		Token de Autorización
+	Retorna
+		json con el app_user que coincida con {userId}
+
+http://localhost:8888/user-adm/users/{Id}  POST
+	Recibe: Token, Json con todos los datos de un user.
+	Retorna: 200(OK) si todo esta correcto o 401(Unauthorized) si el usuario no existe
+
+http://localhost:8888/user-adm/users/{Id}  DELETE
+	Recibe: Token
+	Retorna: 200(OK) si todo esta correcto o 401(Unauthorized) si el usuario no existe
+
+
+http://localhost:8888/user-adm/users/{id}/change-type POST
+	Recibe: Token, Json con un solo parametro "user_type" correspondiente al id nuevo.
+	Retorna: 200(OK) si todo esta correcto o 401(Unauthorized) si el tipo de usuario no existe o si el usuario no existe. (Probado con x-www-form-urlencoded)
+
+http://localhost:8888/user-adm/users/{id}/ban POST
+http://localhost:8888/user-adm/users/{id}/unban POST
+	reciben:token
+	retornan: 200 o 401
+
+
+http://localhost:8888/user-adm/users/Deleted
+	Recibe: nada
+	Retorna: lista de todos los usuarios deleteados logicamente
+
+/* ----------------------------------------------------------------------------------------------- */
+/* -------------------------------- Administracion de Mecanicos-------------------------------- */
+/* ----------------------------------------------------------------------------------------------- */
+
+igual que arriba pero la url se ve asi /mech-adm/mecanicos/{id}/change-status
+
+/* ----------------------------------------------------------------------------------------------- */
+/* -------------------------------- Administracion de Publicaciones-------------------------------- */
+/* ----------------------------------------------------------------------------------------------- */
+http://localhost:8888/pub-adm/publications GET
+	Recibe: token, filtros por composicion "region" y "public_status_id"
+	Retorna: Json con todas las publicaciones
+http://localhost:8888/pub-adm/publications/{Id} GET
+	Recibe: token
+	Retorna: Publicacion con el id escrito en la Url
+http://localhost:8888/pub-adm/publications/{Id} POST
+	Recibe: token, una publicacion entera
+	Retorna: Publicacion con el id escrito en la Url
+http://localhost:8888/pub-adm/publications/{Id} DELETE
+	Recibe: token
+	Retorna: 200(OK) o 401(Unauthorized)
+http://localhost:8888/pub-adm/publications/{Id}/change-status POST
+	Recibe: token, json con parametro "public_status_id"
+	Retorna: 200(OK) o 401(Unauthorized)
+
+http://localhost:8888/pub-adm/public-status
+	recibe: nada
+	Retorna: json con todos los status de publicacion.
+
+/* ----------------------------------------------------------------------------------------------- */
+/* -------------------------------- Administracion de Prestaciones-------------------------------- */
+/* ----------------------------------------------------------------------------------------------- */
+
+http://localhost:8888/supply-adm/product GET
+	Recibe:token
+	Devuelve:todos los productos
+http://localhost:8888/supply-adm/product/{id} GET
+	Recibe:token y id en el url
+	Retorna: un producto en especifico
+http://localhost:8888/supply-adm/product/{id} POST
+	Recibe:token , id en el url y todas un producto entero
+	Retorna: 200 , 401 o 404 + mensaje
+http://localhost:8888/supply-adm/product/{id} DELETE
+	Recibe:token , id en el url
+	Retorna: 200 , 401 o 404 +mensaje
+http://localhost:8888/supply-adm/product/{id}/change-status POST
+	Recibe:token, id en la url y product_status (Probado con x-www-form-urlencoded)
+	Retorna: 200, 400 o 404 +mensaje
+http://localhost:8888/supply-adm/product/{id}/restore PUT
+	Recibe:token, id en la url 
+	Retorna: 200, 400 o 404 +mensaje
+http://localhost:8888/supply-adm/product/low-stock GET
+	Recibe:token
+	Retorna:lista de productos con stock bajo
+
+
+http://localhost:8888/supply-adm/service GET
+	Recibe:token
+	Devuelve:todos los productos
+http://localhost:8888/supply-adm/service/{id} GET
+	Recibe:token y id en el url
+	Retorna: un producto en especifico
+http://localhost:8888/supply-adm/service/{id} POST
+	Recibe:token , id en el url y todas un producto entero
+	Retorna: 200 , 401 o 404 + mensaje
+http://localhost:8888/supply-adm/service/{id} DELETE
+	Recibe:token , id en el url
+	Retorna: 200 , 401 o 404 +mensaje
+http://localhost:8888/supply-adm/service/{id}/change-status POST
+	Recibe:token, id en la url y product_status (Probado con x-www-form-urlencoded)
+	Retorna: 200, 400 o 404 +mensaje
+http://localhost:8888/supply-adm/service/{id}/restore PUT
+	Recibe:token, id en la url 
+	Retorna: 200, 400 o 404 +mensaje
+
+http://localhost:8888/supply-adm/service-status GET
+http://localhost:8888/supply-adm/product-status GET
+http://localhost:8888/supply-adm/units GET
+
+Reciben: nada
+Retornan: lista de estados o unidades de medida.
+
