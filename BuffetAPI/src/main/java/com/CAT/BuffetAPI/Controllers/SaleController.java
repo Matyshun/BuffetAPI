@@ -431,7 +431,7 @@ public class SaleController {
 		}
 
 		List<String> typesAllowed = new ArrayList<String>();
-		//typesAllowed.add("ADM");
+		typesAllowed.add("ADM");
 		typesAllowed.add("CAJ");
 		typesAllowed.add("VEN");
 
