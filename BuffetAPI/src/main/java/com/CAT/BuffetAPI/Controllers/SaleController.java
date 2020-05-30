@@ -112,7 +112,7 @@ public class SaleController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/sales", method = {RequestMethod.POST})
 	public String addProduct(@RequestBody Sale sale , HttpServletResponse resp, @RequestHeader("token") String token) {
 
@@ -132,26 +132,33 @@ public class SaleController {
 			return null;
 		}
 		try {
-			// Setea datos generales
-			sale.setUpdated_at(new Date());
-			sale.setCreated_at(new Date());
-			if(saleServ.getAllSale(null).contains(sale))
+			if(auth.SaleValidation(sale))
 			{
-				resp.setStatus(409);//Conflict
-				return "Venta ya existe";
-			}
-			saleServ.updateSale(sale);
+				// Setea datos generales
+				sale.setUpdated_at(new Date());
+				sale.setCreated_at(new Date());
 
-			// Status 200 y retorna el Id del APP_USER nuevo
-			resp.setStatus(200);
-			return "venta agregada correctamente";
+
+
+				saleServ.updateSale(sale);
+
+				// Status 200 y retorna el Id del APP_USER nuevo
+				resp.setStatus(200);
+				return "venta agregada correctamente";
+			}
+			else
+			{
+				// 409 Conflict
+				resp.setStatus(409);
+				return "Producto ya existe";
+			}
 		}
 		catch(Exception e)
 		{
 			resp.setStatus(500);		
 			return "Error interno";
 		}
-		
+
 	}
 
 	@RequestMapping(value="/sales/{Id}", method = {RequestMethod.GET})
@@ -424,7 +431,10 @@ public class SaleController {
 		}
 
 		List<String> typesAllowed = new ArrayList<String>();
-		typesAllowed.add("ADM");
+		//typesAllowed.add("ADM");
+		typesAllowed.add("CAJ");
+		typesAllowed.add("VEN");
+
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
 			res.setStatus(401);
@@ -510,7 +520,7 @@ public class SaleController {
 				res.setStatus(401);
 				return null;
 			}
-			
+
 			List<Sale_status> theStatus = saleServ.getAllStatus();
 
 			if(theStatus == null)

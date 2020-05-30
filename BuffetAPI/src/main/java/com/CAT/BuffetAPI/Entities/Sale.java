@@ -19,7 +19,7 @@ public class Sale {
 	private long code;
 	private String payment_method;
 	private int subtotal;
-	private String total;
+	private int total;
 	private Date updated_at;
 	private Date created_at;
 	private boolean deleted;
@@ -84,10 +84,10 @@ public class Sale {
 	public void setSubtotal(int subtotal) {
 		this.subtotal = subtotal;
 	}
-	public String getTotal() {
+	public int getTotal() {
 		return total;
 	}
-	public void setTotal(String total) {
+	public void setTotal(int total) {
 		this.total = total;
 	}
 	public Date getUpdated_at() {

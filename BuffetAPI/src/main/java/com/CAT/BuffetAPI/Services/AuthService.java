@@ -1,6 +1,7 @@
 package com.CAT.BuffetAPI.Services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.CAT.BuffetAPI.Entities.App_user;
 import com.CAT.BuffetAPI.Entities.Product;
+import com.CAT.BuffetAPI.Entities.Sale;
 import com.CAT.BuffetAPI.Repositories.App_UserRepository;
 
 import io.jsonwebtoken.Claims;
@@ -33,7 +35,8 @@ public class AuthService {
 	private App_UserService appService;
 	@Autowired
 	private PrestacionesService presService;
-	
+	@Autowired
+	private SaleService salesServ;
 
 	@Value ("${secretKey}")
 	private String SecretKey;
@@ -195,6 +198,23 @@ public class AuthService {
 				return false;
 			}
 			System.out.println("paso prueba de nombre");
+			
+		}
+		return true;
+	}
+	
+	public boolean SaleValidation(Sale sale) {
+		HashMap <String, Object> data = new HashMap<String, Object>();
+		List<Sale> sales = new ArrayList<Sale>();
+		sales = salesServ.getAllSale(data);
+		
+		for(Sale s : sales)
+		{
+			if(sale.getSale_id().equals(s.getSale_id()))
+			{
+				return false;
+			}
+			System.out.println("paso prueba de Id");
 			
 		}
 		return true;
