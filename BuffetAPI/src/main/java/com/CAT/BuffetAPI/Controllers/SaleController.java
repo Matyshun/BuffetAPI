@@ -24,30 +24,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.CAT.BuffetAPI.Entities.App_user;
 import com.CAT.BuffetAPI.Entities.Sale;
+import com.CAT.BuffetAPI.Entities.Sale_provision;
+import com.CAT.BuffetAPI.Entities.Sale_status;
 import com.CAT.BuffetAPI.Entities.User_type;
 import com.CAT.BuffetAPI.Repositories.userTypeRepository;
 import com.CAT.BuffetAPI.Services.App_UserService;
 import com.CAT.BuffetAPI.Services.AuthService;
 import com.CAT.BuffetAPI.Services.SaleService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @RestController
 @RequestMapping("/sale")
 public class SaleController {
 	@Autowired
 	SaleService saleServ;
-	
+
 	@Autowired
 	AuthService auth;
 
 	@RequestMapping("/sales")
 	private List<Sale> getAllsales(HttpServletResponse res, @RequestHeader("token") String token,
-													@RequestParam (required = false) String appuser_id,
-													@RequestParam (required = false) String cashier_id,
-													@RequestParam (required = false) String seller_id,
-													@RequestParam (required = false) String sale_status_id,
-													@RequestParam (required = false) String deleted)
+			@RequestParam (required = false) String appuser_id,
+			@RequestParam (required = false) String cashier_id,
+			@RequestParam (required = false) String seller_id,
+			@RequestParam (required = false) String sale_status_id,
+			@RequestParam (required = false) String deleted)
 	{
-	
+
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
@@ -56,6 +59,8 @@ public class SaleController {
 
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
+		//typesAllowed.add("VEN");
+		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
 			res.setStatus(401);
@@ -64,50 +69,90 @@ public class SaleController {
 
 		try {
 
-				// Get the all the Users
-				HashMap<String,Object> data = new HashMap<>();
-				
-				if(appuser_id!= null)
-				{
-					data.put("appuser_id", appuser_id);
-				}
-				if(cashier_id!=null)
-				{
-					data.put("cashier_id", cashier_id);
-				}
-				if(seller_id!=null)
-				{
-					data.put("seller_id", seller_id);
-				}
-				if(sale_status_id!= null)
-				{
-					data.put("sale_status_id", sale_status_id);
-				}
-				if(deleted != null)		data.put("deleted", deleted);
-				else					data.put("deleted", false);   
-				
-				List<Sale> thesales = saleServ.getAllSale(data);
-				
-				if(thesales == null)
-				{
-					//404 not found
-					res.setStatus(404);
-					return null;
-				}
-				
-				// 200 OK
-				res.setStatus(200);
-				return thesales;
-			
+			// Get the all the Users
+			HashMap<String,Object> data = new HashMap<>();
+
+			if(appuser_id!= null)
+			{
+				data.put("appuser_id", appuser_id);
+			}
+			if(cashier_id!=null)
+			{
+				data.put("cashier_id", cashier_id);
+			}
+			if(seller_id!=null)
+			{
+				data.put("seller_id", seller_id);
+			}
+			if(sale_status_id!= null)
+			{
+				data.put("sale_status_id", sale_status_id);
+			}
+			if(deleted != null)		data.put("deleted", deleted);
+			else					data.put("deleted", false);   
+
+			List<Sale> thesales = saleServ.getAllSale(data);
+
+			if(thesales == null)
+			{
+				//404 not found
+				res.setStatus(404);
+				return null;
+			}
+
+			// 200 OK
+			res.setStatus(200);
+			return thesales;
+
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
 			return null;
 		}
-	
-	}
 
+	}
+	
+	@RequestMapping(value = "/sales", method = {RequestMethod.POST})
+	public String addProduct(@RequestBody Sale sale , HttpServletResponse resp, @RequestHeader("token") String token) {
+
+		if(token.isEmpty()){
+			// 400 Bad Request
+			resp.setStatus(400);
+			return null;
+		}
+
+		// Check for authorization
+		List<String> typesAllowed = new ArrayList<String>();
+		//typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		if(!auth.Authorize(token, typesAllowed)){
+			// 401 Unauthorized
+			resp.setStatus(401);
+			return null;
+		}
+		try {
+			// Setea datos generales
+			sale.setUpdated_at(new Date());
+			sale.setCreated_at(new Date());
+			if(saleServ.getAllSale(null).contains(sale))
+			{
+				resp.setStatus(409);//Conflict
+				return "Venta ya existe";
+			}
+			saleServ.updateSale(sale);
+
+			// Status 200 y retorna el Id del APP_USER nuevo
+			resp.setStatus(200);
+			return "venta agregada correctamente";
+		}
+		catch(Exception e)
+		{
+			resp.setStatus(500);		
+			return "Error interno";
+		}
+		
+	}
 
 	@RequestMapping(value="/sales/{Id}", method = {RequestMethod.GET})
 	private Optional<Sale> getSpecificSale(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
@@ -121,6 +166,8 @@ public class SaleController {
 		// Check for authorization
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
 			res.setStatus(401);
@@ -161,7 +208,9 @@ public class SaleController {
 		}
 
 		List<String> typesAllowed = new ArrayList<String>();
-		typesAllowed.add("ADM");
+		//typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
 			res.setStatus(401);
@@ -171,23 +220,23 @@ public class SaleController {
 		try {
 			String saleId = reqSale.getSale_id();
 			Optional<Sale> optSale = saleServ.getOneSale(saleId);
-	
+
 			// If there is no matching User
 			if(!optSale.isPresent()){
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
 			}
-			
+
 			reqSale.setSale_id(optSale.get().getSale_id());
 			reqSale.setCreated_at(optSale.get().getCreated_at());
 			reqSale.setUpdated_at(new Date());
 			saleServ.updateSale(reqSale);
-	
+
 			// 200 OK
 			res.setStatus(200);
 			return "Compra actualizada exitosamente";
-		
+
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
@@ -208,6 +257,8 @@ public class SaleController {
 
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
 			res.setStatus(401);
@@ -224,9 +275,9 @@ public class SaleController {
 				res.setStatus(404);
 				return null;
 			}
-
+			List<Sale_status> theStatus = saleServ.getAllStatus();
 			Sale updateSale = sale.get();
-			
+
 			updateSale.setSale_status_id(status);
 			saleServ.updateSale(updateSale);
 
@@ -272,7 +323,18 @@ public class SaleController {
 			}
 
 			Sale delSale = sale.get();
-			
+
+			List<Sale_provision> provisiones = saleServ.getAllProvision();
+
+			for(Sale_provision s : provisiones)
+			{
+				if(s.getSale_id().equals(delSale.getSale_id()))
+				{
+					s.setDeleted(true);
+					saleServ.deleteSaleProvision(s);
+				}
+			}
+
 			delSale.setDeleted(true);
 			saleServ.updateSale(delSale);
 
@@ -323,7 +385,18 @@ public class SaleController {
 				res.setStatus(409);
 				return "La venta no está Eliminada";
 			}
-			
+
+			List<Sale_provision> provisiones = saleServ.getAllProvision();
+
+			for(Sale_provision s : provisiones)
+			{
+				if(s.getSale_id().equals(Id))
+				{
+					s.setDeleted(false);
+					saleServ.deleteSaleProvision(s);
+				}
+			}
+
 			resSale.setDeleted(false);
 			saleServ.updateSale(resSale);
 
@@ -337,6 +410,127 @@ public class SaleController {
 			res.setStatus(500);
 			return null;
 		}
+	}
+
+
+	@RequestMapping("/provisions/{Id}")//Id de la venta
+	private List<Sale_provision> getAllsalesProvisions(HttpServletResponse res, @RequestHeader("token") String token,@PathVariable String Id)
+	{
+
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
+		}
+
+		try {
+
+			List<Sale_provision> theProvisions = saleServ.getAllProvision();
+			List<Sale_provision> theProvisionFiltered = new ArrayList<Sale_provision>();
+
+			for(Sale_provision s : theProvisions)
+			{
+				if(s.getSale_id().equals(Id))
+					theProvisionFiltered.add(s);
+			}
+
+			if(theProvisions == null)
+			{
+				//404 not found
+				res.setStatus(404);
+				return null;
+			}
+
+			// 200 OK
+			res.setStatus(200);
+			return theProvisionFiltered;
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+
+	}
+
+	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+	@RequestMapping(value="/provisions", method = {RequestMethod.PUT})
+	private String AddProvisions(HttpServletResponse res,@RequestBody List<Sale_provision> provisiones)
+	{
+		try
+		{
+			for(Sale_provision s : provisiones)
+			{
+				if(saleServ.getAllProvision().contains(s)){
+					res.setStatus(409); //409 conflict
+					return "Provision ya existe con codigo "+ s.getProduct_id();
+				}
+
+			}
+
+			for(Sale_provision s : provisiones)
+			{
+				saleServ.updateSaleProvision(s);
+			}
+			res.setStatus(200); //OK
+			return "Todas las provisiones añadidas correctamente";
+
+		}
+		catch(Exception e)
+		{
+			res.setStatus(500); //500 server error
+			return "Error interno";
+		}
+	}
+
+	@RequestMapping(value = "/sale_status", method = {RequestMethod.GET})
+	private List<Sale_status> getAllStatus(HttpServletResponse res, @RequestHeader("token") String token)
+	{
+		try {
+			if(token.isEmpty()){
+				// 400 Bad Request
+				res.setStatus(400);
+				return null;
+			}
+
+			List<String> typesAllowed = new ArrayList<String>();
+			typesAllowed.add("ADM");
+			typesAllowed.add("VEN");
+			if(!auth.Authorize(token, typesAllowed)){
+				// 401 Unauthorized
+				res.setStatus(401);
+				return null;
+			}
+			
+			List<Sale_status> theStatus = saleServ.getAllStatus();
+
+			if(theStatus == null)
+			{
+				//404 not found
+				res.setStatus(404);
+				return null;
+			}
+
+			// 200 OK
+			res.setStatus(200);
+			return theStatus;
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+
 	}
 
 }

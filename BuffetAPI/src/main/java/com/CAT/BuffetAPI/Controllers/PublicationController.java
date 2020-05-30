@@ -1,6 +1,7 @@
 package com.CAT.BuffetAPI.Controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.CAT.BuffetAPI.Entities.App_user;
+import com.CAT.BuffetAPI.Entities.Product;
 import com.CAT.BuffetAPI.Entities.Public_status;
 import com.CAT.BuffetAPI.Entities.Publication;
+import com.CAT.BuffetAPI.Entities.Sale;
 import com.CAT.BuffetAPI.Entities.User_status;
 import com.CAT.BuffetAPI.Entities.User_type;
 import com.CAT.BuffetAPI.Repositories.Public_statusRepository;
@@ -116,7 +120,7 @@ public class PublicationController {
 		}
 	}
 
-
+	
 
 	@RequestMapping(value="/publications/{Id}", method = {RequestMethod.GET})
 	private Optional<Publication> getSpecificPub(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
