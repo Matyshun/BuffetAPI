@@ -48,6 +48,7 @@ public class SaleController {
 			@RequestParam (required = false) String cashier_id,
 			@RequestParam (required = false) String seller_id,
 			@RequestParam (required = false) String sale_status_id,
+			@RequestParam (required = false) String code,
 			@RequestParam (required = false) String deleted)
 	{
 
@@ -87,6 +88,10 @@ public class SaleController {
 			if(sale_status_id!= null)
 			{
 				data.put("sale_status_id", sale_status_id);
+			}
+			if(code!= null)
+			{
+				data.put("code", code);
 			}
 			if(deleted != null)		data.put("deleted", deleted);
 			else					data.put("deleted", false);   
