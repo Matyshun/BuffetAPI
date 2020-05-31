@@ -406,7 +406,7 @@ public class SaleController {
 				if(s.getSale_id().equals(Id))
 				{
 					s.setDeleted(false);
-					saleServ.deleteSaleProvision(s);
+					saleServ.updateSaleProvision(s);
 				}
 			}
 
