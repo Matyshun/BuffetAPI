@@ -89,7 +89,7 @@ public class SaleController {
 			{
 				data.put("sale_status_id", sale_status_id);
 			}
-			if(code!= null)
+			if(!code.isEmpty())
 			{
 				data.put("code", code);
 			}
@@ -112,6 +112,7 @@ public class SaleController {
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			System.out.println(e);
 			res.setStatus(500);
 			return null;
 		}
@@ -343,7 +344,7 @@ public class SaleController {
 				if(s.getSale_id().equals(delSale.getSale_id()))
 				{
 					s.setDeleted(true);
-					saleServ.deleteSaleProvision(s);
+					saleServ.updateSaleProvision(s);
 				}
 			}
 

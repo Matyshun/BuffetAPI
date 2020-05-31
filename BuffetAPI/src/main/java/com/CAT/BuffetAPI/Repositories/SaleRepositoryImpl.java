@@ -42,7 +42,7 @@ public class SaleRepositoryImpl {
 					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
 					break;
 				case "code":
-					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
+					predicates.add(cb.equal(root.get(field),value));
 					break;
 				case "sale_status_id":
 					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
