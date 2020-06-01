@@ -14,7 +14,7 @@ CREATE TABLE SALE(
     date_order      DATE,
     sale_date       DATE,
     code            VARCHAR(15) NOT NULL,
-    payment_method  VARCHAR(30) NOT NULL,
+    payment_method  VARCHAR(30) ,
     subtotal        NUMERIC(12) NOT NULL,
     total           NUMERIC(12) NOT NULL,
     updated_at		DATE		NOT NULL,
