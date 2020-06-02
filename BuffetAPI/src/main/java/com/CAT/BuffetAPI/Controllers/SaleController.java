@@ -521,6 +521,7 @@ public class SaleController {
 			List<String> typesAllowed = new ArrayList<String>();
 			typesAllowed.add("ADM");
 			typesAllowed.add("VEN");
+			typesAllowed.add("CAJ");
 			if(!auth.Authorize(token, typesAllowed)){
 				// 401 Unauthorized
 				res.setStatus(401);
