@@ -12,20 +12,19 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.CAT.BuffetAPI.Entities.App_user;
-import com.CAT.BuffetAPI.Entities.Reserve;
-import com.CAT.BuffetAPI.Entities.Reserve_restriction;
+import com.CAT.BuffetAPI.Entities.Booking;
 
-public class ReserveRestrictionRepositoryImpl {
+public class BookingRepositoryImpl {
 
 	@PersistenceContext
 	private EntityManager em;
 	
 	
-	public List<Reserve_restriction> getData(HashMap<String, Object> conditions)
+	public List<Booking> getData(HashMap<String, Object> conditions)
 	{
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Reserve_restriction> query= cb.createQuery(Reserve_restriction.class);
-		Root<Reserve_restriction> root = query.from(Reserve_restriction.class);
+		CriteriaQuery<Booking> query= cb.createQuery(Booking.class);
+		Root<Booking> root = query.from(Booking.class);
 		List<Predicate> predicates = new ArrayList<>();
 		conditions.forEach((field,value) ->
 		{
@@ -33,6 +32,12 @@ public class ReserveRestrictionRepositoryImpl {
 			{
 				
 				case "serv_id":
+					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
+					break;
+				case "appuser_id":
+					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
+					break;
+				case "status_reserve_id":
 					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
 					break;
 				case "deleted":
@@ -45,6 +50,7 @@ public class ReserveRestrictionRepositoryImpl {
 					{
 						predicates.add(cb.equal(root.get("deleted"), 0));
 					}	
+				
 			}
 			
 		});

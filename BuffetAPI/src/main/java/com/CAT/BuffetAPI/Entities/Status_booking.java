@@ -6,19 +6,19 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Status_reserve {
+public class Status_booking {
 	@Id
-	private String status_reserve_id;
+	private String status_booking_id;
     private String name;
     private Date updated_at;
     private Date created_at;
     private boolean deleted;
 	
-    public String getStatus_reserve_id() {
-		return status_reserve_id;
+    public String getStatus_booking_id() {
+		return status_booking_id;
 	}
-	public void setStatus_reserve_id(String status_reserve_id) {
-		this.status_reserve_id = status_reserve_id;
+	public void setStatus_booking_id(String status_booking_id) {
+		this.status_booking_id = status_booking_id;
 	}
 	public String getName() {
 		return name;
@@ -44,6 +44,7 @@ public class Status_reserve {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
-    
+	
+  
     
 }

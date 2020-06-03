@@ -5,10 +5,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.CAT.BuffetAPI.Entities.Product_status;
 import com.CAT.BuffetAPI.Entities.Sale_status;
-import com.CAT.BuffetAPI.Entities.Status_reserve;
+import com.CAT.BuffetAPI.Entities.Status_booking;
 
 
 @RepositoryRestResource
-public interface Status_reserveRepository extends JpaRepository<Status_reserve,String> {
+public interface Status_bookingRepository extends JpaRepository<Status_booking,String> {
 
 }

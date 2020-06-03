@@ -8,11 +8,11 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.CAT.BuffetAPI.Entities.App_user;
 import com.CAT.BuffetAPI.Entities.Publication;
-import com.CAT.BuffetAPI.Entities.Reserve;
+import com.CAT.BuffetAPI.Entities.Booking;
 
 @RepositoryRestResource
-public interface ReserveRepository extends JpaRepository<Reserve, String>{
+public interface BookingRepository extends JpaRepository<Booking, String>{
 	
 	
-	List<Reserve> getData(HashMap<String,Object> Conditions);
+	List<Booking> getData(HashMap<String,Object> Conditions);
 }
