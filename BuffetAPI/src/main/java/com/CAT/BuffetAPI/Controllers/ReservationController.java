@@ -21,6 +21,8 @@ import com.CAT.BuffetAPI.Entities.App_user;
 import com.CAT.BuffetAPI.Entities.Booking;
 import com.CAT.BuffetAPI.Entities.Booking_restriction;
 import com.CAT.BuffetAPI.Entities.Publication;
+import com.CAT.BuffetAPI.Entities.Sale;
+import com.CAT.BuffetAPI.Entities.Sale_provision;
 import com.CAT.BuffetAPI.Entities.Status_booking;
 import com.CAT.BuffetAPI.Entities.Store_schedule;
 import com.CAT.BuffetAPI.Entities.Unit;
@@ -462,4 +464,93 @@ public class ReservationController {
 		}
 	}
 	
+	//Delete
+	
+	@RequestMapping(value= "/bookings/{Id}", method = {RequestMethod.DELETE})
+	private String DeleteBooking(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
+	{
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
+		}
+
+		try {
+			// Get the Sale
+			Optional<Booking> booking = reserveService.getOneBooking(Id);
+
+			// If there is no matching Booking
+			if(!booking.isPresent()){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			Booking delbooking = booking.get();
+			delbooking.setDeleted(true);
+			reserveService.deleteBooking(delbooking);
+			
+			// 200 OK
+			res.setStatus(200);
+			return "Reserva Eliminada Exitosamente";
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+	}
+	
+	@RequestMapping(value= "/booking_restrictions/{Id}", method = {RequestMethod.DELETE})
+	private String DeleteBookingRestrictions(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
+	{
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
+		}
+
+		try {
+			// Get the Sale
+			Optional<Booking_restriction> bookingRestriction = reserveService.getOneBookingRestriction(Id);
+
+			// If there is no matching Booking
+			if(!bookingRestriction.isPresent()){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			Booking_restriction delbookingrestriction = bookingRestriction.get();
+			delbookingrestriction.setDeleted(true);
+			reserveService.deleteBookingRestriction(delbookingrestriction);
+			
+			// 200 OK
+			res.setStatus(200);
+			return "Restriccion Eliminada Exitosamente";
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+	}
 }
