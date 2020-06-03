@@ -31,17 +31,17 @@ public class BookingService {
 	private StoreScheduleRepository scheduleRepo;
 
 	//GetAll
-	public List<Booking> getAllReserve(HashMap<String, Object> data)
+	public List<Booking> getAllBooking(HashMap<String, Object> data)
 	{
 		return bookingRepo.getData(data);
 	}
 	
-	public List<Booking_restriction> getAllReserveRestrictions(HashMap<String, Object> data)
+	public List<Booking_restriction> getAllBookingRestrictions(HashMap<String, Object> data)
 	{
 		return bookingResRepo.getData(data);
 	}
 	
-	public List<Status_booking> getAllStatusReserve()
+	public List<Status_booking> getAllStatusBooking()
 	{
 		return statusRepo.findAll();
 	}
@@ -52,15 +52,15 @@ public class BookingService {
 	}
 	
 	//GetOne
-	public Optional<Booking> getOneReserve(String Id)
+	public Optional<Booking> getOneBooking(String Id)
 	{
 		return bookingRepo.findById(Id);
 	}
-	public Optional<Booking_restriction> getOneReserveRestriction(String Id)
+	public Optional<Booking_restriction> getOneBookingRestriction(String Id)
 	{
 		return bookingResRepo.findById(Id);
 	}
-	public Optional<Status_booking> getOneStatusReserve(String Id)
+	public Optional<Status_booking> getOneStatusBooking(String Id)
 	{
 		return statusRepo.findById(Id);
 	}
@@ -71,15 +71,15 @@ public class BookingService {
 	
 	//Update-save
 	
-	public void updateReserve(Booking entity)
+	public void updateBooking(Booking entity)
 	{
 		bookingRepo.save(entity);
 	}
-	public void updateReserveRestriction(Booking_restriction entity)
+	public void updateBookingRestriction(Booking_restriction entity)
 	{
 		bookingResRepo.save(entity);
 	}
-	public void updateStatusReserve(Status_booking entity)
+	public void updateStatusBooking(Status_booking entity)
 	{
 		statusRepo.save(entity);
 	}
@@ -90,15 +90,15 @@ public class BookingService {
 	
 	//Delete
 	
-	public void deleteReserve(Booking entity)
+	public void deleteBooking(Booking entity)
 	{
 		bookingRepo.delete(entity);
 	}
-	public void deleteReserveRestriction(Booking_restriction entity)
+	public void deleteBookingRestriction(Booking_restriction entity)
 	{
 		bookingResRepo.delete(entity);
 	}
-	public void deleteStatusReserve(Status_booking entity)
+	public void deleteStatusBooking(Status_booking entity)
 	{
 		statusRepo.delete(entity);
 	}
