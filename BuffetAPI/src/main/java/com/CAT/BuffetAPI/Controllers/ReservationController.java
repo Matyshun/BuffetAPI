@@ -414,4 +414,52 @@ public class ReservationController {
 		}
 	}
 	
+	//Change status
+	
+	@RequestMapping(value = "/bookings/{Id}/change-status", method = {RequestMethod.POST})
+	private String ChangeStatus(HttpServletResponse res, @PathVariable String Id ,@RequestParam("status")String status,@RequestHeader("token") String token)
+	{
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
+		}
+
+		try {
+			// Get the User
+			Optional<Booking> booking = reserveService.getOneBooking(Id);
+
+			// If there is no matching User
+			if(!booking.isPresent()){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			Booking updateBooking = booking.get();
+
+			
+			updateBooking.setStatus_booking_id(status);
+			reserveService.updateBooking(updateBooking);
+
+			// 200 OK
+			res.setStatus(200);
+			return "Status actualizado exitosamente";
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+	}
+	
 }
