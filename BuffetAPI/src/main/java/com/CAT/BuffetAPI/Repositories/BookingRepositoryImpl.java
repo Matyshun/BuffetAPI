@@ -37,7 +37,7 @@ public class BookingRepositoryImpl {
 				case "appuser_id":
 					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
 					break;
-				case "status_reserve_id":
+				case "status_booking_id":
 					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
 					break;
 				case "deleted":

@@ -50,8 +50,8 @@ public class Booking {
 	public String getStatus_booking_id() {
 		return status_booking_id;
 	}
-	public void setStatus_booking_id(String status_reserve_id) {
-		this.status_booking_id = status_reserve_id;
+	public void setStatus_booking_id(String status_booking_id) {
+		this.status_booking_id = status_booking_id;
 	}
 	public Date getUpdated_at() {
 		return updated_at;
