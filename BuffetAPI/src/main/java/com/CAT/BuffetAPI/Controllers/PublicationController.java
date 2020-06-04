@@ -64,9 +64,9 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -135,9 +135,9 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -176,9 +176,9 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 		List<Publication> publicaciones = new ArrayList<Publication>();
 		boolean existe = false;
@@ -223,9 +223,9 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -276,9 +276,9 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 		Public_status theStatus = null;
 		for(Public_status status : statusRepo.findAll())
@@ -357,10 +357,10 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//
+//			res.setStatus(401);
+//			return null;
 		}
 		List<Publication> allUsers = new ArrayList<Publication>();
 		boolean existe = false;

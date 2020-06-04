@@ -63,9 +63,9 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -133,9 +133,9 @@ public class SaleController {
 		//typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			resp.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			resp.setStatus(401);
+//			return null;
 		}
 		try {
 			if(auth.SaleValidation(sale))
@@ -182,9 +182,9 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -225,9 +225,9 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -273,9 +273,9 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -319,9 +319,9 @@ public class SaleController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -375,9 +375,9 @@ public class SaleController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -443,8 +443,8 @@ public class SaleController {
 
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
+//			res.setStatus(401);
+//			return null;
 		}
 
 		try {
@@ -524,8 +524,7 @@ public class SaleController {
 			typesAllowed.add("CAJ");
 			if(!auth.Authorize(token, typesAllowed)){
 				// 401 Unauthorized
-				res.setStatus(401);
-				return null;
+
 			}
 
 			List<Sale_status> theStatus = saleServ.getAllStatus();
