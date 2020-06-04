@@ -496,7 +496,7 @@ public class ReservationController {
 
 			Booking delbooking = booking.get();
 			delbooking.setDeleted(true);
-			reserveService.deleteBooking(delbooking);
+			reserveService.updateBooking(delbooking);
 			
 			// 200 OK
 			res.setStatus(200);
