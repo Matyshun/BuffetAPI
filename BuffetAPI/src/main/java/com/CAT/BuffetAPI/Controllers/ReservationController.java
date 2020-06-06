@@ -370,6 +370,52 @@ public class ReservationController {
 		}
 	}
 	
+	@RequestMapping(value= "/store_schedule/update", method = {RequestMethod.POST})
+	private String UpdateStoreSchedule(HttpServletResponse res, @RequestBody Store_schedule schedule,@RequestHeader("token") String token)
+	{
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+//			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
+		}
+
+		try {
+			List<Store_schedule> theSchedules = reserveService.getAllStoreSchedule();
+	
+			// If there is no matching booking
+			if(!theSchedules.isEmpty()){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+	
+			Store_schedule theSchedule = theSchedules.get(0);
+			
+			
+			schedule.setCreated_at(theSchedule.getCreated_at());
+			schedule.setUpdated_at(new Date());
+			reserveService.updateStoreSchedule(schedule);
+	
+			// 200 OK
+			res.setStatus(200);
+			return "Reserva actualizada exitosamente";
+		
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+	}
+	
 	@RequestMapping(value= "/booking_restrictions/{Id}", method = {RequestMethod.POST})
 	private String UpdateBookingRestrictions(HttpServletResponse res,@PathVariable String Id, @RequestBody Booking_restriction bookingRestriction,@RequestHeader("token") String token)
 	{
