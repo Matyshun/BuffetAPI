@@ -528,7 +528,7 @@ public class ReservationController {
 		}
 
 		try {
-			// Get the Sale
+			// Get the Restriction
 			Optional<Booking_restriction> bookingRestriction = reserveService.getOneBookingRestriction(Id);
 
 			// If there is no matching Booking
@@ -545,6 +545,110 @@ public class ReservationController {
 			// 200 OK
 			res.setStatus(200);
 			return "Restriccion Eliminada Exitosamente";
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+	}
+	
+	//Restore
+	
+	@RequestMapping(value= "/bookings/{Id}/restore", method = {RequestMethod.PUT})
+	private String RestoreBookings(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
+	{
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
+		}
+
+		try {
+			// Get the Publication
+			Optional<Booking> booking = reserveService.getOneBooking(Id);
+
+			// If there is no matching Publication
+			if(!booking.isPresent()){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			Booking resBoking = booking.get();
+
+			if(!resBoking.isDeleted()){
+				// 409 Conflict
+				res.setStatus(409);
+				return "La Reserva no está Eliminada";
+			}
+			
+			resBoking.setDeleted(false);
+			reserveService.updateBooking(resBoking);
+
+			// 200 OK
+			res.setStatus(200);
+			return "Reserva Restaurada Exitosamente";
+
+		} catch (Exception e) {
+			// If There was an error connecting to the server
+			// 500 Internal Server Error
+			res.setStatus(500);
+			return null;
+		}
+	}
+	
+	@RequestMapping(value= "/booking_restrictions/{Id}/restore", method = {RequestMethod.PUT})
+	private String RestoreBookingRestrictions(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
+	{
+		if(token.isEmpty()){
+			// 400 Bad Request
+			res.setStatus(400);
+			return null;
+		}
+
+		List<String> typesAllowed = new ArrayList<String>();
+		typesAllowed.add("ADM");
+		if(!auth.Authorize(token, typesAllowed)){
+//			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
+		}
+
+		try {
+			// Get the Publication
+			Optional<Booking_restriction> bookingRestriction = reserveService.getOneBookingRestriction(Id);
+
+			// If there is no matching Publication
+			if(!bookingRestriction.isPresent()){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			Booking_restriction resRestriction = bookingRestriction.get();
+
+			if(!resRestriction.isDeleted()){
+				// 409 Conflict
+				res.setStatus(409);
+				return "La Restriccion no está Eliminada";
+			}
+			
+			resRestriction.setDeleted(false);
+			reserveService.updateBookingRestriction(resRestriction);
+
+			// 200 OK
+			res.setStatus(200);
+			return "Restriccion Restaurada Exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
