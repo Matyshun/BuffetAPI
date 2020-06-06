@@ -18,6 +18,7 @@ import com.CAT.BuffetAPI.Entities.App_user;
 import com.CAT.BuffetAPI.Entities.Booking;
 import com.CAT.BuffetAPI.Entities.Booking_restriction;
 import com.CAT.BuffetAPI.Entities.Product;
+import com.CAT.BuffetAPI.Entities.Publication;
 import com.CAT.BuffetAPI.Entities.Sale;
 import com.CAT.BuffetAPI.Repositories.App_UserRepository;
 
@@ -35,6 +36,8 @@ public class AuthService {
 	private App_UserRepository appUserRepository;
 	@Autowired
 	private App_UserService appService;
+	@Autowired
+	private PublicationService pubService;
 	@Autowired
 	private PrestacionesService presService;
 	@Autowired
@@ -199,6 +202,22 @@ public class AuthService {
 		for(com.CAT.BuffetAPI.Entities.Service s : servicios)
 		{
 			if(service.getName().equals(s.getName()))
+			{
+				return false;
+			}
+			System.out.println("paso prueba de nombre");
+			
+		}
+		return true;
+	}
+	
+	public boolean publicationValidation(Publication publication) {
+		List<Publication> publications = new ArrayList<Publication>();
+		publications = pubService.getAllPublications();
+		
+		for(Publication p : publications)
+		{
+			if(p.getPublic_id().equals(publication.getPublic_id()))
 			{
 				return false;
 			}

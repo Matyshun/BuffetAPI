@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.CAT.BuffetAPI.Entities.App_user;
+import com.CAT.BuffetAPI.Entities.Booking_restriction;
 import com.CAT.BuffetAPI.Entities.Product;
 import com.CAT.BuffetAPI.Entities.Public_status;
 import com.CAT.BuffetAPI.Entities.Publication;
@@ -120,7 +121,52 @@ public class PublicationController {
 		}
 	}
 
-	
+	@RequestMapping(value = "/publications", method = {RequestMethod.POST})
+	public String addPublication(@RequestBody Publication publication , HttpServletResponse resp, @RequestHeader("token") String token) {
+
+		if(token.isEmpty()){
+			// 400 Bad Request
+			resp.setStatus(400);
+			return null;
+		}
+
+		// Check for authorization
+		List<String> typesAllowed = new ArrayList<String>();
+		//typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		if(!auth.Authorize(token, typesAllowed)){
+//			// 401 Unauthorized
+			resp.setStatus(401);
+			return null;
+		}
+		try {
+			if(auth.publicationValidation(publication))
+			{
+				// Setea datos generales
+				publication.setUpdated_at(new Date());
+				publication.setCreated_at(new Date());
+
+
+
+				pub.UpdatePublication(publication);
+				// Status 200 y retorna el Id del APP_USER nuevo
+				resp.setStatus(200);
+				return "Restriccion agregada correctamente";
+			}
+			else
+			{
+				// 409 Conflict
+				resp.setStatus(409);
+				return "Restriccion ya existe";
+			}
+		}
+		catch(Exception e)
+		{
+			resp.setStatus(500);		
+			return "Error interno";
+		}
+
+	}
 
 	@RequestMapping(value="/publications/{Id}", method = {RequestMethod.GET})
 	private Optional<Publication> getSpecificPub(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
