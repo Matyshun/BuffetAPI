@@ -15,6 +15,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.CAT.BuffetAPI.Entities.App_user;
+import com.CAT.BuffetAPI.Entities.Booking;
+import com.CAT.BuffetAPI.Entities.Booking_restriction;
 import com.CAT.BuffetAPI.Entities.Product;
 import com.CAT.BuffetAPI.Entities.Sale;
 import com.CAT.BuffetAPI.Repositories.App_UserRepository;
@@ -37,6 +39,8 @@ public class AuthService {
 	private PrestacionesService presService;
 	@Autowired
 	private SaleService salesServ;
+	@Autowired
+	private BookingService resService;
 
 	@Value ("${secretKey}")
 	private String SecretKey;
@@ -217,6 +221,39 @@ public class AuthService {
 			}
 			System.out.println("paso prueba de Id");
 			
+		}
+		return true;
+	}
+	
+	public boolean bookingRestrictionValidation(Booking_restriction bookingRestriction) {
+		HashMap <String, Object> data = new HashMap<String, Object>();
+		List<Booking_restriction> restrictions = new ArrayList<Booking_restriction>();
+		restrictions = resService.getAllBookingRestrictions(data);
+		
+		for(Booking_restriction r : restrictions)
+		{
+			if(r.getRestriction_id().equals(bookingRestriction.getRestriction_id()))
+			{
+				return false;
+			}
+			System.out.println("paso prueba de Id");
+			
+		}
+		return true;
+	}
+	
+	public boolean bookingValidation(Booking booking) {
+		HashMap <String, Object> data = new HashMap<String, Object>();
+		List<Booking> bookings = new ArrayList<Booking>();
+		bookings = resService.getAllBooking(data);
+		
+		for(Booking b : bookings)
+		{
+			if(b.getBooking_id().equals(booking.getBooking_id()))
+			{
+				return false;
+			}
+			System.out.println("paso prueba de Id");
 		}
 		return true;
 	}

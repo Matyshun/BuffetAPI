@@ -44,6 +44,102 @@ public class ReservationController {
 		System.out.println("----------------------------------------------------------------");
 	}
 	
+	//Create
+	
+	@RequestMapping(value = "/booking_restrictions", method = {RequestMethod.POST})
+	public String addBookingRestriction(@RequestBody Booking_restriction restriction , HttpServletResponse resp, @RequestHeader("token") String token) {
+
+		if(token.isEmpty()){
+			// 400 Bad Request
+			resp.setStatus(400);
+			return null;
+		}
+
+		// Check for authorization
+		List<String> typesAllowed = new ArrayList<String>();
+		//typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		if(!auth.Authorize(token, typesAllowed)){
+//			// 401 Unauthorized
+			resp.setStatus(401);
+			return null;
+		}
+		try {
+			if(auth.bookingRestrictionValidation(restriction))
+			{
+				// Setea datos generales
+				restriction.setUpdated_at(new Date());
+				restriction.setCreated_at(new Date());
+
+
+
+				reserveService.updateBookingRestriction(restriction);
+				// Status 200 y retorna el Id del APP_USER nuevo
+				resp.setStatus(200);
+				return "Restriccion agregada correctamente";
+			}
+			else
+			{
+				// 409 Conflict
+				resp.setStatus(409);
+				return "Restriccion ya existe";
+			}
+		}
+		catch(Exception e)
+		{
+			resp.setStatus(500);		
+			return "Error interno";
+		}
+
+	}
+	
+	@RequestMapping(value = "/bookings", method = {RequestMethod.POST})
+	public String addBooking(@RequestBody Booking booking , HttpServletResponse resp, @RequestHeader("token") String token) {
+
+		if(token.isEmpty()){
+			// 400 Bad Request
+			resp.setStatus(400);
+			return null;
+		}
+
+		// Check for authorization
+		List<String> typesAllowed = new ArrayList<String>();
+		//typesAllowed.add("ADM");
+		typesAllowed.add("VEN");
+		if(!auth.Authorize(token, typesAllowed)){
+//			// 401 Unauthorized
+			resp.setStatus(401);
+			return null;
+		}
+		try {
+			if(auth.bookingValidation(booking))
+			{
+				// Setea datos generales
+				booking.setUpdated_at(new Date());
+				booking.setCreated_at(new Date());
+
+
+
+				reserveService.updateBooking(booking);
+				// Status 200 y retorna el Id del APP_USER nuevo
+				resp.setStatus(200);
+				return "Reserva agregada correctamente";
+			}
+			else
+			{
+				// 409 Conflict
+				resp.setStatus(409);
+				return "Reserva ya existe";
+			}
+		}
+		catch(Exception e)
+		{
+			resp.setStatus(500);		
+			return "Error interno";
+		}
+
+	}
+	
 	//Gets
 	@RequestMapping(value = "/bookings", method = {RequestMethod.GET})
 	private List<Booking> getAllReserves(HttpServletResponse res, @RequestHeader("token") String token,
