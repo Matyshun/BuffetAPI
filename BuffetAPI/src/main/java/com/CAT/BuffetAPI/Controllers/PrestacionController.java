@@ -374,11 +374,11 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
-		}
+//		if(!auth.Authorize(token, typesAllowed)){
+////			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
+//		}
 
 		try {
 
@@ -459,11 +459,11 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
-		}
+//		if(!auth.Authorize(token, typesAllowed)){
+////			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
+//		}
 
 		try {
 			// Get the User
@@ -692,11 +692,11 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-			res.setStatus(401);
-			return null;
-		}
+//		if(!auth.Authorize(token, typesAllowed)){
+////			// 401 Unauthorized
+//			res.setStatus(401);
+//			return null;
+//		}
 		try {
 			// Get the all the Service status
 			List<Service_status> typeList = pre.getAllservStatus();

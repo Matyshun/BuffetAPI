@@ -64,11 +64,11 @@ public class PublicationController {
 
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
-		if(!auth.Authorize(token, typesAllowed)){
+//		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
 //			res.setStatus(401);
 //			return null;
-		}
+//		}
 
 		try {
 			// Get the all the Users
@@ -180,11 +180,11 @@ public class PublicationController {
 		// Check for authorization
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
-		if(!auth.Authorize(token, typesAllowed)){
+//		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
 //			res.setStatus(401);
 //			return null;
-		}
+//		}
 
 		try {
 			// Get the User
