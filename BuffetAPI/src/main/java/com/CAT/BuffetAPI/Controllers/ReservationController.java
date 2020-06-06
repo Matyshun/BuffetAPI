@@ -65,8 +65,8 @@ public class ReservationController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -131,8 +131,8 @@ public class ReservationController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -178,11 +178,11 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-//		if(!auth.Authorize(token, typesAllowed)){
+		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
+			res.setStatus(401);
+			return null;
+		}
 		try {
 			// Get the all the Units
 			List<Status_booking> status = reserveService.getAllStatusBooking();
@@ -213,8 +213,8 @@ public class ReservationController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 		try {
 			// Get the all the Units
@@ -254,8 +254,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -295,8 +295,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -337,8 +337,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -383,8 +383,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -431,8 +431,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -479,8 +479,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -523,8 +523,8 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {

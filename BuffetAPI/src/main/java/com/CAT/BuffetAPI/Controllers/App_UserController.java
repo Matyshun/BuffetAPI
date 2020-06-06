@@ -74,10 +74,10 @@ public class App_UserController {
 		typesAllowed.add("CAJ");
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			log("Usuario no autorizado: 401 Unauthorized");
-//			return null;
+			// 401 Unauthorized
+			res.setStatus(401);
+			log("Usuario no autorizado: 401 Unauthorized");
+			return null;
 		}
 		log("Usuario autorizado");
 		
@@ -203,12 +203,12 @@ public class App_UserController {
 		log("Revisando permisos...");
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
-//		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			log("Usuario no autorizado: 401 Unauthorized");
-//			return null;
-//		}
+		if(!auth.Authorize(token, typesAllowed)){
+			// 401 Unauthorized
+			res.setStatus(401);
+			log("Usuario no autorizado: 401 Unauthorized");
+			return null;
+		}
 		log("Usuario autorizado");
 
 		try {
@@ -265,9 +265,9 @@ public class App_UserController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
 		}
 
 		User_type theType = null;
@@ -320,9 +320,9 @@ public class App_UserController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			// 401 Unauthorized
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -367,8 +367,8 @@ public class App_UserController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -412,8 +412,8 @@ public class App_UserController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -460,9 +460,9 @@ public class App_UserController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			log("Usuario no autorizado: 401 Unauthorized");
-//			return null;
+			res.setStatus(401);
+			log("Usuario no autorizado: 401 Unauthorized");
+			return null;
 		}
 		try {
 			// Get the all the Users
@@ -494,10 +494,10 @@ public class App_UserController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			log("Usuario no autorizado: 401 Unauthorized");
-//			return null;
+			// 401 Unauthorized
+			res.setStatus(401);
+			log("Usuario no autorizado: 401 Unauthorized");
+			return null;
 		}
 		
 		try {

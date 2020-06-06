@@ -127,9 +127,9 @@ public class MechanicController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+//			 401 Unauthorized
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -173,8 +173,8 @@ public class MechanicController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -276,8 +276,8 @@ public class MechanicController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -321,8 +321,8 @@ public class MechanicController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {

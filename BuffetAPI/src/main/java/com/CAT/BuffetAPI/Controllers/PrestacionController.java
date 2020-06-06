@@ -56,8 +56,8 @@ public class PrestacionController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -133,8 +133,8 @@ public class PrestacionController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -175,8 +175,8 @@ public class PrestacionController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -222,8 +222,8 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -269,8 +269,8 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -314,8 +314,8 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -374,11 +374,11 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-//		if(!auth.Authorize(token, typesAllowed)){
+		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
+			res.setStatus(401);
+			return null;
+		}
 
 		try {
 
@@ -461,8 +461,8 @@ public class PrestacionController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -503,8 +503,8 @@ public class PrestacionController {
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -550,8 +550,8 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -597,8 +597,8 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -642,8 +642,8 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
@@ -694,8 +694,8 @@ public class PrestacionController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 		try {
 			// Get the all the Service status
@@ -726,8 +726,8 @@ public class PrestacionController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 		try {
 			// Get the all the Product status
@@ -756,11 +756,11 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-//		if(!auth.Authorize(token, typesAllowed)){
+		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
+			res.setStatus(401);
+			return null;
+		}
 		try {
 			// Get the all the Units
 			List<Unit> typeList = pre.getAllUnits();
@@ -796,8 +796,8 @@ public class PrestacionController {
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
+			res.setStatus(401);
+			return null;
 		}
 
 		try {
