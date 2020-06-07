@@ -180,7 +180,7 @@ public class ReservationController {
 			}
 			if(status_booking_id!=null)
 			{
-				data.put("status_reserve_id", status_booking_id);
+				data.put("status_booking_id", status_booking_id);
 			}
 			
 			if(deleted != null)		data.put("deleted", deleted);
