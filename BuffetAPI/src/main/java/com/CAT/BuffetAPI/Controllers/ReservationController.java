@@ -682,7 +682,7 @@ public class ReservationController {
 
 			Booking_restriction delbookingrestriction = bookingRestriction.get();
 			delbookingrestriction.setDeleted(true);
-			reserveService.deleteBookingRestriction(delbookingrestriction);
+			reserveService.updateBookingRestriction(delbookingrestriction);
 			
 			// 200 OK
 			res.setStatus(200);
