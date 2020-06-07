@@ -487,7 +487,7 @@ public class ReservationController {
 			List<Store_schedule> theSchedules = reserveService.getAllStoreSchedule();
 	
 			// If there is no matching booking
-			if(!theSchedules.isEmpty()){
+			if(theSchedules.isEmpty()){
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
