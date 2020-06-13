@@ -14,6 +14,7 @@ CREATE TABLE BOOKING(
     start_date_hour     DATE                    NOT NULL,
     end_date_hour       DATE                    NOT NULL,
     status_booking_id	VARCHAR(32)             NOT NULL,
+	
     updated_at		    DATE					NOT NULL,
     created_at			DATE					NOT NULL,
     deleted				NUMERIC(1)			    NOT NULL
@@ -77,15 +78,15 @@ to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
 );
 
 insert into BOOKING values(
-'5E4CCF00C8B849E88A1BEAD880980E69',--BOOKING_id
-'09F68676182ACF8AE040578CB20B7491',--serv_id
-'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
-to_date('01-06-2020 10:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
-to_date('01-06-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
-'ACT',--status_BOOKING_id
-to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
-to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
-0--deleted
+	'5E4CCF00C8B849E88A1BEAD880980E69',--BOOKING_id
+	'09F68676182ACF8AE040578CB20B7491',--serv_id
+	'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
+	to_date('01-06-2020 10:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('01-06-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	'ACT',--status_BOOKING_id
+	to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
 );
 
 insert into BOOKING values(
@@ -120,6 +121,91 @@ to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
 to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
 0--deleted
 );
+
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR1',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 09:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 11:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR2',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 11:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR3',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 11:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 13:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR4',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 13:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR5',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 14:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 15:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR6',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 14:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 16:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR7',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 15:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 16:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR8',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 16:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 18:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+insert into BOOKING_RESTRICTION values(
+	'RRRRRRRRRRRRRRRRRRRRRRRRRRRRR9',--restriction_id
+	'44703D2E22344158BAE3E3BB30699F06',--serv_id
+	to_date('08-08-2020 09:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('08-08-2020 14:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('01-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+
+
 
 insert into STORE_SCHEDULE values(
 sys_guid(),
