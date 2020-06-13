@@ -341,9 +341,10 @@ check (user_type_id='MEC');
 
 --INSERT TABLA PUBLIC_STATUS
 insert into PUBLIC_STATUS values('PEN','Pendiente', to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--pending
-insert into PUBLIC_STATUS values('ACT','Activo',    to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--active
+insert into PUBLIC_STATUS values('ACT','Activa',    to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--active
 insert into PUBLIC_STATUS values('DEB','Con deuda', to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--debt(MOROSA)
-insert into PUBLIC_STATUS values('INA','Inactivo',  to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--unactive
+insert into PUBLIC_STATUS values('INA','Inactiva',  to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--unactive
+insert into PUBLIC_STATUS values('REJ','Rechazada',  to_date('11-04-2020','DD-MM-YYYY '),to_date ('11-04-2020','DD-MM-YYYY'),0);--Rechazada
 
 --INSERT TABLA PUBLICATION
 insert into PUBLICATION --publicacion 1

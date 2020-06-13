@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.json.JsonObject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,11 +29,13 @@ import com.CAT.BuffetAPI.Entities.Booking_restriction;
 import com.CAT.BuffetAPI.Entities.Product;
 import com.CAT.BuffetAPI.Entities.Public_status;
 import com.CAT.BuffetAPI.Entities.Publication;
+import com.CAT.BuffetAPI.Entities.PublicationExt;
 import com.CAT.BuffetAPI.Entities.Sale;
 import com.CAT.BuffetAPI.Entities.User_status;
 import com.CAT.BuffetAPI.Entities.User_type;
 import com.CAT.BuffetAPI.Repositories.Public_statusRepository;
 import com.CAT.BuffetAPI.Repositories.PublicationRepository;
+import com.CAT.BuffetAPI.Services.App_UserService;
 import com.CAT.BuffetAPI.Services.AuthService;
 import com.CAT.BuffetAPI.Services.PublicationService;
 
@@ -47,28 +51,30 @@ public class PublicationController {
 
 	@Autowired
 	private AuthService auth;
+	@Autowired
+	private App_UserService app;
 
 	@RequestMapping("/publications")
-	private List<Publication> getAllPublications(HttpServletResponse res, @RequestHeader("token") String token,
+	private List<PublicationExt> getAllPublications(HttpServletResponse res,
 			@RequestParam(required = false) String comuna
 			,@RequestParam(required = false) String public_status_id
 			,@RequestParam(required = false) String bussiness_name
 			,@RequestParam(required = false) String title
 			,@RequestParam(required = false) String deleted)
 	{
-		if(token.isEmpty()){
-			// 400 Bad Request
-			res.setStatus(400);
-			return null;
-		}
+		// if(token.isEmpty()){
+		// 	// 400 Bad Request
+		// 	res.setStatus(400);
+		// 	return null;
+		// }
 
-		List<String> typesAllowed = new ArrayList<String>();
-		typesAllowed.add("ADM");
-//		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
+		// List<String> typesAllowed = new ArrayList<String>();
+		// typesAllowed.add("ADM");
+		// if(!auth.Authorize(token, typesAllowed)){
+		// 	// 401 Unauthorized
+		// 	res.setStatus(401);
+		// 	return null;
+		// }
 
 		try {
 			// Get the all the Users
@@ -100,18 +106,64 @@ public class PublicationController {
 			}
 
 
+			// Get ALL PUBLICATIONS
 			List<Publication> pubList = pubrepo.getData(data);
-
 			if(pubList == null){
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
 			}
 			
+			// Get ALL PUBLICATION STATUS
+			List<Public_status> statusList = statusRepo.findAll();
+			if(statusList == null){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			// GET ALL USERS
+			List<App_user> userList = app.getData(data);
+			if(userList == null){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+			
+			// ArrayList porque inicializar una List de la nada en Java es terrible
+			ArrayList<PublicationExt> sendPubList = new ArrayList<PublicationExt>();
+
+			// Procesar para extender le modelo
+			for (Publication pub : pubList) {
+				// Nuevo modelo extendido
+				PublicationExt sendPub = new PublicationExt();
+
+				// Copia las propiedades del modelo base a la extensión usando BeanUtils
+				BeanUtils.copyProperties(sendPub, pub);
+
+				// Consigue el Status de esta Publicación
+				Public_status thisStatus = statusList.stream()
+					.filter(item -> item.getPublic_status_id().equals(pub.getPublic_status_id()))
+					.findFirst()
+					.get();
+
+				// Consigue el Mecánico de esta Publicación
+				App_user thisMech = userList.stream()
+					.filter(x -> x.getAppuser_id().equals(pub.getAppuser_id()))
+					.findFirst()
+					.get();
+				
+				// Setea los datos en el modelo extendido
+				sendPub.setStatus(thisStatus);
+				sendPub.setUser(thisMech);
+
+				// Agrega el modelo extendido a la lista que se enviará
+				sendPubList.add(sendPub);
+			}
 
 			// 200 OK
 			res.setStatus(200);
-			return pubrepo.getData(data);
+			return sendPubList;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
@@ -132,13 +184,13 @@ public class PublicationController {
 
 		// Check for authorization
 		List<String> typesAllowed = new ArrayList<String>();
-		//typesAllowed.add("ADM");
-		typesAllowed.add("VEN");
+		typesAllowed.add("MEC");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			// 401 Unauthorized
 			resp.setStatus(401);
 			return null;
 		}
+
 		try {
 			if(auth.publicationValidation(publication))
 			{
@@ -148,16 +200,16 @@ public class PublicationController {
 
 
 
-				pub.UpdatePublication(publication);
+				Publication newPub = pub.UpdatePublication(publication);
 				// Status 200 y retorna el Id del APP_USER nuevo
 				resp.setStatus(200);
-				return "Restriccion agregada correctamente";
+				return newPub.getPublic_id();
 			}
 			else
 			{
 				// 409 Conflict
 				resp.setStatus(409);
-				return "Restriccion ya existe";
+				return "Publicación ya existe";
 			}
 		}
 		catch(Exception e)
