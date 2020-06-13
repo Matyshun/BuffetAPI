@@ -135,6 +135,28 @@ VALUES(
 	TO_DATE('2020/03/20 09:02:11', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
+-- MECANICO DELETEADO
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'E1A6C6A452134F5A9F06CFABFC762F6E', -- APPUSER_ID
+	'Mecanico_del', -- USERNAME
+	'80dd4af09cf88727fd03e84f81f9744755bde12e9f3aac1c655eb86a847b87f2', -- HASH : MecanicoDel.
+	'Mecanico@gmail.cl', -- EMAIL
+	'Mec', -- NAME
+	'Anico', -- LAST_NAMES
+    '16.915.351-5',--RUT
+	'Avenida Gran avenida #420', -- ADRESS
+	'+56921569878', -- PHONE
+	TO_DATE('1990/05/12 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/04/09 18:02:43', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'MEC', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/02/18 17:08:11', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	1, -- DELETED
+	TO_DATE('2020/02/18 17:08:11', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
 
 -- MEC�?NICA CON MAIL CONFIRMADO
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
@@ -246,7 +268,72 @@ VALUES(
 	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'5B36293588D84E96A2D148B74740F6D1', -- APPUSER_ID
+	'vendedor_1', -- USERNAME
+	'793e3dd5de7efce8c7eef2850e4e0fef12b1040875cc2d94ee2bc5cf3e70376a', -- HASH : vendedor_1
+	'vendedor_uno@gmail.cl', -- EMAIL
+	'Vend', -- NAME
+	'Edor Von Uno', -- LAST_NAMES
+    '15.826.888-4',--RUT
+	'Alto Prado, Melipilla', -- ADRESS
+	'+56924512857', -- PHONE
+	TO_DATE('1998/01/25 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'VEN', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'C281BF5983BB49DF85749C5DEB34B22B', -- APPUSER_ID
+	'vendedor_2', -- USERNAME
+	'be5464a36d264ad8a1a8096b4c8f69722c506ed34bf222886cd5ed5f07beb000', -- HASH : vendedor_2
+	'vendedor_dos@gmail.cl', -- EMAIL
+	'Potion', -- NAME
+	'Seller', -- LAST_NAMES
+    '15.826.888-4',--RUT
+	'Bajo Prado, Melipilla', -- ADRESS
+	'+56924521857', -- PHONE
+	TO_DATE('1998/01/25 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'VEN', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	1, -- DELETED
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+
 --CAJERO
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'7729037DEE6B45F4907AF8FA785C6971', -- APPUSER_ID
+	'Cajero_1', -- USERNAME
+	'680b461d8bc6b9a0da059b3c5786bb0de16e3994c59694774246f1378127ff85', -- HASH : cajero_uno
+	'lecajero@gmail.cl', -- EMAIL
+	'Cajero', -- NAME
+	'Numero Uno', -- LAST_NAMES
+    '16.215.831-0',--RUT
+	'Las berenjenas, Melipilla', -- ADRESS
+	'+56924524578', -- PHONE
+	TO_DATE('1993/09/20 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'CAJ', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'5093234C73AE4954BB6DD7E841FEEE12', -- APPUSER_ID
@@ -288,6 +375,48 @@ VALUES(
 	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
 	0, -- DELETED
 	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'6728165C24E54E7BB11AF7AC553FC465', -- APPUSER_ID
+	'Cliente_1', -- USERNAME
+	'2b8d15c748a560f355808453472959bb1820c1192c4bd318de57cd19786ce44b', -- HASH : cliente_sin_eliminar
+	'cliente_1@gmail.cl', -- EMAIL
+	'Cliente', -- NAME
+	'Sin eliminar 1', -- LAST_NAMES
+    '23.788.885-5',--RUT
+	'PSJ Nueva Mayoria, Putahendo', -- ADRESS
+	'+56978598465', -- PHONE
+	TO_DATE('1987/11/01 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/04/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'CLI', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/06/13 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/06/13 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'ABA080E4FC1E4DDCA2F8A2000CA1DEB9', -- APPUSER_ID
+	'Cliente_2', -- USERNAME
+	'6f02fecb159da7dd2426b9baaf39a311354e08ee2be04b54fb04030238eabbbd', -- HASH : cliente_sin_eliminar2
+	'cliente_2@gmail.cl', -- EMAIL
+	'Cliente', -- NAME
+	'Sin eliminar 2', -- LAST_NAMES
+    '9.498.966-3',--RUT
+	'PSJ Unidad Popular, Valdivia', -- ADRESS
+	'+56987598465', -- PHONE
+	TO_DATE('1999/11/01 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/04/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'CLI', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/06/13 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/06/13 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
 
@@ -399,7 +528,180 @@ values
     65--views
 );
 
+insert into PUBLICATION  --publicacion 3
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    '5D0E6C7B078A4B0AB3B5C459641213FB',--mecha_id
+    'MEC',--user_type_id
+    'PEN',--public_status_id
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    0,--deleted
+    'Lubricamiento y engrasamiento',--title
+    'Vulcanización el indio picaro ofrece mantención a automiviles, especializandose en aceitados, lubricaciones y engrasamientos',--public_desc
+    'De 10:00 a 18:30, de lunes a viernes',--schedule
+    'Lubricamiento: Se lo lubricamo.
+	Aceitados: a lo chef.
+	Engrasamientos: Se lo engrasamo',--services
+    'El indio picaro LTDA',--bussiness_name
+    'Avenida Colo-colo 2878,Valparaíso, Región V',--adress
+    'Valparaíso',--comuna
+    'Región V',--region
+    '(32)2429905',--landline
+    '0',--mobile_number
+    'El1ndio@gmail.com',--email
+    3--views
+);
 
+insert into PUBLICATION  --publicacion 4
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    '6A79225115CB499C8C72B9340EEEC5CA',--mecha_id
+    'MEC',--user_type_id
+    'PEN',--public_status_id
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    0,--deleted
+    'Venta de partes',--title
+    'Venta de repuestos para autos de todas las marcas y edades',--public_desc
+    'De 10:00 a 18:30, de lunes a sabado',--schedule
+    'Venta de repuestos: Contamos con repuestos para las marcas Audi, Toyota, Mitsubishi, Lada y Crevrolet.',--services
+    'Distribuidora El destripador',--bussiness_name
+    'Avenida Wakala 8888,Santiago, Región Metropolitana',--adress
+    'Las condes',--comuna
+    'Región Metropolitana',--region
+    '(32)3429905',--landline
+    '0',--mobile_number
+    'Destripando_ventas@gmail.com',--email
+    88--views
+);
+
+insert into PUBLICATION  --publicacion 5
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    '7CD5B7769DF85CEFE034080020825436',--mecha_id
+    'MEC',--user_type_id
+    'DEB',--public_status_id
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    0,--deleted
+    'Tuneo de pana',--title
+    'Le enchulamos la maquina pa que sea el mas conotao de la pobla',--public_desc
+    'De 10:00 a 18:30, de lunes a sabado',--schedule
+    'Tuneo personalizado: le bajamos la altura de las ruedas pa que se vea chorizo, le ponemos una manito de pintura, unos neones, un alerón y le van a llover las washas.
+	Hacemos boletas y facturas para los negocios',--services
+    'Big Ds Tunning',--bussiness_name
+    'Avenida Piñen 2314,Santiago, Región Metropolitana',--adress
+    'La pintana',--comuna
+    'Región Metropolitana',--region
+    '(32)3431105',--landline
+    '0',--mobile_number
+    'tu.sersimbol@gmail.com',--email
+    0--views
+);
+
+insert into PUBLICATION  --publicacion 6
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    '7CD5B7769DF75CEFE034080020825436',--mecha_id
+    'MEC',--user_type_id
+    'INA',--public_status_id
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    0,--deleted
+    'Desabolladura',--title
+    'Realizamos servicio de desembolladuria y mantención basica',--public_desc
+    'De 10:00 a 18:30, de lunes a sabado',--schedule
+    'Desabolladuria: reparamos daños al chasis por choques o rozaduras.
+	Mantenciones: se realizan cuidados basicos, cambio de aceite y lavado',--services
+    'Desabolladuria Big Bong',--bussiness_name
+    'Avenida Thor 1223,Santiago, Región Metropolitana',--adress
+    'Renca',--comuna
+    'Región Metropolitana',--region
+    '(32)3442205',--landline
+    '0',--mobile_number
+    'martilleando_arte@gmail.com',--email
+    243--views
+);
+
+--prublicación public_test1(1 x INA - deletd 1) 
+insert into PUBLICATION --publicacion 1
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    'E1A6C6A452134F5A9F06CFABFC762F6E',--mecha_id
+    'MEC',--user_type_id
+    'INA',--public_status_id
+    to_date ('13-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('13-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    1,--deleted
+    'Automotriz N°',--title
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',--public_desc
+    'De 8:30 a 19:30, abierto toda la semana',--schedule
+    'Maecenas sit amet pellentesque dolor.',--services
+    'Automotriz prueba 1',--bussiness_name
+    'pharetra consectetur #532',--adress
+    'Melipilla',--comuna
+    'Metropolitana',--region
+    '(2)22744404',--landline
+    '0',--mobile_number
+    'publictest@gmail.com',--email
+    35--views
+);
+
+--prublicación public_test2(1 x REJ - deleted 0) 
+insert into PUBLICATION --publicacion 1
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    'E1A6C6A452134F5A9F06CFABFC762F6E',--mecha_id
+    'MEC',--user_type_id
+    'REJ',--public_status_id
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    0,--deleted
+    'Automotriz N°2',--title
+    ' Aenean tincidunt nibh quis dolor semper finibus. Praesent sollicitudin massa ac mi commodo, non suscipit augue posuere. Maecenas ut fermentum eros. Suspendisse tempus pharetra augue id maximus. Aliquam finibus arcu et sem rutrum eleifend. Nulla tempus vulputate justo et ullamcorper.',--public_desc
+    'De 8:30 a 19:30, abierto toda la semana',--schedule
+    'Aenean quis posuere odio, ac fermentum mauris.',--services
+    'Automotriz prueba 2',--bussiness_name
+    'pharetra consectetur #0101',--adress
+    'Lo Prado',--comuna
+    'Metropolitana',--region
+    '(2)22741457',--landline
+    '0',--mobile_number
+    'publictest2@gmail.com',--email
+    59--views
+);
+
+--prublicación public_test3(1 x REJ - deletd 1) 
+insert into PUBLICATION --publicacion 1
+(public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
+values
+    (SYS_GUID(),--public_id
+    'E1A6C6A452134F5A9F06CFABFC762F6E',--mecha_id
+    'MEC',--user_type_id
+    'REJ',--public_status_id
+    to_date ('14-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('14-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    1,--deleted
+    'Automotriz N°3',--title
+    'Cras nec urna sit amet nulla mollis interdum. Proin at diam nec elit euismod luctus non at nulla',--public_desc
+    'De 8:30 a 19:30, abierto toda la semana',--schedule
+    'Maecenas sit amet pellentesque dolor.',--services
+    'Automotriz prueba 1',--bussiness_name
+    'pharetra consectetur #4512',--adress
+    'Las Condes',--comuna
+    'Metropolitana',--region
+    '(2)22742031',--landline
+    '0',--mobile_number
+    'publictest2@gmail.com',--email
+    59--views
+);
 -----------------------------------------------------o-----------------------------------------------------
 --                                              PRESTACIONES/SERVICIOS
 -----------------------------------------------------o-----------------------------------------------------
@@ -490,6 +792,50 @@ to_date ('05-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
 0--deleted
 );
 
+--servicio Serv_1 (1 x ACT - deleted 1) 
+INSERT INTO SERVICE
+(serv_id,name,price,serv_desc,estimated_time,serv_status,created_at,updated_at,deleted) 
+VALUES(
+'84ABAB2402ED4814A68B38450E6E9149',--serv_id
+'Serv_1',--serv_name
+50000,--serv_price
+'Servicio de prueba para Initial-D',--serv_desc
+40,--estimated_time
+'ACT',--serv_status
+to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+1--deleted
+);
+
+--servicio Serv_2 (1 x INA - deleted 1) 
+INSERT INTO SERVICE
+(serv_id,name,price,serv_desc,estimated_time,serv_status,created_at,updated_at,deleted) 
+VALUES(
+'4C85693032CA4125A1C50EC7BA5882D4',--serv_id
+'Serv_2',--serv_name
+18000,--serv_price
+'Servicio de prueba 2 para Initial-D',--serv_desc
+10,--estimated_time
+'INA',--serv_status
+to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+1--deleted
+);
+
+--servicio Serv_3 (1 x INA - deleted 0) 
+INSERT INTO SERVICE
+(serv_id,name,price,serv_desc,estimated_time,serv_status,created_at,updated_at,deleted) 
+VALUES(
+'83791DAFDAF24085A874A487B3376365',--serv_id
+'Serv_3',--serv_name
+32000,--serv_price
+'Servicio de prueba 3 para Initial-D',--serv_desc
+10,--estimated_time
+'INA',--serv_status
+to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
+to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
+0--deleted
+);
 -----------------------------------------------------o-----------------------------------------------------
 --                                              PRESTACIONES/PRODUCTOS
 -----------------------------------------------------o-----------------------------------------------------
@@ -633,6 +979,56 @@ to_date ('24-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
 to_date ('24-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at           
 0--deleted 
 );
+--producto Product_1(1 x ACT - deleted 1)
+INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
+VALUES(
+'031B59CCC04D42E283D509FA19D3A540',--product_id	        
+'Product_1',--name                
+'Producto 1 de prueba para Initial-D',--product_desc        
+13000,--price
+20,--stock   
+5,--stock_alert            
+'Testing',--brand               
+'Uni',--unit_id             
+'ACT',--product_status      
+to_date ('12-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at           
+to_date ('12-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at           
+1--deleted 
+);
 
+
+--producto Product_2(1 x INA - deleted 1)
+INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
+VALUES(
+'22A778C4892D4E898325E2BD67060ED2',--product_id	        
+'Product_1',--name                
+'Producto 1 de prueba para Initial-D',--product_desc        
+33000,--price
+10,--stock   
+4,--stock_alert            
+'Testing_2',--brand               
+'Kg',--unit_id             
+'INA',--product_status      
+to_date ('12-06-2020 12:00 AM','DD-MM-YYYY HH:MI AM'),--create_at           
+to_date ('12-06-2020 12:00 AM','DD-MM-YYYY HH:MI AM'),--update_at           
+1--deleted 
+);
+
+--producto Product_3(1 x INA - deleted 0)
+INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
+VALUES(
+'6EF98D4B1E4E42E7A345B70C3A1674B5',--product_id	        
+'Product_1',--name                
+'Producto 1 de prueba para Initial-D',--product_desc        
+6000,--price
+40,--stock   
+15,--stock_alert            
+'Testing_3',--brand               
+'Lt',--unit_id             
+'INA',--product_status      
+to_date ('12-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--create_at           
+to_date ('12-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--update_at           
+0--deleted 
+);
 
 commit;
