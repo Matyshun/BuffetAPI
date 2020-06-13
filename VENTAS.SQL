@@ -56,11 +56,11 @@ ALTER TABLE SALE_PROVISION ADD CONSTRAINT product_id_fk FOREIGN KEY(product_id) 
 ALTER TABLE SALE_PROVISION ADD CONSTRAINT sale_id_fk FOREIGN KEY(sale_id) REFERENCES SALE(sale_id);
 
 insert into SALE_STATUS values('PEN','Pendiente',   to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);
-insert into SALE_STATUS values('PAG','Pagado',      to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);
-insert into SALE_STATUS values('CAN','Cancelado',   to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);
+insert into SALE_STATUS values('PAG','Pagada',      to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);
+insert into SALE_STATUS values('CAN','Cancelada',   to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);
 
   
---venta 1
+-- VENTA 1
 INSERT INTO SALE VALUES
     ('9DB8539940214DE2BDE44462E670D7DB',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
@@ -71,14 +71,14 @@ INSERT INTO SALE VALUES
     to_date('15-05-2020 11:00:00','dd-mm-yyyy hh24:mi:ss'),--sale_date
     '523698556740210',--code
     'Tarjeta Debito',--payment_method
-    30000,--subtotal
+    51000,--subtotal
     51000,--total
     to_date ('15-05-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
     to_date ('15-05-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0--deleted
 );
 
---VENTA 1
+-- ITEMS VENTA 1
 INSERT INTO SALE_PROVISION VALUES(
     SYS_GUID(),--provision_id
     '9DB8539940214DE2BDE44462E670D7DB',--sale_id
@@ -106,9 +106,7 @@ INSERT INTO SALE_PROVISION VALUES(
 );
 
 
-
-
---venta 2
+-- VENTA 2
 INSERT INTO SALE VALUES
     ('176FD7BB0CDF4F2F910FEF5EE4ED4F59',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
@@ -120,13 +118,13 @@ INSERT INTO SALE VALUES
     '523698556740365',--code
     'Tarjeta Credito',--payment_method
     170000,--subtotal
-    188000,--total
+    170000,--total
     to_date ('15-05-2020 12:05 AM','DD-MM-YYYY HH:MI AM'),--create_at
     to_date ('15-05-2020 12:05 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0--deleted
 );
 
---VENTA 2
+-- ITEMS VENTA 2
 INSERT INTO SALE_PROVISION VALUES(
     SYS_GUID(),--provision_id
     '176FD7BB0CDF4F2F910FEF5EE4ED4F59',--sale_id
@@ -169,7 +167,7 @@ INSERT INTO SALE_PROVISION VALUES(
 
 
 
---venta 3
+-- VENTA 3
 INSERT INTO SALE VALUES
     ('0B9104C3B9FE48C5B61B436C50042471',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
@@ -187,6 +185,7 @@ INSERT INTO SALE VALUES
     0--deleted
 );
 
+-- ITEMS VENTA 3
 INSERT INTO SALE_PROVISION VALUES(
     SYS_GUID(),--provision_id
     '0B9104C3B9FE48C5B61B436C50042471',--sale_id
@@ -215,7 +214,7 @@ INSERT INTO SALE_PROVISION VALUES(
 
 
 
---venta 4
+-- VENTA 4
 INSERT INTO SALE VALUES
     ('1A7F7099D06E4C77AC91B6DD869E99CE',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
@@ -233,7 +232,7 @@ INSERT INTO SALE VALUES
     0--deleted
 );
 
---venta 4
+-- ITEMS VENTA 4
 INSERT INTO SALE_PROVISION VALUES(
     SYS_GUID(),--provision_id
     '1A7F7099D06E4C77AC91B6DD869E99CE',--sale_id
@@ -289,7 +288,7 @@ INSERT INTO SALE_PROVISION VALUES(
 
 
 
---venta 5
+-- VENTA 5
 INSERT INTO SALE VALUES
     ('842B5124650A44F9AD69396C0F920810',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
@@ -307,7 +306,7 @@ INSERT INTO SALE VALUES
     0--deleted
 );
 
---venta 5
+-- ITEMS VENTA 5
 INSERT INTO SALE_PROVISION VALUES(
     SYS_GUID(),--provision_id
     '842B5124650A44F9AD69396C0F920810',--sale_id
@@ -324,7 +323,7 @@ INSERT INTO SALE_PROVISION VALUES(
 
 
 
---venta 6
+-- VENTA 6
 INSERT INTO SALE VALUES
     ('D6847A1017A84231A453B82EBEFBD432',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
@@ -342,7 +341,7 @@ INSERT INTO SALE VALUES
     0--deleted
 );
 
---venta 6
+-- ITEMS VENTA 6
 INSERT INTO SALE_PROVISION VALUES(
     SYS_GUID(),--provision_id
     'D6847A1017A84231A453B82EBEFBD432',--sale_id
@@ -356,5 +355,71 @@ INSERT INTO SALE_PROVISION VALUES(
     0--deleted
 );
 
+
+
+-- VENTA 7
+INSERT INTO SALE VALUES
+    ('8D4535EFB8D345F5BCF81186E543AE10',--sale_id
+    '3E309C13E3314519A9270C336AFB75C2',--seller_id
+    '5093234C73AE4954BB6DD7E841FEEE12',--cashier_id
+    '70BA44E0EC9A42018FA0D9465CC695B5',--user_id
+    'CAN',--sale_status_id
+    to_date('15-06-2020 12:25:00','dd-mm-yyyy hh24:mi:ss'),--date_order
+    to_date('15-06-2020 12:25:00','dd-mm-yyyy hh24:mi:ss'),--sale_date
+    '523698556755412',--code
+    'Tarjeta Credito',--payment_method
+    55000,--subtotal
+    55000,--total
+    to_date ('15-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('15-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    1--deleted
+);
+
+INSERT INTO SALE_PROVISION VALUES(
+    SYS_GUID(),--provision_id
+    '8D4535EFB8D345F5BCF81186E543AE10',--sale_id
+    '',--product_id
+    '44703D2E22344158BAE3E3BB30699F06',--serv_id
+    1,--quantity
+    55000,--unit_price
+    55000,--total
+    to_date ('15-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('15-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    1--deleted
+);
+
+
+
+
+-- VENTA 8
+INSERT INTO SALE VALUES
+    ('979CFA1E27EB47B4AAC5B2FD56520BD1',--sale_id
+    '3E309C13E3314519A9270C336AFB75C2',--seller_id
+    '5093234C73AE4954BB6DD7E841FEEE12',--cashier_id
+    '70BA44E0EC9A42018FA0D9465CC695B5',--user_id
+    'CAN',--sale_status_id
+    to_date('14-06-2020 12:25:00','dd-mm-yyyy hh24:mi:ss'),--date_order
+    to_date('14-06-2020 12:25:00','dd-mm-yyyy hh24:mi:ss'),--sale_date
+    '523698556755412',--code
+    'Tarjeta Credito',--payment_method
+    30000,--subtotal
+    30000,--total
+    to_date ('14-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('14-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    1--deleted
+);
+
+INSERT INTO SALE_PROVISION VALUES(
+    SYS_GUID(),--provision_id
+    '979CFA1E27EB47B4AAC5B2FD56520BD1',--sale_id
+    '',--product_id
+    '09F68676182ACF8AE040578CB20B7491',--serv_id
+    1,--quantity
+    30000,--unit_price
+    30000,--total
+    to_date ('14-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--create_at
+    to_date ('14-06-2020 12:30 AM','DD-MM-YYYY HH:MI AM'),--update_at
+    1--deleted
+);
 
 commit;

@@ -158,7 +158,7 @@ VALUES(
 );
 
 
--- MEC√?NICA CON MAIL CONFIRMADO
+-- MEC√ÅNICA CON MAIL CONFIRMADO
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'5D0E6C7B078A4B0AB3B5C459641213FB', -- APPUSER_ID
@@ -181,7 +181,7 @@ VALUES(
 );
 
 
--- MEC√?NICA CON MAIL SIN CONFIRMAR
+-- MEC√ÅNICA CON MAIL SIN CONFIRMAR
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'6A79225115CB499C8C72B9340EEEC5CA', -- APPUSER_ID
@@ -202,7 +202,7 @@ VALUES(
 	0, -- DELETED
 	TO_DATE('2020/03/25 17:08:11', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
---MEC√?NICO PUBLICACI√ìN 1
+--MEC√ÅNICO PUBLICACI√ìN 1
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'7CD5B7769DF75CEFE034080020825436', -- APPUSER_ID
@@ -224,7 +224,7 @@ VALUES(
 	TO_DATE('2020/04/05 19:08:11', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
---MEC√?NICO PUBLICACI√ìN 2
+--MEC√ÅNICO PUBLICACI√ìN 2
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'7CD5B7769DF85CEFE034080020825436', -- APPUSER_ID
@@ -246,7 +246,7 @@ VALUES(
 	TO_DATE('2020/04/05 12:02:43', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
---VENDEDOR
+-- VENDEDOR
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'3E309C13E3314519A9270C336AFB75C2', -- APPUSER_ID
@@ -268,51 +268,7 @@ VALUES(
 	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
-INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
-VALUES(
-	'5B36293588D84E96A2D148B74740F6D1', -- APPUSER_ID
-	'vendedor_1', -- USERNAME
-	'793e3dd5de7efce8c7eef2850e4e0fef12b1040875cc2d94ee2bc5cf3e70376a', -- HASH : vendedor_1
-	'vendedor_uno@gmail.cl', -- EMAIL
-	'Vend', -- NAME
-	'Edor Von Uno', -- LAST_NAMES
-    '15.826.888-4',--RUT
-	'Alto Prado, Melipilla', -- ADRESS
-	'+56924512857', -- PHONE
-	TO_DATE('1998/01/25 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
-	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
-	1, -- MAIL_CONFIRMED
-	'VEN', -- USER_TYPE_ID
-	'ACT', -- STATUS_ID
-	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
-	0, -- DELETED
-	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
-);
-
-
-INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
-VALUES(
-	'C281BF5983BB49DF85749C5DEB34B22B', -- APPUSER_ID
-	'vendedor_2', -- USERNAME
-	'be5464a36d264ad8a1a8096b4c8f69722c506ed34bf222886cd5ed5f07beb000', -- HASH : vendedor_2
-	'vendedor_dos@gmail.cl', -- EMAIL
-	'Potion', -- NAME
-	'Seller', -- LAST_NAMES
-    '15.826.888-4',--RUT
-	'Bajo Prado, Melipilla', -- ADRESS
-	'+56924521857', -- PHONE
-	TO_DATE('1998/01/25 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
-	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
-	1, -- MAIL_CONFIRMED
-	'VEN', -- USER_TYPE_ID
-	'ACT', -- STATUS_ID
-	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
-	1, -- DELETED
-	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
-);
-
-
---CAJERO
+-- CAJERO
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'7729037DEE6B45F4907AF8FA785C6971', -- APPUSER_ID
@@ -355,7 +311,7 @@ VALUES(
 	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
 );
 
---CLIENTE
+-- CLIENTE
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'70BA44E0EC9A42018FA0D9465CC695B5', -- APPUSER_ID
@@ -420,6 +376,74 @@ VALUES(
 );
 
 
+-- CLIENTE
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'69877AA15ADA4FDD8D8763A79A10E016', -- APPUSER_ID
+	'dummy_USER', -- USERNAME
+	'eb0432b915bc612423fa80ea208d5a5ae583f26eb7278e10ff4ebc6ecf0cb88a', -- HASH : pass12345.
+	'dummyuser1@gmail.cl', -- EMAIL
+	'Nombre Nombre', -- NAME
+	'Apellido Apellido', -- LAST_NAMES
+    '00.000.000-0',--RUT
+	'Direcci√≥n Lorem Ipsum, Comuna', -- ADRESS
+	'+56900000000', -- PHONE
+	TO_DATE('1990/01/01 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'CLI', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+
+-- SUPERVIDOR
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'AF2F8526AFD54C62831CE57FBA245A4F', -- APPUSER_ID
+	'Supervisor', -- USERNAME
+	'42437a69a8fd1d5f3a9d1a01f072187282a663cf327ffbf11412f25ff01cd29a', -- HASH : alfalfa8.
+	'sup@jaramillo.cl', -- EMAIL
+	'Supervisor', -- NAME
+	'Apellido', -- LAST_NAMES
+    '18.531.236-8',--RUT
+	'Calle Bleh, Melipilla', -- ADRESS
+	'+56991232145', -- PHONE
+	TO_DATE('1994/08/08 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'SUP', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+-- TESTING
+INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
+VALUES(
+	'E2989DC123F2497E8C1B9EF13B43FA37', -- APPUSER_ID
+	'Testing', -- USERNAME
+	'42437a69a8fd1d5f3a9d1a01f072187282a663cf327ffbf11412f25ff01cd29a', -- HASH : alfalfa8.
+	'test@jaramillo.cl', -- EMAIL
+	'Testing', -- NAME
+	'Apellido', -- LAST_NAMES
+    '20.355.888-8',--RUT
+	'Calle Cansado, Melipilla', -- ADRESS
+	'+56941233512', -- PHONE
+	TO_DATE('2001/06/06 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
+	1, -- MAIL_CONFIRMED
+	'TES', -- USER_TYPE_ID
+	'ACT', -- STATUS_ID
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- UPDATED_AT
+	0, -- DELETED
+	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss') -- CREATED_AT
+);
+
+
 
 -----------------------------------------------------o-----------------------------------------------------
 --                                              PUBLICACIONES
@@ -436,6 +460,7 @@ CREATE TABLE PUBLICATION(
     created_at               DATE,
     updated_at               DATE,
     deleted                 numeric(1),
+	
     title                   VARCHAR(50)		NOT NULL,
     public_desc             VARCHAR2(500)	NOT NULL,
     schedule                VARCHAR(50)            NOT NULL,
@@ -447,6 +472,7 @@ CREATE TABLE PUBLICATION(
     landline                VARCHAR(32),
     mobile_number           VARCHAR(32),
     email                   VARCHAR(40)		NOT NULL,
+	
     views                   NUMERIC(10)     NOT NULL
 );
 
@@ -919,7 +945,7 @@ INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,
 VALUES(
 'D9CCD278B8B849788F1F4FF6E074B499',--product_id	        
 'Aceite de motor CASTROL EDGE',--name                
-'Castrol EDGE es un aceite para motor totalmente sintÈtico desarrollado para conductores que solo quieren lo mejor de sus motores.',--product_desc        
+'Castrol EDGE es un aceite para motor totalmente sint√©tico desarrollado para conductores que solo quieren lo mejor de sus motores.',--product_desc        
 15000,--price
 15,--stock 
 5,--stock_alert
@@ -935,8 +961,8 @@ to_date ('21-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
 INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
 VALUES(
 'BB5801A8406F49CC953A277F918E770D',--product_id	        
-'Neum·ticos TURANZA ER33',--name                
-'A los coches de lujo les vendr· como anillo al dedo el Bridgestone ER33, un neum·tico creado especialmente para este tipo de automÛviles gracias a su alto rendimiento.',--product_desc        
+'Neum√°ticos TURANZA ER33',--name                
+'A los coches de lujo les vendr√≠a como anillo al dedo el Bridgestone ER33, un neum√°tico creado especialmente para este tipo de autom√°viles gracias a su alto rendimiento.',--product_desc        
 35000,--price
 20,--stock   
 12,--stock_alert            
@@ -952,7 +978,7 @@ INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,
 VALUES(
 '6CFE0D33D63A40ECB90BBBCA50E6E6EB',--product_id	        
 'Correa de Distribucion ( 102R 25mm.)',--name                
-'Las correas tienen por funciÛn transmitir fuerza generada por motor hacia aquellos componentes que la necesiten, por lo tanto el correcto funcionamiento de los componentes depende del buen estado de las correas.',--product_desc        
+'Las correas tienen por funci√≥n transmitir fuerza generada por motor hacia aquellos componentes que la necesiten, por lo tanto el correcto funcionamiento de los componentes depende del buen estado de las correas.',--product_desc        
 25000,--price
 25,--stock   
 10,--stock_alert            
@@ -968,7 +994,7 @@ INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,
 VALUES(
 'C4D20AB8F1114202A98156BFF9C6521E',--product_id	        
 'Ampolleta Led Auto Cob 12000 Lm R11 Ml0847',--name                
-'LED luz de faro de sueÒo, uso COB LED chip, poca superficie iluminada pero m·xima eficiencia de la luz, mejor penetraciÛn y condensador m·s fuerte, impermeable y resistente al polvo, todo en uno, enchufar a juego, radiador de calor inteligente, inicio instant·neo.',--product_desc        
+'LED luz de faro de sue√±o, uso COB LED chip, poca superficie iluminada pero m√°xima eficiencia de la luz, mejor penetraci√≥n y condensador m√°s fuerte, impermeable y resistente al polvo, todo en uno, enchufar a juego, radiador de calor inteligente, inicio instantaneo.',--product_desc        
 9000,--price
 30,--stock   
 15,--stock_alert            
