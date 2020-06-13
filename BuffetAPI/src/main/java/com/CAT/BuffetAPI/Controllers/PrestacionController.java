@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.CAT.BuffetAPI.Entities.Product;
 import com.CAT.BuffetAPI.Entities.Product_status;
 import com.CAT.BuffetAPI.Entities.Service;
+import com.CAT.BuffetAPI.Entities.ServiceExt;
 import com.CAT.BuffetAPI.Entities.Service_status;
 import com.CAT.BuffetAPI.Entities.Unit;
 import com.CAT.BuffetAPI.Services.AuthService;
@@ -357,62 +359,64 @@ public class PrestacionController {
 	//===============================================================================================================================================================================//
 	//===============================================================================================================================================================================//
 	//===============================================================================================================================================================================//
+	
 	@RequestMapping(value = "/service", method = {RequestMethod.GET})
-	private List<Service> getAllServices(HttpServletResponse res, @RequestHeader("token") String token,
+	private List<ServiceExt> getAllServices(HttpServletResponse res,
 			@RequestParam (required = false) String name,
 			@RequestParam (required = false) String serv_status,
 			@RequestParam (required = false) String deleted)
 	{
-
-		if(token.isEmpty()){
-			// 400 Bad Request
-			res.setStatus(400);
-			return null;
-		}
-
-		List<String> typesAllowed = new ArrayList<String>();
-		typesAllowed.add("ADM");
-		typesAllowed.add("VEN");
-		typesAllowed.add("CAJ");
-//		if(!auth.Authorize(token, typesAllowed)){
-////			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
-
 		try {
 
 			// Get the all the Services
 			HashMap<String,Object> data = new HashMap<>();
 
-
 			if(name!=null)
-			{
 				data.put("name", name);
-			}
 			if(serv_status!=null)
-			{
 				data.put("serv_status", serv_status);
-			}
 			if(deleted != null)
-			{
 				data.put("deleted", deleted);
-			}
 			else
-			{
 				data.put("deleted", false);
-			}
 
-			List<Service> productos = pre.getDataService(data);
-			if(productos == null){
+			List<Service> servList = pre.getDataService(data);
+			if(servList == null){
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
 			}
 
+
+			List<Service_status> statusList = pre.getAllservStatus();
+			if(statusList == null){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			// ArrayList porque inicializar una List de la nada en Java es terrible
+			ArrayList<ServiceExt> sendPubList = new ArrayList<ServiceExt>();
+
+			// Procesar para extender le modelo
+			for (Service serv : servList) {
+				// Inicilizar el modelo extendido
+				ServiceExt sendServ = new ServiceExt();
+
+				// Copia las propiedades del modelo base a la extensión usando BeanUtils
+				BeanUtils.copyProperties(sendServ, serv);
+
+				// Procesa la Publicación para agregar la data secundaria
+				sendServ = processServ(sendServ, statusList);
+
+				// Agrega el modelo extendido a la lista que se enviará
+				sendPubList.add(sendServ);
+			}
+
+
 			// 200 OK
 			res.setStatus(200);
-			return productos;
+			return sendPubList;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
@@ -444,41 +448,47 @@ public class PrestacionController {
 		}
 	}
 
-
 	@RequestMapping(value="/service/{Id}", method = {RequestMethod.GET})
-	private Optional<Service> getSpecificService(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
+	private ServiceExt getSpecificService(HttpServletResponse res, @PathVariable("Id") String id)
 	{
-		if(id.isEmpty() || token.isEmpty()){
+		if(id.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
 		}
 
-		// Check for authorization
-		List<String> typesAllowed = new ArrayList<String>();
-		typesAllowed.add("ADM");
-		typesAllowed.add("VEN");
-		typesAllowed.add("CAJ");
-//		if(!auth.Authorize(token, typesAllowed)){
-////			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
-
 		try {
 			// Get the User
-			Optional<Service> servicio = pre.getOneService(id);
+			Optional<Service> serv = pre.getOneService(id);
 
 			// If there is no matching User
-			if(!servicio.isPresent()){
+			if(!serv.isPresent()){
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
 			}
 
+
+			List<Service_status> statusList = pre.getAllservStatus();
+			if(statusList == null){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			// Inicilizar el modelo extendido
+			ServiceExt sendServ = new ServiceExt();
+
+			// Copia las propiedades del modelo base a la extensión usando BeanUtils
+			BeanUtils.copyProperties(sendServ, serv.get());
+
+			// Procesa la Publicación para agregar la data secundaria
+			sendServ = processServ(sendServ, statusList);
+
+
 			// 200 OK
 			res.setStatus(200);
-			return servicio;
+			return sendServ;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
@@ -487,7 +497,6 @@ public class PrestacionController {
 			return null;
 		}
 	}
-
 
 	@RequestMapping(value= "/service/{Id}", method = {RequestMethod.POST})
 	private String UpdateService(HttpServletResponse res,@PathVariable String Id, @RequestBody Service service,@RequestHeader("token") String token)
@@ -502,7 +511,7 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -535,7 +544,6 @@ public class PrestacionController {
 			return null;
 		}
 	}
-
 
 	@RequestMapping(value = "/service/{Id}/change-status", method = {RequestMethod.POST})
 	private String ChangeStatusService(HttpServletResponse res, @PathVariable String Id ,@RequestParam("serv_status")String serv_status,@RequestHeader("token") String token)
@@ -583,7 +591,6 @@ public class PrestacionController {
 		}
 	}
 
-
 	@RequestMapping(value= "/service/{Id}", method = {RequestMethod.DELETE})
 	private String DeleteService(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
@@ -596,7 +603,7 @@ public class PrestacionController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -678,6 +685,21 @@ public class PrestacionController {
 			res.setStatus(500);
 			return null;
 		}
+	}
+
+	// Agrega la información secundaria del modelo extendido
+	private ServiceExt processServ(ServiceExt serv, List<Service_status> statusList){
+
+		
+		// Consigue el Status de esta Publicación
+		Service_status thisStatus = statusList.stream()
+			.filter(item -> item.getStatus_id().equals(serv.getServ_status()))
+			.findFirst()
+			.get();
+
+		serv.setStatus(thisStatus);
+
+		return serv;
 	}
 
 	//===============================================================================================================================================================================//

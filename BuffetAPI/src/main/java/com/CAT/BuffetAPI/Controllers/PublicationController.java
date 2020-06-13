@@ -62,20 +62,6 @@ public class PublicationController {
 			,@RequestParam(required = false) String title
 			,@RequestParam(required = false) String deleted)
 	{
-		// if(token.isEmpty()){
-		// 	// 400 Bad Request
-		// 	res.setStatus(400);
-		// 	return null;
-		// }
-
-		// List<String> typesAllowed = new ArrayList<String>();
-		// typesAllowed.add("ADM");
-		// if(!auth.Authorize(token, typesAllowed)){
-		// 	// 401 Unauthorized
-		// 	res.setStatus(401);
-		// 	return null;
-		// }
-
 		try {
 			// Get the all the Users
 			HashMap<String,Object> data = new HashMap<>();
@@ -123,7 +109,7 @@ public class PublicationController {
 			}
 
 			// GET ALL USERS
-			List<App_user> userList = app.getData(data);
+			List<App_user> userList = app.getAllUsers();
 			if(userList == null){
 				// 404 Not Found
 				res.setStatus(404);
@@ -135,27 +121,14 @@ public class PublicationController {
 
 			// Procesar para extender le modelo
 			for (Publication pub : pubList) {
-				// Nuevo modelo extendido
+				// Inicilizar el modelo extendido
 				PublicationExt sendPub = new PublicationExt();
 
 				// Copia las propiedades del modelo base a la extensión usando BeanUtils
 				BeanUtils.copyProperties(sendPub, pub);
 
-				// Consigue el Status de esta Publicación
-				Public_status thisStatus = statusList.stream()
-					.filter(item -> item.getPublic_status_id().equals(pub.getPublic_status_id()))
-					.findFirst()
-					.get();
-
-				// Consigue el Mecánico de esta Publicación
-				App_user thisMech = userList.stream()
-					.filter(x -> x.getAppuser_id().equals(pub.getAppuser_id()))
-					.findFirst()
-					.get();
-				
-				// Setea los datos en el modelo extendido
-				sendPub.setStatus(thisStatus);
-				sendPub.setUser(thisMech);
+				// Procesa la Publicación para agregar la data secundaria
+				sendPub = processPub(sendPub, userList, statusList);
 
 				// Agrega el modelo extendido a la lista que se enviará
 				sendPubList.add(sendPub);
@@ -173,6 +146,7 @@ public class PublicationController {
 		}
 	}
 
+	
 	@RequestMapping(value = "/publications", method = {RequestMethod.POST})
 	public String addPublication(@RequestBody Publication publication , HttpServletResponse resp, @RequestHeader("token") String token) {
 
@@ -220,23 +194,15 @@ public class PublicationController {
 
 	}
 
+
 	@RequestMapping(value="/publications/{Id}", method = {RequestMethod.GET})
-	private Optional<Publication> getSpecificPub(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
+	private PublicationExt getSpecificPub(HttpServletResponse res, @PathVariable("Id") String id)
 	{
-		if(id.isEmpty() || token.isEmpty()){
+		if(id.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
 		}
-
-		// Check for authorization
-		List<String> typesAllowed = new ArrayList<String>();
-		typesAllowed.add("ADM");
-//		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
 
 		try {
 			// Get the User
@@ -248,10 +214,38 @@ public class PublicationController {
 				res.setStatus(404);
 				return null;
 			}
+			
+
+			// Get ALL PUBLICATION STATUS
+			List<Public_status> statusList = statusRepo.findAll();
+			if(statusList == null){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+
+			// GET ALL USERS
+			List<App_user> userList = app.getAllUsers();
+			if(userList == null){
+				// 404 Not Found
+				res.setStatus(404);
+				return null;
+			}
+			
+
+			// Inicilizar el modelo extendido
+			PublicationExt sendPub = new PublicationExt();
+
+			// Copia las propiedades del modelo base a la extensión usando BeanUtils
+			BeanUtils.copyProperties(sendPub, publication.get());
+
+			// Procesa la Publicación para agregar la data secundaria
+			sendPub = processPub(sendPub, userList, statusList);
+
 
 			// 200 OK
 			res.setStatus(200);
-			return publication;
+			return sendPub;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
@@ -359,7 +353,6 @@ public class PublicationController {
 			return null;
 		}
 	}
-
 
 
 	@RequestMapping(value = "/publications/{Id}/change-status", method = {RequestMethod.POST})
@@ -488,5 +481,29 @@ public class PublicationController {
 	}
 
 
+	// Agrega la información secundaria del modelo extendido
+	private PublicationExt processPub(PublicationExt pub, List<App_user> userList, List<Public_status> statusList){
+		
+		if(pub == null || userList == null || statusList == null){
+			return null;
+		}
 
+		// Consigue el Status de esta Publicación
+		Public_status thisStatus = statusList.stream()
+			.filter(item -> item.getPublic_status_id().equals(pub.getPublic_status_id()))
+			.findFirst()
+			.get();
+
+		// Consigue el Mecánico de esta Publicación
+		App_user thisMech = userList.stream()
+			.filter(x -> x.getAppuser_id().equals(pub.getAppuser_id()))
+			.findFirst()
+			.get();
+		
+		// Setea los datos en el modelo extendido
+		pub.setStatus(thisStatus);
+		pub.setUser(thisMech);
+
+		return pub;
+	}
 }
