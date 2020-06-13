@@ -1027,8 +1027,8 @@ to_date ('12-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
 INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
 VALUES(
 '22A778C4892D4E898325E2BD67060ED2',--product_id	        
-'Product_1',--name                
-'Producto 1 de prueba para Initial-D',--product_desc        
+'Product_2',--name                
+'Producto 2 de prueba para Initial-D',--product_desc        
 33000,--price
 10,--stock   
 4,--stock_alert            
@@ -1044,8 +1044,8 @@ to_date ('12-06-2020 12:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
 INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
 VALUES(
 '6EF98D4B1E4E42E7A345B70C3A1674B5',--product_id	        
-'Product_1',--name                
-'Producto 1 de prueba para Initial-D',--product_desc        
+'Product_3',--name                
+'Producto 3 de prueba para Initial-D',--product_desc        
 6000,--price
 40,--stock   
 15,--stock_alert            
