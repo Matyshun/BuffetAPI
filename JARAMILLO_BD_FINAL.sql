@@ -250,7 +250,7 @@ VALUES(
 INSERT INTO APP_USER (APPUSER_ID, USERNAME, HASH, EMAIL, NAME, LAST_NAMES, RUT, ADRESS, PHONE, BIRTHDAY, LASTLOGIN, MAIL_CONFIRMED, USER_TYPE_ID, STATUS_ID, UPDATED_AT, DELETED, CREATED_AT)
 VALUES(
 	'3E309C13E3314519A9270C336AFB75C2', -- APPUSER_ID
-	'Emili', -- USERNAME
+	'Vendedor_1', -- USERNAME
 	'6ec1a7ef23bedc20828fee4ac8f04fe5edb54344cd12930501ef44ab1cfd2854', -- HASH : emilia1998
 	'emiliBags@gmail.cl', -- EMAIL
 	'Emilia', -- NAME
@@ -522,7 +522,7 @@ values
     'Ñuñoa',--comuna
     'Metropolitana',--region
     '(2)22744400',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'jdc.contacto@gmail.com',--email
     5--views
 );
@@ -549,7 +549,7 @@ values
     'Valparaíso',--comuna
     'Región V',--region
     '(32)2492905',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'KaiserContacto@gmail.com',--email
     65--views
 );
@@ -575,7 +575,7 @@ values
     'Valparaíso',--comuna
     'Región V',--region
     '(32)2429905',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'El1ndio@gmail.com',--email
     3--views
 );
@@ -599,7 +599,7 @@ values
     'Las condes',--comuna
     'Región Metropolitana',--region
     '(32)3429905',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'Destripando_ventas@gmail.com',--email
     88--views
 );
@@ -624,7 +624,7 @@ values
     'La pintana',--comuna
     'Región Metropolitana',--region
     '(32)3431105',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'tu.sersimbol@gmail.com',--email
     1--views
 );
@@ -649,7 +649,7 @@ values
     'Renca',--comuna
     'Región Metropolitana',--region
     '(32)3442205',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'martilleando_arte@gmail.com',--email
     243--views
 );
@@ -674,7 +674,7 @@ values
     'Melipilla',--comuna
     'Metropolitana',--region
     '(2)22744404',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'publictest@gmail.com',--email
     35--views
 );
@@ -699,7 +699,7 @@ values
     'Lo Prado',--comuna
     'Metropolitana',--region
     '(2)22741457',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'publictest2@gmail.com',--email
     59--views
 );
@@ -724,7 +724,7 @@ values
     'Las Condes',--comuna
     'Metropolitana',--region
     '(2)22742031',--landline
-    '0',--mobile_number
+    null,--mobile_number
     'publictest2@gmail.com',--email
     59--views
 );

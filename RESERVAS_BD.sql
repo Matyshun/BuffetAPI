@@ -64,52 +64,68 @@ insert into STATUS_BOOKING values('REA','Realizada',        to_date ('15-05-2020
 insert into STATUS_BOOKING values('CAN','Cancelada',        to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);
 insert into STATUS_BOOKING values('PER','Hora Perdida',     to_date ('15-05-2020','DD-MM-YYYY '),to_date ('15-05-2020','DD-MM-YYYY'),0);    
 
-
+-- 1 x ACT / deleted 0
 insert into BOOKING values(
 '7087D8C3A17F48FF961A23EB4575B519',--BOOKING_id
 'A7515A96926141479DEC462D7CC647F0',--serv_id
 '70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
-to_date('01-06-2020 09:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
-to_date('01-06-2020 09:30:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+to_date('18-08-2020 09:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+to_date('18-08-2020 09:30:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
 'ACT',--status_BOOKING_id
-to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
-to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+to_date('16-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+to_date('16-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
 0--deleted
 );
 
-insert into BOOKING values(
-	'5E4CCF00C8B849E88A1BEAD880980E69',--BOOKING_id
-	'09F68676182ACF8AE040578CB20B7491',--serv_id
-	'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
-	to_date('01-06-2020 10:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
-	to_date('01-06-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
-	'ACT',--status_BOOKING_id
-	to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
-	to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
-	0--deleted
-);
-
-insert into BOOKING values(
-'09CFF36B69144A96A90E2868539C17BF',--BOOKING_id
-'50D00011F4994D4FBB4FBDA04D2AFB97',--serv_id
-'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
-to_date('01-06-2020 14:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
-to_date('01-06-2020 14:30:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
-'ACT',--status_BOOKING_id
-to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
-to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
-0--deleted
-);
 --booking_test1(1 x ACT / deleted 0)
 insert into BOOKING values(
 '080E0F46091A4C37A989B6E99C2ECDFC',--BOOKING_id
 '09F68676182ACF8AE040578CB20B7491',--serv_id
 '70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
-to_date('01-06-2020 10:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
-to_date('01-06-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+to_date('21-08-2020 10:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+to_date('21-08-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
 'ACT',--status_BOOKING_id
+to_date('12-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+to_date('12-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+0--deleted
+);
+
+-- 1 x CAN / deleted 0
+insert into BOOKING values(
+	'5E4CCF00C8B849E88A1BEAD880980E69',--BOOKING_id
+	'09F68676182ACF8AE040578CB20B7491',--serv_id
+	'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
+	to_date('12-08-2020 10:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+	to_date('12-08-2020 12:00:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+	'CAN',--status_BOOKING_id
+	to_date('10-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+	to_date('10-08-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+	0--deleted
+);
+
+-- 1 x PER / deleted 0
+insert into BOOKING values(
+'3F3255237B5442AB8700A7825F55B23C',--BOOKING_id
+'50D00011F4994D4FBB4FBDA04D2AFB97',--serv_id
+'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
+to_date('01-06-2020 14:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+to_date('01-06-2020 14:30:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+'PER',--status_BOOKING_id
 to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
 to_date('01-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
+0--deleted
+);
+
+-- 1 x REA / deleted 0
+insert into BOOKING values(
+'09CFF36B69144A96A90E2868539C17BF',--BOOKING_id
+'09F68676182ACF8AE040578CB20B7491',--serv_id
+'70BA44E0EC9A42018FA0D9465CC695B5',--appuser_id
+to_date('10-06-2020 14:00:00','dd-mm-yyyy hh24:mi:ss'),--start_date_hour
+to_date('10-06-2020 14:30:00','dd-mm-yyyy hh24:mi:ss'),--end_date_hour
+'REA',--status_BOOKING_id
+to_date('08-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--updated_at
+to_date('08-06-2020 09:00 AM','DD-MM-YYYY HH:MI AM'),--created_at
 0--deleted
 );
 
