@@ -626,7 +626,7 @@ values
     '(32)3431105',--landline
     '0',--mobile_number
     'tu.sersimbol@gmail.com',--email
-    0--views
+    1--views
 );
 
 insert into PUBLICATION  --publicacion 6
@@ -659,7 +659,7 @@ insert into PUBLICATION --publicacion 1
 (public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
 values
     (SYS_GUID(),--public_id
-    'E1A6C6A452134F5A9F06CFABFC762F6E',--mecha_id
+    '5D0E6C7B078A4B0AB3B5C459641213FB',--mecha_id
     'MEC',--user_type_id
     'INA',--public_status_id
     to_date ('13-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -684,7 +684,7 @@ insert into PUBLICATION --publicacion 1
 (public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
 values
     (SYS_GUID(),--public_id
-    'E1A6C6A452134F5A9F06CFABFC762F6E',--mecha_id
+    '5D0E6C7B078A4B0AB3B5C459641213FB',--mecha_id
     'MEC',--user_type_id
     'REJ',--public_status_id
     to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -709,7 +709,7 @@ insert into PUBLICATION --publicacion 1
 (public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
 values
     (SYS_GUID(),--public_id
-    'E1A6C6A452134F5A9F06CFABFC762F6E',--mecha_id
+    '5D0E6C7B078A4B0AB3B5C459641213FB',--mecha_id
     'MEC',--user_type_id
     'REJ',--public_status_id
     to_date ('14-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
