@@ -587,7 +587,7 @@ public class SaleController {
 			report.setDate_end(fecha_final);
 			
 			sale.findAll().forEach(s -> {
-				if(s.getSale_date().compareTo(fecha_final)<=0 && s.getSale_date().compareTo(fecha_inicio)>=0 )
+				if(s.getSale_date().compareTo(fecha_final)<=0 && s.getSale_date().compareTo(fecha_inicio)>=0 && s.getSale_status_id().equals("PAG"))
 				{
 					allSales.add(s);
 				}
