@@ -1,6 +1,10 @@
 package com.CAT.BuffetAPI.Controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -586,11 +590,32 @@ public class SaleController {
 			report.setDate_start(fecha_inicio);
 			report.setDate_end(fecha_final);
 			
+			Calendar Fechainicio = Calendar.getInstance();
+			Calendar Fechafinal = Calendar.getInstance();
+			Calendar Fecha = Calendar.getInstance();
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			
+			Fechainicio.setTime(formatter.parse(formatter.format(fecha_inicio)));
+			Fechafinal.setTime(formatter.parse(formatter.format(fecha_final)));
+			Fechafinal.add(Calendar.DAY_OF_MONTH, 1);
+			System.out.println("Inicio:" + Fechainicio);
+			System.out.println("Final:" + Fechafinal);
+
+		
 			sale.findAll().forEach(s -> {
-				if(s.getSale_date().compareTo(fecha_final)<=0 && s.getSale_date().compareTo(fecha_inicio)>=0 && s.getSale_status_id().equals("PAG"))
+				try {
+					Fecha.setTime(formatter.parse(formatter.format(s.getSale_date())));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("Fecha:" + Fecha);
+				if(Fecha.after(Fechainicio) && !Fecha.after(Fechafinal)&& s.getSale_status_id().equals("PAG"))
 				{
 					allSales.add(s);
 				}
+
 			});
 
 			if(allSales.isEmpty())
@@ -646,8 +671,8 @@ public class SaleController {
 						ProductReport prodRep = new ProductReport();
 						product = prod.getOne(p.getProduct_id());
 						BeanUtils.copyProperties(prodRep, product);
-						prodRep.setProd_n(prodRep.getProd_n() + p.getQuantity());
-						prodRep.setProd_total(prodRep.getProd_total()+p.getTotal());
+						prodRep.setProd_n(p.getQuantity());
+						prodRep.setProd_total(p.getTotal());
 						if (!report.prod_sold_list.isEmpty()) {
 							for (Product aux : report.prod_sold_list) {
 								
@@ -664,8 +689,8 @@ public class SaleController {
 						}
 						else
 						{
-							report.prod_sold_list.get(index).setProd_n(report.prod_sold_list.get(index).getProd_n()+prodRep.getProd_n());
-							report.prod_sold_list.get(index).setProd_total(report.prod_sold_list.get(index).getProd_total()+prodRep.getProd_total());
+							report.prod_sold_list.get(index).setProd_n(/*report.prod_sold_list.get(index).getProd_n()+*/prodRep.getProd_n());
+							report.prod_sold_list.get(index).setProd_total(/*report.prod_sold_list.get(index).getProd_total()*/+prodRep.getProd_total());
 						}
 						
 					}
@@ -675,8 +700,8 @@ public class SaleController {
 						ServiceReport servRep = new ServiceReport();
 						servicio = serv.getOne(p.getServ_id());
 						BeanUtils.copyProperties(servRep, servicio);
-						servRep.setServ_n(servRep.getServ_n()+p.getQuantity());
-						servRep.setServ_total(servRep.getServ_total()+p.getTotal());
+						servRep.setServ_n(p.getQuantity());
+						servRep.setServ_total(p.getTotal());
 
 						int index = -1;
 						if (!report.prod_sold_list.isEmpty()) {
@@ -711,5 +736,7 @@ public class SaleController {
 
 		}
 	}
+	
+	
 
 }
