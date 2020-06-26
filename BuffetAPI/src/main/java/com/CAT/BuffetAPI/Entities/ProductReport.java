@@ -17,6 +17,13 @@ public class ProductReport extends Product {
 	public void setProd_total(int prod_total) {
 		this.prod_total = prod_total;
 	}
+	public void addQuantity(int add) {
+		this.prod_n = this.prod_n + add;
+	}
+	public void add_total (int total)
+	{
+		this.prod_total = this.prod_total + total;
+	}
 
 
 }

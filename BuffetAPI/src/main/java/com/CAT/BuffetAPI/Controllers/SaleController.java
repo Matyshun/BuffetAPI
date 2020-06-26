@@ -683,12 +683,18 @@ public class SaleController {
 						}
 						if(index == -1)
 						{
+							
 							report.prod_sold_list.add(prodRep);
+							System.out.println("added");
+							
 						}
 						else
 						{
-							report.prod_sold_list.get(index).setProd_n(/*report.prod_sold_list.get(index).getProd_n()+*/prodRep.getProd_n());
-							report.prod_sold_list.get(index).setProd_total(/*report.prod_sold_list.get(index).getProd_total()*/+prodRep.getProd_total());
+//							int cantidad = report.prod_sold_list.get(index).getProd_n()+p.getQuantity();
+//							int total = report.prod_sold_list.get(index).getProd_total()+p.getTotal();
+							report.prod_sold_list.get(index).add_total(p.getTotal());
+							report.prod_sold_list.get(index).addQuantity(p.getQuantity());
+							System.out.println("summed - " + index);
 						}
 						
 					}
@@ -723,7 +729,9 @@ public class SaleController {
 						}
 						
 					}
+					
 				}
+				provisiones.clear();
 			}
 			return report;
 		} catch (Exception e)
