@@ -599,8 +599,7 @@ public class SaleController {
 			Fechainicio.setTime(formatter.parse(formatter.format(fecha_inicio)));
 			Fechafinal.setTime(formatter.parse(formatter.format(fecha_final)));
 			Fechafinal.add(Calendar.DAY_OF_MONTH, 1);
-			System.out.println("Inicio:" + Fechainicio);
-			System.out.println("Final:" + Fechafinal);
+			
 
 		
 			sale.findAll().forEach(s -> {
@@ -610,7 +609,6 @@ public class SaleController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("Fecha:" + Fecha);
 				if(Fecha.after(Fechainicio) && !Fecha.after(Fechafinal)&& s.getSale_status_id().equals("PAG"))
 				{
 					allSales.add(s);
