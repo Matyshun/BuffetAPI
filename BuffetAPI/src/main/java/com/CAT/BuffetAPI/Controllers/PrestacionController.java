@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,13 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CAT.BuffetAPI.Entities.App_user;
 import com.CAT.BuffetAPI.Entities.Product;
 import com.CAT.BuffetAPI.Entities.Product_status;
 import com.CAT.BuffetAPI.Entities.Service;
 import com.CAT.BuffetAPI.Entities.ServiceExt;
 import com.CAT.BuffetAPI.Entities.Service_status;
 import com.CAT.BuffetAPI.Entities.Unit;
+import com.CAT.BuffetAPI.Services.App_UserService;
 import com.CAT.BuffetAPI.Services.AuthService;
+import com.CAT.BuffetAPI.Services.EmailSenderService;
 import com.CAT.BuffetAPI.Services.PrestacionesService;
 
 @RestController
@@ -34,10 +38,12 @@ import com.CAT.BuffetAPI.Services.PrestacionesService;
 public class PrestacionController {
 	@Autowired
 	private PrestacionesService pre;
-
+	@Autowired
+	private App_UserService app;
 	@Autowired
 	private AuthService auth;
-
+	@Autowired
+	private EmailSenderService mailSender;
 
 	@RequestMapping(value = "/product",method = {RequestMethod.GET})
 	private List<Product> getAllProducts(HttpServletResponse res, @RequestHeader("token") String token,
@@ -95,7 +101,7 @@ public class PrestacionController {
 		}
 
 	}
-	
+
 	@PostMapping(value = "/product")
 	public String addProduct(@RequestBody Product product , HttpServletResponse resp) {
 
@@ -103,7 +109,7 @@ public class PrestacionController {
 			// Setea datos generales
 			product.setUpdated_at(new Date());
 			product.setCreated_at(new Date());
-			
+
 			product = pre.UpdateProducto(product);
 
 			// Status 200 y retorna el Id del APP_USER nuevo
@@ -112,7 +118,7 @@ public class PrestacionController {
 		}
 		else
 		{
-			
+
 			// 409 Conflict
 			resp.setStatus(409);
 			return "Producto ya existe";
@@ -135,7 +141,7 @@ public class PrestacionController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -177,7 +183,7 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -224,7 +230,7 @@ public class PrestacionController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -271,7 +277,7 @@ public class PrestacionController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -316,7 +322,7 @@ public class PrestacionController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -360,7 +366,7 @@ public class PrestacionController {
 	//===============================================================================================================================================================================//
 	//===============================================================================================================================================================================//
 	//===============================================================================================================================================================================//
-	
+
 	@RequestMapping(value = "/service", method = {RequestMethod.GET})
 	private List<ServiceExt> getAllServices(HttpServletResponse res,
 			@RequestParam (required = false) String name,
@@ -427,12 +433,12 @@ public class PrestacionController {
 		}
 
 	}
-	
+
 	@PostMapping(value = "/service")
 	public String addServices(@RequestBody Service service , HttpServletResponse resp) {
-		
+
 		if(auth.ServicetValidation(service)) {
-			
+
 			service.setUpdated_at(new Date());
 			service.setCreated_at(new Date());
 			service = pre.UpdateService(service);
@@ -558,7 +564,7 @@ public class PrestacionController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -649,7 +655,7 @@ public class PrestacionController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -691,12 +697,12 @@ public class PrestacionController {
 	// Agrega la información secundaria del modelo extendido
 	private ServiceExt processServ(ServiceExt serv, List<Service_status> statusList){
 
-		
+
 		// Consigue el Status de esta Publicación
 		Service_status thisStatus = statusList.stream()
-			.filter(item -> item.getStatus_id().equals(serv.getServ_status()))
-			.findFirst()
-			.get();
+				.filter(item -> item.getStatus_id().equals(serv.getServ_status()))
+				.findFirst()
+				.get();
 
 		serv.setStatus(thisStatus);
 
@@ -715,11 +721,11 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
-//		if(!auth.Authorize(token, typesAllowed)){
-////			// 401 Unauthorized
-//			res.setStatus(401);
-//			return null;
-//		}
+		//		if(!auth.Authorize(token, typesAllowed)){
+		////			// 401 Unauthorized
+		//			res.setStatus(401);
+		//			return null;
+		//		}
 		try {
 			// Get the all the Service status
 			List<Service_status> typeList = pre.getAllservStatus();
@@ -748,7 +754,7 @@ public class PrestacionController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -780,7 +786,7 @@ public class PrestacionController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -805,8 +811,8 @@ public class PrestacionController {
 			return null;
 		}
 	}
+
 	
-	//@Scheduled(fixedRate = 300000)
 	@RequestMapping("/product/low-stock")
 	private List<Product> getLowStockProducts(HttpServletResponse res, @RequestHeader("token") String token)
 	{
@@ -820,7 +826,7 @@ public class PrestacionController {
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -839,7 +845,7 @@ public class PrestacionController {
 			}
 			for(Product p : productos)
 			{
-				if(p.getStock_alert()<= p.getStock())
+				if(p.getStock_alert()>= p.getStock())
 				{
 					lowStock.add(p);
 				}
@@ -857,8 +863,62 @@ public class PrestacionController {
 
 	}
 
-}
 
-//Changes 22-05-2020
-//Changed lowStock to return based on stock_alert instead of raw parameters.
-//Minor grammatical errors
+
+	//Auto sender low stock
+	@Scheduled(cron = "0 0 10 * * *")
+	private void getLowStockProductsAuto()
+	{
+
+		try {
+			System.out.println("Start");
+			// Get the all the products with low stock
+			HashMap<String,Object> data = new HashMap<>();
+			data.put("deleted", false);
+			List<Product> productos = pre.getDataProduct(data);
+			if(productos == null){
+				// 404 Not Found
+			}
+			String text = "";
+
+			for(Product p : productos)
+			{
+				if(p.getStock() <= p.getStock_alert())
+				{
+					text = text + p.getName() + "   "+ p.getStock() + p.getUnit_id() +"\n";
+				}
+			}
+
+			List<App_user> all = app.getAllUsers();
+			List<App_user> sup = new ArrayList<App_user>();
+			all.forEach(x->{
+				if(x.getUser_type_id().equals("SUP"))
+				{
+
+					sup.add(x);
+				}
+			});
+
+
+
+			for(App_user u : sup)
+			{
+				SimpleMailMessage mailMessage = new SimpleMailMessage();
+				Date today = new Date();
+				mailMessage.setTo(u.getEmail());
+				mailMessage.setSubject("Bajo Stock");
+				mailMessage.setFrom("userconfimationjaramillo@gmail.com");
+				mailMessage.setText("Este mensaje ha sido creado automaticamente el dia "
+						+ today + " Para informar de los productos con bajo stock, a continuación se detallaran los productos: \n\n" + text);
+
+				mailSender.sendEmail(mailMessage);
+
+			}
+
+		} catch (Exception e) {
+			System.out.println("Error: "+ e);
+		}
+
+	}
+
+}
