@@ -866,7 +866,7 @@ public class PrestacionController {
 
 
 	//Auto sender low stock
-	@Scheduled(cron = "0 0 10 * * 8")
+	@Scheduled(cron = "0 0 10 * * 4")
 	private void getLowStockProductsAuto()
 	{
 
