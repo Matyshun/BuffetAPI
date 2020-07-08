@@ -19,6 +19,7 @@ public class Service {
 	private String serv_desc;
 	private int estimated_time;
 	private String serv_status;
+	private boolean is_recurring;
 	private Date created_at;
 	private Date updated_at;
 	private boolean deleted;
@@ -81,6 +82,12 @@ public class Service {
 	}
 	public void setServ_status(String serv_status) {
 		this.serv_status = serv_status;
+	}
+	public boolean isIs_recurring() {
+		return is_recurring;
+	}
+	public void setIs_recurring(boolean is_recurring) {
+		this.is_recurring = is_recurring;
 	}
 	
 	
