@@ -43,6 +43,9 @@ public class PublicationRepositoryImpl {
 				case "bussiness_name":
 					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
 					break;
+				case "appuser_id":
+					predicates.add(cb.like(root.get(field),"%"+(String)value+"%"));
+					break;
 				case "deleted":
 					if(value.equals("true"))
 					{

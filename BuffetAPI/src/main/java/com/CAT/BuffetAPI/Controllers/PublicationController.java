@@ -52,7 +52,9 @@ public class PublicationController {
 			,@RequestParam(required = false) String public_status_id
 			,@RequestParam(required = false) String bussiness_name
 			,@RequestParam(required = false) String title
-			,@RequestParam(required = false) String deleted)
+			,@RequestParam(required = false) String deleted
+			,@RequestParam(required = false) String user_id
+			)
 	{
 		try {
 			// Get the all the Users
@@ -73,6 +75,10 @@ public class PublicationController {
 			if(bussiness_name != null)
 			{
 				data.put("bussiness_name",bussiness_name);
+			}
+			if(user_id != null)
+			{
+				data.put("appuser_id",user_id);
 			}
 			if(deleted != null)
 			{
