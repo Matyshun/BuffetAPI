@@ -7,7 +7,7 @@ INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) V
 INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) VALUES('CAJ', 'Cajero', SYSDATE, SYSDATE, 0);
 INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) VALUES('VEN', 'Vendedor', SYSDATE, SYSDATE, 0);
 INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) VALUES('SUP', 'Supervisor', SYSDATE, SYSDATE, 0);
-INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) VALUES('MEC', 'Mec√°nico', SYSDATE, SYSDATE, 0);
+INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) VALUES('MEC', 'Mec·nico', SYSDATE, SYSDATE, 0);
 INSERT INTO USER_TYPE ( USER_TYPE_ID, NAME, CREATED_AT , UPDATED_AT , DELETED) VALUES('TES', 'Testing', SYSDATE, SYSDATE, 0);
 
 INSERT INTO USER_STATUS ( STATUS_ID , STATUS , CREATED_AT , UPDATED_AT , DELETED) VALUES('BAN', 'Desactivado', SYSDATE, SYSDATE, 0);
@@ -66,7 +66,7 @@ VALUES(
 	'753923b3a91b753ca991116df61a90c06f97721277cb2829b21a4a209f7aa932', -- HASH : irin.munoz
 	'irin.munoz@gmail.cl', -- EMAIL
 	'Irina', -- NAME
-	'Mu√±oz', -- LAST_NAMES
+	'MuÒoz', -- LAST_NAMES
     '20.124.502-8',--RUT
 	'Calle los Dogo #696', -- ADRESS
 	'+5697777777', -- PHONE
@@ -331,7 +331,7 @@ VALUES(
 	'Nombre Nombre', -- NAME
 	'Apellido Apellido', -- LAST_NAMES
     '00.000.000-0',--RUT
-	'Direcci√≥n Lorem Ipsum, Comuna', -- ADRESS
+	'DirecciÛn Lorem Ipsum, Comuna', -- ADRESS
 	'+56900000000', -- PHONE
 	TO_DATE('1990/01/01 00:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- BIRTHDAY
 	TO_DATE('2020/05/14 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), -- LASTLOGIN
@@ -437,13 +437,13 @@ values
     to_date ('13-04-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0,--deleted
     'Automotriz J.D.C Suzuki',--title
-    'Servicio Suzuki.Chevrolet,Mazda, Mantenciones de kilometraje y desabolladura.Personal especializado en las marcas.Garant√≠a por trabajos realizados.20 a√±os de experiencia en el rubro.',--public_desc
+    'Servicio Suzuki.Chevrolet,Mazda, Mantenciones de kilometraje y desabolladura.Personal especializado en las marcas.GarantÌa por trabajos realizados.20 aÒos de experiencia en el rubro.',--public_desc
     'De 8:30 a 19:30, abierto toda la semana',--schedule
-    'Mec√°nica general, Mantenciones preventivas, Alineaci√≥n, Balanceo, Frenos, Embrague, Afinamiento, Scanner, Limpieza de tapiz, Cambio de aceite, Tren delantero, Emergencia 24 horas,
+    'Mec·nica general, Mantenciones preventivas, AlineaciÛn, Balanceo, Frenos, Embrague, Afinamiento, Scanner, Limpieza de tapiz, Cambio de aceite, Tren delantero, Emergencia 24 horas,
     Simunizado y encerado, Diagnostico Computarizado',--services
     'Automotriz J.D.C',--bussiness_name
-    'Calle Fern√°ndez Concha 146, √ëu√±oa, Regi√≥n Metropolitana',--adress
-    '√ëu√±oa',--comuna
+    'Calle Fern·ndez Concha 146, —uÒoa, RegiÛn Metropolitana',--adress
+    '—uÒoa',--comuna
     'Metropolitana',--region
     '(2)22744400',--landline
     null,--mobile_number
@@ -462,16 +462,16 @@ values
     to_date ('05-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0,--deleted
     'Kaiser Lubricentro',--title
-    'Kaiser Lubricentro un taller automotriz dedicado a dar servicios de lubricaci√≥n en general tanto para veh√≠culos bencineros como diesel. cambiamos el aceite de motor, caja de cambio, mec√°nica o autom√°tica, diferenciales, cajas de transparencias, direcci√≥n, hidr√°ulica, etc.',--public_desc
+    'Kaiser Lubricentro un taller automotriz dedicado a dar servicios de lubricaciÛn en general tanto para vehÌculos bencineros como diesel. cambiamos el aceite de motor, caja de cambio, mec·nica o autom·tica, diferenciales, cajas de transparencias, direcciÛn, hidr·ulica, etc.',--public_desc
     'De 9:30 a 18:30, de lunes a viernes',--schedule
     'CAMBIO DE ACEITE,El cambio de aceite se debe realizar cada 5.000 kms o cada 10.000 kms dependiento del aceite que se utilice.
-     AFINAMIENTO, El afinamiento se debe realizar cada 15.000 o 20.000 kms. (Una vez al a√±o aproximadamente)
-     MECANICA, Mec√°nica express consiste en trabajos que tardan desde 2 hrs. a 1 d√≠a o 2 dependiendo de lo que necesite.
+     AFINAMIENTO, El afinamiento se debe realizar cada 15.000 o 20.000 kms. (Una vez al aÒo aproximadamente)
+     MECANICA, Mec·nica express consiste en trabajos que tardan desde 2 hrs. a 1 dÌa o 2 dependiendo de lo que necesite.
      ACCESORIOS,Accesorios para diferentes cosas del auto, dependiendo de lo que necesite.',--services
     'Kaiser Lubricentro',--bussiness_name
-    'Avenida Col√≥n 2878,Valpara√≠so, Regi√≥n V',--adress
-    'Valpara√≠so',--comuna
-    'Regi√≥n V',--region
+    'Avenida ColÛn 2878,ValparaÌso, RegiÛn V',--adress
+    'ValparaÌso',--comuna
+    'RegiÛn V',--region
     '(32)2492905',--landline
     null,--mobile_number
     'KaiserContacto@gmail.com',--email
@@ -489,15 +489,15 @@ values
     to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0,--deleted
     'Lubricamiento y engrasamiento',--title
-    'Vulcanizaci√≥n el indio picaro ofrece mantenci√≥n a automiviles, especializandose en aceitados, lubricaciones y engrasamientos',--public_desc
+    'VulcanizaciÛn el indio picaro ofrece mantenciÛn a automiviles, especializandose en aceitados, lubricaciones y engrasamientos',--public_desc
     'De 10:00 a 18:30, de lunes a viernes',--schedule
     'Lubricamiento: Se lo lubricamo.
 	Aceitados: a lo chef.
 	Engrasamientos: Se lo engrasamo',--services
     'El indio picaro LTDA',--bussiness_name
-    'Avenida Colo-colo 2878,Valpara√≠so, Regi√≥n V',--adress
-    'Valpara√≠so',--comuna
-    'Regi√≥n V',--region
+    'Avenida Colo-colo 2878,ValparaÌso, RegiÛn V',--adress
+    'ValparaÌso',--comuna
+    'RegiÛn V',--region
     '(32)2429905',--landline
     null,--mobile_number
     'El1ndio@gmail.com',--email
@@ -519,9 +519,9 @@ values
     'De 10:00 a 18:30, de lunes a sabado',--schedule
     'Venta de repuestos: Contamos con repuestos para las marcas Audi, Toyota, Mitsubishi, Lada y Crevrolet.',--services
     'Distribuidora El destripador',--bussiness_name
-    'Avenida Wakala 8888,Santiago, Regi√≥n Metropolitana',--adress
+    'Avenida Wakala 8888,Santiago, RegiÛn Metropolitana',--adress
     'Las condes',--comuna
-    'Regi√≥n Metropolitana',--region
+    'RegiÛn Metropolitana',--region
     '(32)3429905',--landline
     null,--mobile_number
     'Destripando_ventas@gmail.com',--email
@@ -541,12 +541,12 @@ values
     'Tuneo de pana',--title
     'Le enchulamos la maquina pa que sea el mas conotao de la pobla',--public_desc
     'De 10:00 a 18:30, de lunes a sabado',--schedule
-    'Tuneo personalizado: le bajamos la altura de las ruedas pa que se vea chorizo, le ponemos una manito de pintura, unos neones, un aler√≥n y le van a llover las washas.
+    'Tuneo personalizado: le bajamos la altura de las ruedas pa que se vea chorizo, le ponemos una manito de pintura, unos neones, un alerÛn y le van a llover las washas.
 	Hacemos boletas y facturas para los negocios',--services
     'Big Ds Tunning',--bussiness_name
-    'Avenida Pi√±en 2314,Santiago, Regi√≥n Metropolitana',--adress
+    'Avenida PiÒen 2314,Santiago, RegiÛn Metropolitana',--adress
     'La pintana',--comuna
-    'Regi√≥n Metropolitana',--region
+    'RegiÛn Metropolitana',--region
     '(32)3431105',--landline
     null,--mobile_number
     'tu.sersimbol@gmail.com',--email
@@ -564,21 +564,21 @@ values
     to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0,--deleted
     'Desabolladura',--title
-    'Realizamos servicio de desembolladuria y mantenci√≥n basica',--public_desc
+    'Realizamos servicio de desembolladuria y mantenciÛn basica',--public_desc
     'De 10:00 a 18:30, de lunes a sabado',--schedule
-    'Desabolladuria: reparamos da√±os al chasis por choques o rozaduras.
-	Mantenciones: se realizan cuidados basicos, cambio de aceite y lavado',--services
+    'Desabolladuria: reparamos daÒos al chasis por choques o rozaduras.
+	 Mantenciones: se realizan cuidados basicos, cambio de aceite y lavado',--services
     'Desabolladuria Big Bong',--bussiness_name
-    'Avenida Thor 1223,Santiago, Regi√≥n Metropolitana',--adress
+    'Avenida Thor 1223,Santiago, RegiÛn Metropolitana',--adress
     'Renca',--comuna
-    'Regi√≥n Metropolitana',--region
+    'RegiÛn Metropolitana',--region
     '(32)3442205',--landline
     null,--mobile_number
     'martilleando_arte@gmail.com',--email
     243--views
 );
 
---prublicaci√≥n public_test1(1 x INA - deletd 1) 
+--prublicaciÛn public_test1(1 x INA - deletd 1) 
 insert into PUBLICATION --publicacion 1
 (public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
 values
@@ -589,7 +589,7 @@ values
     to_date ('13-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
     to_date ('13-06-2020 10:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     1,--deleted
-    'Automotriz N¬∞',--title
+    'Automotriz N∞',--title
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',--public_desc
     'De 8:30 a 19:30, abierto toda la semana',--schedule
     'Maecenas sit amet pellentesque dolor.',--services
@@ -603,7 +603,7 @@ values
     35--views
 );
 
---prublicaci√≥n public_test2(1 x REJ - deleted 0) 
+--prublicaciÛn public_test2(1 x REJ - deleted 0) 
 insert into PUBLICATION --publicacion 1
 (public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
 values
@@ -614,7 +614,7 @@ values
     to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
     to_date ('13-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     0,--deleted
-    'Automotriz N¬∞2',--title
+    'Automotriz N∞2',--title
     ' Aenean tincidunt nibh quis dolor semper finibus. Praesent sollicitudin massa ac mi commodo, non suscipit augue posuere. Maecenas ut fermentum eros. Suspendisse tempus pharetra augue id maximus. Aliquam finibus arcu et sem rutrum eleifend. Nulla tempus vulputate justo et ullamcorper.',--public_desc
     'De 8:30 a 19:30, abierto toda la semana',--schedule
     'Aenean quis posuere odio, ac fermentum mauris.',--services
@@ -628,7 +628,7 @@ values
     59--views
 );
 
---prublicaci√≥n public_test3(1 x REJ - deletd 1) 
+--prublicaciÛn public_test3(1 x REJ - deletd 1) 
 insert into PUBLICATION --publicacion 1
 (public_id,appuser_id,user_type_id,public_status_id,created_at,updated_at,deleted,title,public_desc,schedule,services,bussiness_name,address,comuna,region,landline,mobile_number,email,views)
 values
@@ -639,7 +639,7 @@ values
     to_date ('14-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
     to_date ('14-06-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--update_at
     1,--deleted
-    'Automotriz N¬∞3',--title
+    'Automotriz N∞3',--title
     'Cras nec urna sit amet nulla mollis interdum. Proin at diam nec elit euismod luctus non at nulla',--public_desc
     'De 8:30 a 19:30, abierto toda la semana',--schedule
     'Maecenas sit amet pellentesque dolor.',--services
@@ -648,9 +648,9 @@ values
     'Las Condes',--comuna
     'Metropolitana',--region
     '(2)22742031',--landline
-    null,--mobile_number
+     null,--mobile_number
     'publictest2@gmail.com',--email
-    59--views
+     59--views
 );
 
 
@@ -671,7 +671,7 @@ VALUES(
 	'A7515A96926141479DEC462D7CC647F0',--serv_id
 	'Cambio De Aceite',--serv_name
 	28000,--serv_price
-	'Utilizamos las mejores marcas para el cambio de aceite de su veh√≠culo',--serv_desc
+	'Utilizamos las mejores marcas para el cambio de aceite de su vehÌculo',--serv_desc
 	28,--estimated_time
 	'ACT',--serv_status
 	to_date ('05-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -687,7 +687,7 @@ VALUES(
 	'50D00011F4994D4FBB4FBDA04D2AFB97',--serv_id
 	'Correas Accesorio',--serv_name
 	40000,--serv_price
-	'Utilizamos las mejores marcas para el cambio de correas y accesorios de su veh√≠culo',--serv_desc
+	'Utilizamos las mejores marcas para el cambio de correas y accesorios de su vehÌculo',--serv_desc
 	28,--estimated_time
 	'ACT',--serv_status
 	to_date ('05-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -703,7 +703,7 @@ VALUES(
 	'44703D2E22344158BAE3E3BB30699F06',--serv_id
 	'Desabolladura y Pintura',--serv_name
 	55000,--serv_price
-	'Brindamos una soluci√≥n integral de desabolladura y pintura en tiempo record. Reparamos pintura, abollones, rayas, piquetes y medianas colisiones.',--serv_desc
+	'Brindamos una soluciÛn integral de desabolladura y pintura en tiempo record. Reparamos pintura, abollones, rayas, piquetes y medianas colisiones.',--serv_desc
 	45,--estimated_time
 	'ACT',--serv_status
 	to_date ('05-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -717,9 +717,9 @@ INSERT INTO SERVICE
 (serv_id,name,price,serv_desc,estimated_time,serv_status,created_at,updated_at,deleted,is_recurring) 
 VALUES(
 	'09F68676182ACF8AE040578CB20B7491',--serv_id
-	'Cambio de neum√°ticos',--serv_name
+	'Cambio de neum·ticos',--serv_name
 	30000,--serv_price
-	'Utilizamos las mejores marcas en neum√°ticos para cambiarselos a tu coche',--serv_desc
+	'Utilizamos las mejores marcas en neum·ticos para cambiarselos a tu coche',--serv_desc
 	120,--estimated_time
 	'ACT',--serv_status
 	to_date ('05-04-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -822,7 +822,7 @@ INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,
 VALUES(
 	'D9CCD278B8B849788F1F4FF6E074B499',--product_id	        
 	'Aceite de motor CASTROL EDGE',--name                
-	'Castrol EDGE es un aceite para motor totalmente sint√©tico desarrollado para conductores que solo quieren lo mejor de sus motores.',--product_desc        
+	'Castrol EDGE es un aceite para motor totalmente sintÈtico desarrollado para conductores que solo quieren lo mejor de sus motores.',--product_desc        
 	15000,--price
 	15,--stock 
 	5,--stock_alert
@@ -838,8 +838,8 @@ VALUES(
 INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,unit_id,product_status,created_at,updated_at,deleted)
 VALUES(
 	'BB5801A8406F49CC953A277F918E770D',--product_id	        
-	'Neum√°ticos TURANZA ER33',--name                
-	'A los coches de lujo les vendr√≠a como anillo al dedo el Bridgestone ER33, un neum√°tico creado especialmente para este tipo de autom√°viles gracias a su alto rendimiento.',--product_desc        
+	'Neum·ticos TURANZA ER33',--name                
+	'A los coches de lujo les vendrÌa como anillo al dedo el Bridgestone ER33, un neum·tico creado especialmente para este tipo de autom·viles gracias a su alto rendimiento.',--product_desc        
 	35000,--price
 	20,--stock   
 	12,--stock_alert            
@@ -855,7 +855,7 @@ INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,
 VALUES(
 	'6CFE0D33D63A40ECB90BBBCA50E6E6EB',--product_id	        
 	'Correa de Distribucion ( 102R 25mm.)',--name                
-	'Las correas tienen por funci√≥n transmitir fuerza generada por motor hacia aquellos componentes que la necesiten, por lo tanto el correcto funcionamiento de los componentes depende del buen estado de las correas.',--product_desc        
+	'Las correas tienen por funciÛn transmitir fuerza generada por motor hacia aquellos componentes que la necesiten, por lo tanto el correcto funcionamiento de los componentes depende del buen estado de las correas.',--product_desc        
 	25000,--price
 	25,--stock   
 	10,--stock_alert            
@@ -871,7 +871,7 @@ INSERT INTO PRODUCT (product_id,name,product_desc,price,stock,stock_alert,brand,
 VALUES(
 	'C4D20AB8F1114202A98156BFF9C6521E',--product_id	        
 	'Ampolleta Led Auto Cob 12000 Lm R11 Ml0847',--name                
-	'LED luz de faro de sue√±o, uso COB LED chip, poca superficie iluminada pero m√°xima eficiencia de la luz, mejor penetraci√≥n y condensador m√°s fuerte, impermeable y resistente al polvo, todo en uno, enchufar a juego, radiador de calor inteligente, inicio instantaneo.',--product_desc        
+	'LED luz de faro de sueÒo, uso COB LED chip, poca superficie iluminada pero m·xima eficiencia de la luz, mejor penetraciÛn y condensador m·s fuerte, impermeable y resistente al polvo, todo en uno, enchufar a juego, radiador de calor inteligente, inicio instantaneo.',--product_desc        
 	9000,--price
 	30,--stock   
 	15,--stock_alert            
