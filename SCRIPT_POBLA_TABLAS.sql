@@ -20,7 +20,7 @@ VALUES(
 	SYS_GUID(), -- APPUSER_ID
 	'sebaherrera', -- USERNAME
 	'42437a69a8fd1d5f3a9d1a01f072187282a663cf327ffbf11412f25ff01cd29a', -- HASH : alfalfa8.
-	'seherreraluna@gmail.cl', -- EMAIL
+	'seherreraluna@gmail.com', -- EMAIL
 	'Sebastian', -- NAME
 	'Herrera Luna', -- LAST_NAMES
     '18.594.857-9',--RUT
@@ -1161,13 +1161,13 @@ insert into SALE_STATUS values('CAN','Cancelada',   to_date ('15-05-2020','DD-MM
 INSERT INTO SALE VALUES
     ('9DB8539940214DE2BDE44462E670D7DB',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
-    '5093234C73AE4954BB6DD7E841FEEE12',--cashier_id
+    NULL,--cashier_id
     '70BA44E0EC9A42018FA0D9465CC695B5',--user_id
     'PEN',--sale_status_id
     to_date('15-05-2020 11:00:00','dd-mm-yyyy hh24:mi:ss'),--date_order
-    to_date('15-05-2020 11:00:00','dd-mm-yyyy hh24:mi:ss'),--sale_date
+    NULL,--sale_date
     '523698556740210',--code
-    'Tarjeta Debito',--payment_method
+    NULL,--payment_method
     51000,--subtotal
     51000,--total
     to_date ('15-05-2020 11:00 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -1315,13 +1315,13 @@ INSERT INTO SALE_PROVISION VALUES(
 INSERT INTO SALE VALUES
     ('1A7F7099D06E4C77AC91B6DD869E99CE',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
-    '5093234C73AE4954BB6DD7E841FEEE12',--cashier_id
+    NULL,--cashier_id
     '70BA44E0EC9A42018FA0D9465CC695B5',--user_id
     'PEN',--sale_status_id
     to_date('15-05-2020 12:10:00','dd-mm-yyyy hh24:mi:ss'),--date_order
-    to_date('15-05-2020 12:10:00','dd-mm-yyyy hh24:mi:ss'),--sale_date
+    NULL,--sale_date
     '523698556758787',--code
-    'Tarjeta Credito',--payment_method
+    NULL,--payment_method
     162000,--subtotal
     162000,--total
     to_date ('15-05-2020 12:10 AM','DD-MM-YYYY HH:MI AM'),--create_at
@@ -1389,13 +1389,13 @@ INSERT INTO SALE_PROVISION VALUES(
 INSERT INTO SALE VALUES
     ('842B5124650A44F9AD69396C0F920810',--sale_id
     '3E309C13E3314519A9270C336AFB75C2',--seller_id
-    '5093234C73AE4954BB6DD7E841FEEE12',--cashier_id
+    NULL,--cashier_id
     '70BA44E0EC9A42018FA0D9465CC695B5',--user_id
     'PEN',--sale_status_id
     to_date('15-05-2020 12:25:00','dd-mm-yyyy hh24:mi:ss'),--date_order
-    to_date('15-05-2020 12:25:00','dd-mm-yyyy hh24:mi:ss'),--sale_date
+    NULL,--sale_date
     '523698556758787',--code
-    'Tarjeta Credito',--payment_method
+    NULL,--payment_method
     28000,--subtotal
     28000,--total
     to_date ('15-05-2020 12:25 AM','DD-MM-YYYY HH:MI AM'),--create_at

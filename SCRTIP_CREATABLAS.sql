@@ -37,12 +37,6 @@ DROP TABLE SALE_STATUS CASCADE CONSTRAINTS;
 
 DROP TABLE SALE_PROVISION CASCADE CONSTRAINTS;
 
-DROP TABLE RESERVE CASCADE CONSTRAINTS;
-
-
-DROP TABLE RESERVE_RESTRICTION CASCADE CONSTRAINTS;
-
-DROP TABLE STATUS_RESERVE;
 -------------------------------- CREATE TABLES --------------------------------
 
 -------------------------------------------------------------------------
