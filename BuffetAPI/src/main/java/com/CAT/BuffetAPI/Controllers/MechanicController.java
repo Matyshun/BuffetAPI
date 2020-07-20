@@ -28,6 +28,10 @@ import com.CAT.BuffetAPI.Repositories.userTypeRepository;
 import com.CAT.BuffetAPI.Services.App_UserService;
 import com.CAT.BuffetAPI.Services.AuthService;
 
+
+//Este controlador es igual al de app_user aunque esta pensado especificamente para los mecanicos.
+//ya que estos tienen funciones especificas.
+
 @RestController
 @RequestMapping("/mech-adm")
 public class MechanicController {
@@ -37,7 +41,15 @@ public class MechanicController {
 	@Autowired
 	private AuthService auth;
 	
-
+	private void log(String msg) {
+		System.out.println(msg);
+	}
+	private void logLine() {
+		System.out.println("----------------------------------------------------------------");
+	}
+	
+	//Lista de mecanicos
+	
 	@RequestMapping("/mechanics")
 	private List<App_user> getAllMec(HttpServletResponse res, @RequestHeader("token") String token,
 													@RequestParam (required = false) String username,
@@ -46,7 +58,10 @@ public class MechanicController {
 													@RequestParam (required = false) String deleted)
 	{
 	
+		logLine();
+		log("iniciando lista de mecanicos...");
 		if(token.isEmpty()){
+			log("token vacio");
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
@@ -65,6 +80,7 @@ public class MechanicController {
 				// Get the all the Users
 				HashMap<String,Object> data = new HashMap<>();
 				
+				//Filtros
 				if(username!= null)
 				{
 					data.put("username", username);
@@ -89,17 +105,19 @@ public class MechanicController {
 				List<App_user> userList = app.getData(data);
 
 				if(userList == null){
+					log("no se encuentran usuarios");
 					// 404 Not Found
 					res.setStatus(404);
 					return null;
 				}
+				//se filtran unicamente los mecanicos
 				List<App_user> onlyMec = new ArrayList<App_user>();
 				for (App_user app_user : userList) {
 					app_user.setHash("");
 					if(app_user.getUser_type_id().equals("MEC"))
 						onlyMec.add(app_user);
 				}
-
+				log("OK");
 				// 200 OK
 				res.setStatus(200);
 				return onlyMec;
@@ -113,12 +131,16 @@ public class MechanicController {
 	
 	}
 
-
+	//GET mecanico en especifico
+	
 	@RequestMapping(value="/mechanics/{Id}", method = {RequestMethod.GET})
 	private Optional<App_user> getSpecificMec(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
 	{
+		logLine();
+		log("Request usuario especifico");
 		if(id.isEmpty() || token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -139,6 +161,7 @@ public class MechanicController {
 			// If there is no matching Mechanic
 			if(!user.isPresent()){
 				// 404 Not Found
+				log("usuario no encontrado");
 				res.setStatus(404);
 				return null;
 			}
@@ -159,10 +182,12 @@ public class MechanicController {
 		}
 	}
 
-
+	//Modificar usuario especifico
 	@RequestMapping(value= "/mechanics/{Id}", method = {RequestMethod.POST})
 	private String UpdateMec(HttpServletResponse res,@PathVariable String Id, @RequestBody App_user reqUser,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Modificacion de usuario");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
@@ -183,6 +208,7 @@ public class MechanicController {
 	
 			// If there is no matching User
 			if(!optUser.isPresent()){
+				log("usuario no encontrado");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -197,6 +223,7 @@ public class MechanicController {
 			reqUser.setUpdated_at(new Date());
 			app.updateUser(reqUser);
 	
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return "Mecanico actualizado exitosamente";
@@ -209,11 +236,14 @@ public class MechanicController {
 		}
 	}
 
-
+	//cambio de estatus
 	@RequestMapping(value = "/mechanics/{Id}/change-status", method = {RequestMethod.POST})
 	private String ChangeStatus(HttpServletResponse res, @PathVariable String Id ,@RequestParam("status")String status,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Cambiando estatus");
 		if(token.isEmpty()){
+			log("token vacio");
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
@@ -222,6 +252,7 @@ public class MechanicController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
+			log("no autorizado");
 			// 401 Unauthorized
 //			res.setStatus(401);
 //			return null;
@@ -249,7 +280,7 @@ public class MechanicController {
 			
 			updateUser.setStatus_id(status);
 			app.updateUser(updateUser);
-
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return "Status actualizado exitosamente";
@@ -262,10 +293,12 @@ public class MechanicController {
 		}
 	}
 
-
+	//Delete mecanico especifico
 	@RequestMapping(value= "/mechanics/{Id}", method = {RequestMethod.DELETE})
 	private String DeleteMec(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("eliminando mecanico");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
@@ -286,6 +319,8 @@ public class MechanicController {
 
 			// If there is no matching Mechanic
 			if(!user.isPresent()){
+				log("mecanico no encontrado");
+
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -295,6 +330,7 @@ public class MechanicController {
 			
 			delUser.setDeleted(true);
 			app.updateUser(delUser);
+			log("OK");
 
 			// 200 OK
 			res.setStatus(200);
@@ -307,11 +343,15 @@ public class MechanicController {
 			return null;
 		}
 	}
-
+	
+	//restaurar Mecanico
 	@RequestMapping(value= "/mechanics/{Id}/restore", method = {RequestMethod.PUT})
 	private String RestoreMec(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Restaurando mecanico");
 		if(token.isEmpty()){
+			log("token vacio");
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
@@ -320,6 +360,7 @@ public class MechanicController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
+			log("no autorizado");
 //			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
@@ -331,6 +372,7 @@ public class MechanicController {
 
 			// If there is no matching User
 			if(!user.isPresent()){
+				log("no se encuentra usuario");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -339,6 +381,7 @@ public class MechanicController {
 			App_user resUser = user.get();
 
 			if(!resUser.isDeleted()){
+				log("el mecanico no esta eliminado");
 				// 409 Conflict
 				res.setStatus(409);
 				return "El Mecánico no está Eliminado";
@@ -346,7 +389,7 @@ public class MechanicController {
 			
 			resUser.setDeleted(false);
 			app.updateUser(resUser);
-
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return "Mecánico Restaurado Exitosamente";

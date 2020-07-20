@@ -134,6 +134,7 @@ public class AuthService {
 		}
 	}
 
+	//funcion para recuperacion de contraseña
 	public boolean RecoverPassword(String email)
 	{
 		App_user user;
@@ -141,13 +142,16 @@ public class AuthService {
 
 		user = appService.getByEmail(email);
 
+		//se valida el usuario
 		if(user != null)
 		{
 			try {
+				//Se crea ña nueva contraseña
 				newPassword = UUID.randomUUID().toString();
 				String hashedPassword;
 				hashedPassword = encode(KeyForRecovery, newPassword);
 				user.setHash(new String(hashedPassword));
+				//Se envia el email
 				SimpleMailMessage mailMessage = new SimpleMailMessage();
 				mailMessage.setTo(user.getEmail());
 				mailMessage.setSubject("Nueva Contraseña!");
@@ -171,6 +175,7 @@ public class AuthService {
 
 	}
 	
+	//Codificacion SHA-256
 	public static String encode(String key, String data) throws Exception {
 		  Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
 		  SecretKeySpec secret_key = new SecretKeySpec(key.getBytes("UTF-8"), "HmacSHA256");

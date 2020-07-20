@@ -91,7 +91,7 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -161,7 +161,7 @@ public class SaleController {
 		//typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			resp.setStatus(401);
 			return null;
 		}
@@ -210,7 +210,7 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -253,7 +253,7 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -301,7 +301,7 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -347,7 +347,7 @@ public class SaleController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -403,7 +403,7 @@ public class SaleController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
-//			// 401 Unauthorized
+			//			// 401 Unauthorized
 			res.setStatus(401);
 			return null;
 		}
@@ -552,7 +552,7 @@ public class SaleController {
 			typesAllowed.add("CAJ");
 			if(!auth.Authorize(token, typesAllowed)){
 				// 401 Unauthorized
-				
+
 			}
 
 			List<Sale_status> theStatus = saleServ.getAllStatus();
@@ -576,39 +576,43 @@ public class SaleController {
 		}
 
 	}
-	
+
 	//Reporte de ventas
-	
+
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
 	@RequestMapping(value = "sale_report", method = {RequestMethod.GET} )
 	private SaleReport salesReport(HttpServletResponse res,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha_inicio,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha_final)
 	{
+		System.out.println("a");
 		try {
 			List<Sale> allSales = new ArrayList<Sale>();
 			List<Sale_provision> provisiones = new ArrayList<Sale_provision>();
 			SaleReport report = new SaleReport();
 			report.setDate_start(fecha_inicio);
 			report.setDate_end(fecha_final);
-			
+
 			Calendar Fechainicio = Calendar.getInstance();
 			Calendar Fechafinal = Calendar.getInstance();
 			Calendar Fecha = Calendar.getInstance();
-			
+
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			
+
 			Fechainicio.setTime(formatter.parse(formatter.format(fecha_inicio)));
 			Fechafinal.setTime(formatter.parse(formatter.format(fecha_final)));
 			Fechafinal.add(Calendar.DAY_OF_MONTH, 1);
-			
 
-		
+
+
 			sale.findAll().forEach(s -> {
 				try {
+					if(s.getSale_date() != null)
 					Fecha.setTime(formatter.parse(formatter.format(s.getSale_date())));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
+					System.out.println();
 					e.printStackTrace();
 				}
+				System.out.println("b");
 				if(Fecha.after(Fechainicio) && !Fecha.after(Fechafinal)&& s.getSale_status_id().equals("PAG"))
 				{
 					allSales.add(s);
@@ -621,46 +625,68 @@ public class SaleController {
 				res.setStatus(404);
 				return null;
 			}
-			
+
 			for(Sale aSale : allSales)
 			{
+
 				report.setTotal(report.getTotal()+aSale.getTotal());
 				SaleExt theSale = new SaleExt();
 				BeanUtils.copyProperties(theSale, aSale);
 				report.sale_list.add(theSale);
-
-				App_user thisCashier = app.getAllUsers().stream()
+				if(app.getAllUsers().stream()
 						.filter(x -> x.getAppuser_id().equals(aSale.getCashier_id()))
 						.findFirst()
-						.get();
+						.isPresent()) {
+					App_user thisCashier = app.getAllUsers().stream()
+							.filter(x -> x.getAppuser_id().equals(aSale.getCashier_id()))
+							.findFirst()
+							.get();
+					theSale.setCashier(thisCashier);
 
-				App_user thisUser = app.getAllUsers().stream()
+				}
+				if(app.getAllUsers().stream()
 						.filter(x -> x.getAppuser_id().equals(aSale.getAppuser_id()))
 						.findFirst()
-						.get();
-
-				App_user thisSeller = app.getAllUsers().stream()
+						.isPresent()) {
+					App_user thisUser = app.getAllUsers().stream()
+							.filter(x -> x.getAppuser_id().equals(aSale.getAppuser_id()))
+							.findFirst()
+							.get();
+					theSale.setUser(thisUser);
+				}
+				if(app.getAllUsers().stream()
 						.filter(x -> x.getAppuser_id().equals(aSale.getSeller_id()))
 						.findFirst()
-						.get();
-
-				Sale_status thisStatus = stat.findAll().stream()
+						.isPresent()) {
+					App_user thisSeller = app.getAllUsers().stream()
+							.filter(x -> x.getAppuser_id().equals(aSale.getSeller_id()))
+							.findFirst()
+							.get();
+					theSale.setSeller(thisSeller);
+				}
+				if(stat.findAll().stream()
 						.filter(x -> x.getSale_status_id().equals(aSale.getSale_status_id()))
 						.findFirst()
-						.get();
+						.isPresent()) {
+					Sale_status thisStatus = stat.findAll().stream()
+							.filter(x -> x.getSale_status_id().equals(aSale.getSale_status_id()))
+							.findFirst()
+							.get();
+					theSale.setStatus(thisStatus);
+				}
 
-				
-				theSale.setSeller(thisSeller);
-				theSale.setUser(thisUser);
-				theSale.setStatus(thisStatus);
-				theSale.setCashier(thisCashier);
-				
+
+				System.out.println("c");
+
+				if(aSale.getPayment_method() != null)
+				{
 				prov.findAll().forEach(p ->{
 					if(p.getSale_id().equals(aSale.getSale_id())){
 						provisiones.add(p);
 					}
 				});
-				
+				}
+
 				for(Sale_provision p : provisiones) {
 					if(p.getProduct_id() != null && p.getServ_id() == null)
 					{
@@ -673,7 +699,7 @@ public class SaleController {
 						prodRep.setProd_total(p.getTotal());
 						if (!report.prod_sold_list.isEmpty()) {
 							for (Product aux : report.prod_sold_list) {
-								
+
 
 								if (aux.getProduct_id().equals(prodRep.getProduct_id())) {
 									index = report.prod_sold_list.indexOf(aux);
@@ -683,20 +709,19 @@ public class SaleController {
 						}
 						if(index == -1)
 						{
-							
+
 							report.prod_sold_list.add(prodRep);
-							System.out.println("added");
-							
+
+
 						}
 						else
 						{
-//							int cantidad = report.prod_sold_list.get(index).getProd_n()+p.getQuantity();
-//							int total = report.prod_sold_list.get(index).getProd_total()+p.getTotal();
+							//							int cantidad = report.prod_sold_list.get(index).getProd_n()+p.getQuantity();
+							//							int total = report.prod_sold_list.get(index).getProd_total()+p.getTotal();
 							report.prod_sold_list.get(index).add_total(p.getTotal());
 							report.prod_sold_list.get(index).addQuantity(p.getQuantity());
-							System.out.println("summed - " + index);
 						}
-						
+
 					}
 					else
 					{
@@ -710,7 +735,7 @@ public class SaleController {
 						int index = -1;
 						if (!report.prod_sold_list.isEmpty()) {
 							for (Service aux : report.serv_sold_list) {
-								
+
 
 								if (aux.getServ_id().equals(servRep.getServ_id())) {
 									index  = report.serv_sold_list.indexOf(aux);
@@ -727,9 +752,9 @@ public class SaleController {
 							report.serv_sold_list.get(index).setServ_n(report.serv_sold_list.get(index).getServ_n()+servRep.getServ_n());
 							report.serv_sold_list.get(index).setServ_total(report.serv_sold_list.get(index).getServ_total()+servRep.getServ_total());
 						}
-						
+
 					}
-					
+
 				}
 				provisiones.clear();
 			}
@@ -742,7 +767,7 @@ public class SaleController {
 
 		}
 	}
-	
-	
+
+
 
 }

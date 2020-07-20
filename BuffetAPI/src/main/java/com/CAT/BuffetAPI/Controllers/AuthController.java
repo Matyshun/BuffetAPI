@@ -61,9 +61,18 @@ public class AuthController {
 	@Autowired
 	private EmailSenderService mailSender;
 
+	private void log(String msg) {
+		System.out.println(msg);
+	}
+	private void logLine() {
+		System.out.println("----------------------------------------------------------------");
+	}
 
+	//Endpoint que retorna un JWT si las credenciales son validas.
 	@PostMapping(consumes = "application/x-www-form-urlencoded")
 	public ResponseEntity<JsonObject> Validate (App_user form_user) {
+		
+		logLine();
 		String mail;
 		String password;
 		Long tiempo = System.currentTimeMillis();
@@ -72,6 +81,8 @@ public class AuthController {
 		password = form_user.getHash();
 		//String apiKeySecretBytes = DigestUtils.sha256(SecretKey);
 
+		
+		//Creacion de la fecha de expiracion del token.
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		Date createdat =(new Date(tiempo));
 		Date exp= new Date(tiempo+(ONE_MINUTE_IN_MILLIS * 30)); //aca se setea la fecha de expiracion, esta seteado en 30 minutos a partir de la fecha de creacion
@@ -82,10 +93,14 @@ public class AuthController {
 			HttpHeaders errorHeaders = new HttpHeaders();
 			errorHeaders.set("error-code", "ERR-AUTH-001");
 			errorHeaders.set("error-desc", "Usuario no existe");
+			log("Usuario no existe");
 			return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.UNAUTHORIZED);
 		}
 
 		if( auth.Validate(user.getAppuser_id(),password )&& user != null){  //Se revisa que la contraseña corresponda al id de la persona.
+			//Se crea jwt a retornar
+			log("Las credenciales son validas...");
+			log("Creando Token...");
 			String jwt = Jwts.builder().signWith(SignatureAlgorithm.HS256, SecretKey)
 					.setSubject(user.getUsername())
 					.setIssuedAt(createdat)
@@ -98,11 +113,12 @@ public class AuthController {
 			user.setLastlogin(createdat);
 			app.updateUser(user);
 			JsonObject jerson = Json.createObjectBuilder().add("JWT", jwt).build();
-
+			log("Usuario validado correctamente");
 			return new ResponseEntity<JsonObject>(jerson, HttpStatus.OK);
 		}
 		else
 		{
+			log("Credenciales invalidas");
 			HttpHeaders errorHeaders = new HttpHeaders();
 			errorHeaders.set("error-code", "ERR-AUTH-002");
 			errorHeaders.set("error-desc", "Credenciales invalidas");
@@ -111,10 +127,16 @@ public class AuthController {
 
 	}
 
+	//Endpoint encargado del registro de usuarios.
+	
 	@PostMapping("/register")
 	public String Register(@RequestBody App_user user , HttpServletResponse resp) {
 		// Valida si existe el mail y username del nuevo APP_USER
+		logLine();
+		log("Validando que usuario no este duplicado");
 		if(auth.RegisterValidation(user)) {
+			
+			log("Usuario validado correctamente");
 			// Setea datos generales
 			user.setMail_confirmed(false);
 			user.setUpdated_at(new Date());
@@ -122,7 +144,7 @@ public class AuthController {
 			// Agrega al Usuario a la BD. 
 			// Al insertar, appuser_id se asigna automaticamente, así que hay que redefinirlo al que se creó
 			user = app.addUser(user);
-
+			log("creando token de verificacion...");
 			// !BUG: Si hay cualquier atado insertando el VerificationToken a la BD, devuelve status 500 pero se crea el Ususario
 			// Crea UUID sacando los guiones para cumplir requisitos de BD
 			String tokenId = UUID.randomUUID().toString().replace("-", "");
@@ -130,7 +152,8 @@ public class AuthController {
 			Verificationtoken verificationToken = new Verificationtoken(tokenId, user.getAppuser_id());
 			// Lo guarda en la BD
 			verificationRepo.save(verificationToken);
-
+			log("OK");
+			log("Enviando Email...");
 			// Envia un mail al nuevo usuario con el token de verificación
 			// TODO Que mande a Initial-D para que muestre un mensaje boni o algo
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -141,19 +164,22 @@ public class AuthController {
 					+"http://localhost:8888/user-auth/confirm-account?token="+verificationToken.getToken());
 
 			mailSender.sendEmail(mailMessage);
-
+			log("OK");
 			// Status 200 y retorna el Id del APP_USER nuevo
 			resp.setStatus(200);
 			return user.getAppuser_id();
 		}
 		else
 		{
+			log("Usuario duplicado");
 			// 409 Conflict
 			resp.setStatus(409);
 			return "Nombre de Usuario o Mail ya existe";
 		}
 	}
 
+	
+	//Endpoint que recibe el link creado por la funcion anterior y confirma la cuenta del usuario.
 	@RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
 	{
@@ -161,6 +187,7 @@ public class AuthController {
 
 		if(token != null)
 		{
+			//Si el tokeb no esta vacio procedemos a validar el usuario y a eliminar el token de la BD.
 			Optional<App_user> aux;
 			aux = Userrepo.findById(token.getApp_userid());
 			App_user user;
@@ -179,10 +206,15 @@ public class AuthController {
 		return modelAndView;
 	}
 
+	//Endpoint que se encarga de enviar un email al usuario con su nueva contraseña.
+	
 	@RequestMapping(value="/Recover-pass", method= {RequestMethod.GET, RequestMethod.POST})
 	public void Recuperacion(@RequestParam("email") String email, HttpServletResponse resp)
-	{
+	{			
+		logLine();
+		//revisese authService.
 		if(auth.RecoverPassword(email)) {
+			log("Nueva contraseña enviada a email");
 			resp.setStatus(200);
 		}
 		else

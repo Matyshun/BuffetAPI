@@ -9,15 +9,14 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+//Archivo de configuracion del Mail Sender.
+//En este archivo se crea una instancia de MailSender utilizando datos ubicados en src/main/resources/aplication.properties
+
 @Configuration
-//@ComponentScan(basePackages = { "org.baeldung.registration" })
-//@PropertySource("classpath:email.properties")
 public class AppConfig {
 
     @Autowired
     private Environment env;
-
-    // beans
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyPlaceHolderConfigurer() {

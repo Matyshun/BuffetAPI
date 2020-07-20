@@ -31,6 +31,8 @@ import com.CAT.BuffetAPI.Services.App_UserService;
 import com.CAT.BuffetAPI.Services.AuthService;
 import com.CAT.BuffetAPI.Services.PublicationService;
 
+//Controlador encargado de las publicaciones de mecanicos
+
 @RestController
 @RequestMapping("/pub-adm")
 public class PublicationController {
@@ -46,6 +48,14 @@ public class PublicationController {
 	@Autowired
 	private App_UserService app;
 
+	private void log(String msg) {
+		System.out.println(msg);
+	}
+	private void logLine() {
+		System.out.println("----------------------------------------------------------------");
+	}
+	
+	//listado de todas las publicaciones
 	@RequestMapping("/publications")
 	private List<PublicationExt> getAllPublications(HttpServletResponse res,
 			@RequestParam(required = false) String comuna
@@ -56,8 +66,10 @@ public class PublicationController {
 			,@RequestParam(required = false) String user_id
 			)
 	{
+		logLine();		
+		log("enviando todas las publicaciones");
 		try {
-			// Get the all the Users
+			// Get the all the publications
 			HashMap<String,Object> data = new HashMap<>();
 
 			if(comuna!= null)
@@ -93,6 +105,7 @@ public class PublicationController {
 			// Get ALL PUBLICATIONS
 			List<Publication> pubList = pubrepo.getData(data);
 			if(pubList == null){
+				log("lista de publicaciones vacia");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -131,7 +144,8 @@ public class PublicationController {
 				// Agrega el modelo extendido a la lista que se enviará
 				sendPubList.add(sendPub);
 			}
-
+			
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return sendPubList;
@@ -140,15 +154,17 @@ public class PublicationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			System.out.println(e);
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
 	}
 
-	
+	//Añadir publicacion
 	@RequestMapping(value = "/publications", method = {RequestMethod.POST})
 	public String addPublication(@RequestBody Publication publication , HttpServletResponse resp, @RequestHeader("token") String token) {
-
+		logLine();		
+		log("añadiendo publicacion");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			resp.setStatus(400);
@@ -159,6 +175,7 @@ public class PublicationController {
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("MEC");
 		if(!auth.Authorize(token, typesAllowed)){
+			log("no autorizado");
 			// 401 Unauthorized
 			resp.setStatus(401);
 			return null;
@@ -174,12 +191,14 @@ public class PublicationController {
 
 
 				Publication newPub = pub.UpdatePublication(publication);
-				// Status 200 y retorna el Id del APP_USER nuevo
+				// Status 200 y retorna el Id del Publication nuevo
+				log("OK");
 				resp.setStatus(200);
 				return newPub.getPublic_id();
 			}
 			else
 			{
+				log("Publicacion ya existe");
 				// 409 Conflict
 				resp.setStatus(409);
 				return "Publicación ya existe";
@@ -187,29 +206,34 @@ public class PublicationController {
 		}
 		catch(Exception e)
 		{
+			log(e.toString());
 			resp.setStatus(500);		
 			return "Error interno";
 		}
 
 	}
 
-
+	//Get de publicacion especifica
 	@RequestMapping(value="/publications/{Id}", method = {RequestMethod.GET})
 	private PublicationExt getSpecificPub(HttpServletResponse res, @PathVariable("Id") String id)
 	{
+		logLine();		
+		log("enviando publicacion especifica");
 		if(id.isEmpty()){
+			log("token vacio");
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
 		}
 
 		try {
-			// Get the User
+			// Get the Publication
 			Optional<Publication> publication = pub.getOnePublication(id);
-
+			publication.get().setViews(publication.get().getViews()+1);
 			// If there is no matching User
 			if(!publication.isPresent()){
 				// 404 Not Found
+				log("publicacion no existe");
 				res.setStatus(404);
 				return null;
 			}
@@ -218,6 +242,7 @@ public class PublicationController {
 			// Get ALL PUBLICATION STATUS
 			List<Public_status> statusList = statusRepo.findAll();
 			if(statusList == null){
+				log("listado de estados vacia");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -227,6 +252,7 @@ public class PublicationController {
 			List<App_user> userList = app.getAllUsers();
 			if(userList == null){
 				// 404 Not Found
+				log("listados de usuarios vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -241,7 +267,7 @@ public class PublicationController {
 			// Procesa la Publicación para agregar la data secundaria
 			sendPub = processPub(sendPub, userList, statusList);
 
-
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return sendPub;
@@ -249,15 +275,18 @@ public class PublicationController {
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
 	}
 
-
+	//Eliminado logico de publicacion
 	@RequestMapping(value= "/publications/{Id}", method = {RequestMethod.DELETE})
 	private ResponseEntity<JsonObject> DeletePub(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();		
+		log("Eliminando publicion");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
@@ -286,6 +315,7 @@ public class PublicationController {
 		}
 
 		if(existe) {
+			log("OK");
 			publication.setDeleted(true);
 			pub.UpdatePublication(publication);
 			return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.OK); 
@@ -293,6 +323,7 @@ public class PublicationController {
 		}
 		else
 		{
+			log("Publicacion no existe");
 			errorHeaders.set("error-code", "ERR-AUTH-004");
 			errorHeaders.set("error-desc", "Publicacion no existe");
 			return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.UNAUTHORIZED); 
@@ -301,12 +332,13 @@ public class PublicationController {
 
 	}
 
-
+	//restaurar publicacion
 	@RequestMapping(value= "/publications/{Id}/restore", method = {RequestMethod.PUT})
 	private String RestorePub(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -325,6 +357,7 @@ public class PublicationController {
 
 			// If there is no matching Publication
 			if(!publication.isPresent()){
+				log("publicacion no encontrada");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -334,13 +367,14 @@ public class PublicationController {
 
 			if(!resPub.isDeleted()){
 				// 409 Conflict
+				log("publicacion no eliminada");
 				res.setStatus(409);
 				return "La Publicación no está Eliminada";
 			}
 			
 			resPub.setDeleted(false);
 			pub.UpdatePublication(resPub);
-
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return "Publicación Restaurada Exitosamente";
@@ -349,14 +383,17 @@ public class PublicationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
 
-
+	//Cambiar estado de publicacion
 	@RequestMapping(value = "/publications/{Id}/change-status", method = {RequestMethod.POST})
 	private ResponseEntity<JsonObject> ChangeStatus(HttpServletResponse res, @PathVariable String Id ,@RequestParam("public_status_id")String public_status_id,@RequestHeader("token") String token)
 	{
+		logLine();		
+		log("cambiando estado de publicacion");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
@@ -385,12 +422,14 @@ public class PublicationController {
 		{
 			if(theStatus != null)
 			{
+				log("OK");
 				publication.setPublic_status_id(theStatus.getPublic_status_id());
 				pub.UpdatePublication(publication);
 				return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.OK); 
 			}
 			else
 			{
+				log("Estado no existe");
 				errorHeaders.set("error-code", "ERR-AUTH-002");
 				errorHeaders.set("error-desc", "estatus no existe");
 				return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.UNAUTHORIZED); 	
@@ -399,7 +438,7 @@ public class PublicationController {
 
 		}
 		else
-		{
+		{	log("publicacion no existe");
 			errorHeaders.set("error-code", "ERR-AUTH-001");
 			errorHeaders.set("error-desc", "Publicacion no existe");
 			return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.UNAUTHORIZED); 	
@@ -407,7 +446,7 @@ public class PublicationController {
 
 	}
 
-
+    //listado de estados de publicacion
 	@RequestMapping("/public-status")
 	private List<Public_status> getAllStatus(HttpServletResponse res){
 
@@ -433,13 +472,15 @@ public class PublicationController {
 		}
 	}
 
-	
+	//añadir publicacion
 	@RequestMapping(value= "/publications/{Id}", method = {RequestMethod.POST})
 	private ResponseEntity<JsonObject> UpdatePub(HttpServletResponse res,@PathVariable String Id, @RequestBody Publication publication,@RequestHeader("token") String token)
 	{
-
+		logLine();		
+		log("añadiendo publicacion");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -465,14 +506,14 @@ public class PublicationController {
 		}
 
 		if(existe) {
-
+			log("OK");
 			pub.UpdatePublication(publication);
 			return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.OK); 
 
 		}
 		else
 		{
-
+			log("publicacion no existe");
 			errorHeaders.set("error-code", "ERR-AUTH-001");
 			errorHeaders.set("error-desc", "Publicacion no existe");
 			return new ResponseEntity<JsonObject>(errorHeaders, HttpStatus.UNAUTHORIZED); 

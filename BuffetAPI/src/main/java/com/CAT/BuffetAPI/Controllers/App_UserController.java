@@ -29,6 +29,8 @@ import com.CAT.BuffetAPI.Repositories.userTypeRepository;
 import com.CAT.BuffetAPI.Services.App_UserService;
 import com.CAT.BuffetAPI.Services.AuthService;
 
+//Controlador encargado de los url de administracion de usuarios
+
 @RestController
 @RequestMapping("/user-adm")
 public class App_UserController {
@@ -49,6 +51,9 @@ public class App_UserController {
 		System.out.println("----------------------------------------------------------------");
 	}
 
+	
+	//Endpoint encargado de devolver una lista de usuarios, recibe un token JWT y parametros de filtrado.
+	
 	@RequestMapping("/users")
 	private List<App_user> getAllUsers(
 		HttpServletResponse res, 
@@ -84,7 +89,7 @@ public class App_UserController {
 
 		try {
 
-			// Define filter data
+			//Se definen los parametros de filtros
 			HashMap<String,Object> data = new HashMap<>();
 			
 			if(username!= null) 	data.put("username", username);
@@ -129,6 +134,8 @@ public class App_UserController {
 	}
 
 
+	//Endpoint encargado de retornar un usuario especifico basado en un ID (Este se recibe en la URL).
+	
 	@RequestMapping(value="/users/{Id}", method = {RequestMethod.GET})
 	private App_user getSpecificUser(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
 	{
@@ -190,6 +197,8 @@ public class App_UserController {
 	}
 
 
+	//Endpoint encargado de modificar un usuario en la base de datos.
+	
 	@RequestMapping(value= "/users/{Id}", method = {RequestMethod.POST})
 	private String UpdateUser(HttpServletResponse res,@PathVariable String Id, @RequestBody App_user reqUser,@RequestHeader("token") String token)
 	{
@@ -212,7 +221,7 @@ public class App_UserController {
 		log("Usuario autorizado");
 
 		try {
-			// Sava el Id del Usuario enviado en la request
+			// Salva el Id del Usuario enviado en la request
 			String userId = reqUser.getAppuser_id();
 			
 			log("Consiguiendo usuario de la BD");
@@ -252,7 +261,9 @@ public class App_UserController {
 		}
 	}
 
-
+	//Endpoint encargado de cambiar el tipo de un usuario, se dejo aparte para hacer mas sencilla su implementacion en front end.
+	//Aun asi la funcion anterior puede cambiar este dato tambien, pero se requieren todos los datos del usuario.
+	
 	@RequestMapping(value = "/users/{Id}/change-type", method = {RequestMethod.POST})
 	private ResponseEntity<JsonObject> ChangeType(HttpServletResponse res, @PathVariable String Id ,@RequestParam("user_type")String userType,@RequestHeader("token") String token)
 	{
@@ -307,7 +318,9 @@ public class App_UserController {
 		}
 
 	}
-
+    
+	//similar a la funcion anterior pero esta vez se encarga de modificar el estado de un usuario.
+	
 	@RequestMapping(value = "/users/{Id}/change-status", method = {RequestMethod.POST})
 	private String ChangeStatus(HttpServletResponse res, @PathVariable String Id ,@RequestParam("status")String status,@RequestHeader("token") String token)
 	{
@@ -354,6 +367,8 @@ public class App_UserController {
 	}
 
 
+	//Endpoint encargado de realizar un eliminado logico de un usuario, por lo que no se elimina realmente.
+	
 	@RequestMapping(value= "/users/{Id}", method = {RequestMethod.DELETE})
 	private String DeleteUser(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
@@ -399,6 +414,8 @@ public class App_UserController {
 		}
 	}
 
+	//Endpoint encargado de restaurar un usuario eliminado, devolviendo el valor de deleted a su estado original.
+	
 	@RequestMapping(value= "/users/{Id}/restore", method = {RequestMethod.PUT})
 	private String RestoreUser(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
@@ -450,6 +467,7 @@ public class App_UserController {
 		}
 	}
 
+	//Endpoint 	que devuelve los posibles tipos de usario.
 
 	@RequestMapping("/user-type")
 	private List<User_type> getAllTypes(HttpServletResponse res,@RequestHeader("token") String token){
@@ -486,6 +504,8 @@ public class App_UserController {
 		}
 	}
 
+	//Endpoint que devuelve los posibles estados de usuarios.
+	
 	@RequestMapping("/user-status")
 	private List<User_status> getAllStatus(HttpServletResponse res,@RequestHeader("token") String token){
 
