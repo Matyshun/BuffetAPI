@@ -841,7 +841,7 @@ VALUES(
 	'Neumáticos TURANZA ER33',--name                
 	'A los coches de lujo les vendría como anillo al dedo el Bridgestone ER33, un neumático creado especialmente para este tipo de automáviles gracias a su alto rendimiento.',--product_desc        
 	35000,--price
-	20,--stock   
+	10,--stock   
 	12,--stock_alert            
 	'BRIDGESTONE',--brand               
 	'Uni',--unit_id             
