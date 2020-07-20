@@ -612,8 +612,8 @@ public class SaleController {
 					System.out.println();
 					e.printStackTrace();
 				}
-				System.out.println("b");
-				if(Fecha.after(Fechainicio) && !Fecha.after(Fechafinal)&& s.getSale_status_id().equals("PAG"))
+	
+				if(s.getSale_status_id().equals("PAG") &&Fecha.after(Fechainicio) && !Fecha.after(Fechafinal))
 				{
 					allSales.add(s);
 				}
@@ -675,8 +675,6 @@ public class SaleController {
 					theSale.setStatus(thisStatus);
 				}
 
-
-				System.out.println("c");
 
 				if(aSale.getPayment_method() != null)
 				{
