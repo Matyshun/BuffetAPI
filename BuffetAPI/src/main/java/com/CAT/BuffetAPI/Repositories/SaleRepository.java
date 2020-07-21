@@ -12,6 +12,7 @@ import com.CAT.BuffetAPI.Entities.Sale_provision;
 @RepositoryRestResource
 public interface SaleRepository extends JpaRepository<Sale, String>
 {
+	//vease impl para ver implementacion de filtros
 	List<Sale> getData(HashMap< String, Object> data);
 
 }

@@ -13,6 +13,7 @@ import com.CAT.BuffetAPI.Entities.Service;
 @RepositoryRestResource
 public interface ServiceRepository extends JpaRepository<Service,String> {
 
+	//vease impl para ver implementacion de filtros
 	List<Service> getData(HashMap<String,Object> Conditions);
 
 

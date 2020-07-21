@@ -50,6 +50,8 @@ import com.CAT.BuffetAPI.Services.AuthService;
 import com.CAT.BuffetAPI.Services.SaleService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+//Controlador encargado del modulo de ventas
+
 @RestController
 @RequestMapping("/sale")
 public class SaleController {
@@ -70,6 +72,14 @@ public class SaleController {
 	@Autowired
 	AuthService auth;
 
+	private void log(String msg) {
+		System.out.println(msg);
+	}
+	private void logLine() {
+		System.out.println("----------------------------------------------------------------");
+	}
+	
+	//Get sales
 	@RequestMapping("/sales")
 	private List<Sale> getAllsales(HttpServletResponse res, @RequestHeader("token") String token,
 			@RequestParam (required = false) String appuser_id,
@@ -79,10 +89,14 @@ public class SaleController {
 			@RequestParam (required = false) String code,
 			@RequestParam (required = false) String deleted)
 	{
+		logLine();
+		log("solicitando listado de ventas");
+		
 
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
+			log("token vacio");
 			return null;
 		}
 
@@ -93,12 +107,13 @@ public class SaleController {
 		if(!auth.Authorize(token, typesAllowed)){
 			//			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
 		try {
 
-			// Get the all the Users
+			// Get the all the Sales
 			HashMap<String,Object> data = new HashMap<>();
 
 			if(appuser_id!= null)
@@ -129,30 +144,34 @@ public class SaleController {
 			if(thesales == null)
 			{
 				//404 not found
+				log("listado de ventas vacia");
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return thesales;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
-			System.out.println(e);
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
 
 	}
 
+	//update
 	@RequestMapping(value = "/sales", method = {RequestMethod.POST})
 	public String addProduct(@RequestBody Sale sale , HttpServletResponse resp, @RequestHeader("token") String token) {
 
 		if(token.isEmpty()){
 			// 400 Bad Request
 			resp.setStatus(400);
+			log("token vacio");
 			return null;
 		}
 
@@ -162,6 +181,7 @@ public class SaleController {
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
 			//			// 401 Unauthorized
+			log("no autorizado");
 			resp.setStatus(401);
 			return null;
 		}
@@ -176,12 +196,14 @@ public class SaleController {
 
 				saleServ.updateSale(sale);
 
+				log("OK");
 				// Status 200 y retorna el Id del APP_USER nuevo
 				resp.setStatus(200);
 				return "venta agregada correctamente";
 			}
 			else
 			{
+				log("Producto ya existe");
 				// 409 Conflict
 				resp.setStatus(409);
 				return "Producto ya existe";
@@ -189,17 +211,20 @@ public class SaleController {
 		}
 		catch(Exception e)
 		{
+			log(e.toString());
 			resp.setStatus(500);		
 			return "Error interno";
 		}
 
 	}
 
+	//Get one
 	@RequestMapping(value="/sales/{Id}", method = {RequestMethod.GET})
 	private Optional<Sale> getSpecificSale(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
 	{
 		if(id.isEmpty() || token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -212,6 +237,7 @@ public class SaleController {
 		if(!auth.Authorize(token, typesAllowed)){
 			//			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
@@ -222,11 +248,13 @@ public class SaleController {
 			// If there is no matching Sale
 			if(!sale.isPresent()){
 				// 404 Not Found
+				log("listado de ventas vacio");
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return sale;
 
@@ -234,16 +262,21 @@ public class SaleController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
 
 
+	//Update / modify
 	@RequestMapping(value= "/sales/{Id}", method = {RequestMethod.POST})
 	private String UpdateSale(HttpServletResponse res,@PathVariable String Id, @RequestBody Sale reqSale,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("modificando venta");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -255,6 +288,7 @@ public class SaleController {
 		if(!auth.Authorize(token, typesAllowed)){
 			//			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
@@ -262,8 +296,9 @@ public class SaleController {
 			String saleId = reqSale.getSale_id();
 			Optional<Sale> optSale = saleServ.getOneSale(saleId);
 
-			// If there is no matching User
+			// If there is no matching Sale
 			if(!optSale.isPresent()){
+				log("listado de ventas vacia");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -275,6 +310,7 @@ public class SaleController {
 			saleServ.updateSale(reqSale);
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Compra actualizada exitosamente";
 
@@ -282,16 +318,20 @@ public class SaleController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
 
-
+	//Change status
 	@RequestMapping(value = "/sales/{Id}/change-status", method = {RequestMethod.POST})
 	private String ChangeStatus(HttpServletResponse res, @PathVariable String Id ,@RequestParam("status")String status,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Cambiando estatus de venta");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -303,6 +343,7 @@ public class SaleController {
 		if(!auth.Authorize(token, typesAllowed)){
 			//			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
@@ -310,9 +351,10 @@ public class SaleController {
 			// Get the Sale
 			Optional<Sale> sale = saleServ.getOneSale(Id);
 
-			// If there is no matching User
+			// If there is no matching Sale
 			if(!sale.isPresent()){
 				// 404 Not Found
+				log("listado de ventas vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -324,23 +366,29 @@ public class SaleController {
 
 			// 200 OK
 			res.setStatus(200);
+			log("OK");
 			return "Status actualizado exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
 
 
+	//delete
 	@RequestMapping(value= "/sales/{Id}", method = {RequestMethod.DELETE})
 	private String DeleteSale(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("eliminando venta");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
+			log("token vacio");
 			return null;
 		}
 
@@ -349,6 +397,7 @@ public class SaleController {
 		if(!auth.Authorize(token, typesAllowed)){
 			//			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
@@ -358,6 +407,7 @@ public class SaleController {
 
 			// If there is no matching Sale
 			if(!sale.isPresent()){
+				log("listado de ventas vacia");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
@@ -380,23 +430,29 @@ public class SaleController {
 			saleServ.updateSale(delSale);
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Compra Eliminada Exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
 	}
 
+	//restore
 	@RequestMapping(value= "/sales/{Id}/restore", method = {RequestMethod.PUT})
 	private String RestoreMec(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("restaurando venta");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
+			log("token vacio");
 			return null;
 		}
 
@@ -416,6 +472,7 @@ public class SaleController {
 			if(!sale.isPresent()){
 				// 404 Not Found
 				res.setStatus(404);
+				log("no autorizado");
 				return null;
 			}
 
@@ -423,6 +480,7 @@ public class SaleController {
 
 			if(!resSale.isDeleted()){
 				// 409 Conflict
+				log("venta no eliminada");
 				res.setStatus(409);
 				return "La venta no está Eliminada";
 			}
@@ -442,6 +500,7 @@ public class SaleController {
 			saleServ.updateSale(resSale);
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Venta Restaurada Exitosamente";
 
@@ -449,17 +508,20 @@ public class SaleController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
 
 
+	//Conseguir todos los elementos de una venta
 	@RequestMapping("/provisions/{Id}")//Id de la venta
 	private List<Sale_provision> getAllsalesProvisions(HttpServletResponse res, @RequestHeader("token") String token,@PathVariable String Id)
 	{
 
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -471,6 +533,7 @@ public class SaleController {
 
 		if(!auth.Authorize(token, typesAllowed)){
 			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -488,11 +551,13 @@ public class SaleController {
 
 			if(theProvisions == null)
 			{
+				log("listado de provisiones vacia");
 				//404 not found
 				res.setStatus(404);
 				return null;
 			}
 
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return theProvisionFiltered;
@@ -501,21 +566,26 @@ public class SaleController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 
 	}
 
+	//Añadir todas las provisiones (productos/servicios) de una venta
 	@JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 	@RequestMapping(value="/provisions", method = {RequestMethod.PUT})
 	private String AddProvisions(HttpServletResponse res,@RequestBody List<Sale_provision> provisiones)
 	{
+		logLine();
+		log("Añadiendo provision");
 		try
 		{
 			for(Sale_provision s : provisiones)
 			{
 				if(saleServ.getAllProvision().contains(s)){
 					res.setStatus(409); //409 conflict
+					log("provision ya existe");
 					return "Provision ya existe con codigo "+ s.getProduct_id();
 				}
 
@@ -526,23 +596,29 @@ public class SaleController {
 				saleServ.updateSaleProvision(s);
 			}
 			res.setStatus(200); //OK
+			log("OK");
 			return "Todas las provisiones añadidas correctamente";
 
 		}
 		catch(Exception e)
 		{
+			log(e.toString());
 			res.setStatus(500); //500 server error
 			return "Error interno";
 		}
 	}
 
+	//Get all status
 	@RequestMapping(value = "/sale_status", method = {RequestMethod.GET})
 	private List<Sale_status> getAllStatus(HttpServletResponse res, @RequestHeader("token") String token)
 	{
+		logLine();
+		log("solicitando todos los estados de ventas");
 		try {
 			if(token.isEmpty()){
 				// 400 Bad Request
 				res.setStatus(400);
+				log("token vacio");
 				return null;
 			}
 
@@ -561,16 +637,19 @@ public class SaleController {
 			{
 				//404 not found
 				res.setStatus(404);
+				log("listado de estados vacia");;
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return theStatus;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}

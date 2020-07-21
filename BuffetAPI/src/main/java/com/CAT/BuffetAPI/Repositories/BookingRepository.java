@@ -13,6 +13,6 @@ import com.CAT.BuffetAPI.Entities.Booking;
 @RepositoryRestResource
 public interface BookingRepository extends JpaRepository<Booking, String>{
 	
-	
+	//vease impl para ver implementacion de filtros
 	List<Booking> getData(HashMap<String,Object> Conditions);
 }

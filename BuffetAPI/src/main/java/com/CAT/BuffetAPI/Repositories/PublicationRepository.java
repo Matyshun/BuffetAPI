@@ -10,6 +10,6 @@ import com.CAT.BuffetAPI.Entities.Publication;
 
 @RepositoryRestResource
 public interface PublicationRepository extends JpaRepository<Publication, String>{
-	
+	//vease impl para ver implementacion de filtros
 	List<Publication> getData(HashMap<String,Object> Conditions);
 }

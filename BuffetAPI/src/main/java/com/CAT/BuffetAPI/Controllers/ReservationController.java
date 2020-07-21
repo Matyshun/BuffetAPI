@@ -44,13 +44,15 @@ public class ReservationController {
 		System.out.println("----------------------------------------------------------------");
 	}
 	
-	//Create
+	//Create restriccion
 	
 	@RequestMapping(value = "/booking_restrictions", method = {RequestMethod.POST})
 	public String addBookingRestriction(@RequestBody Booking_restriction restriction , HttpServletResponse resp, @RequestHeader("token") String token) {
-
+		logLine();
+		log("creando restriccion de reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			resp.setStatus(400);
 			return null;
 		}
@@ -62,6 +64,7 @@ public class ReservationController {
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
 			resp.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 		try {
@@ -76,26 +79,31 @@ public class ReservationController {
 				reserveService.updateBookingRestriction(restriction);
 				// Status 200 y retorna el Id del APP_USER nuevo
 				resp.setStatus(200);
+				log("OK");
 				return "Restriccion agregada correctamente";
 			}
 			else
 			{
 				// 409 Conflict
 				resp.setStatus(409);
+				log("restriccion ya existe");
 				return "Restriccion ya existe";
 			}
 		}
 		catch(Exception e)
 		{
+			log(e.toString());
 			resp.setStatus(500);		
 			return "Error interno";
 		}
 
 	}
 	
+	//create reserva
 	@RequestMapping(value = "/bookings", method = {RequestMethod.POST})
 	public String addBooking(@RequestBody Booking booking , HttpServletResponse resp, @RequestHeader("token") String token) {
-
+		logLine();
+		log("Creando reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			resp.setStatus(400);
@@ -108,6 +116,7 @@ public class ReservationController {
 		typesAllowed.add("VEN");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			resp.setStatus(401);
 			return null;
 		}
@@ -123,10 +132,12 @@ public class ReservationController {
 				reserveService.updateBooking(booking);
 				// Status 200 y retorna el Id del APP_USER nuevo
 				resp.setStatus(200);
+				log("OK");
 				return "Reserva agregada correctamente";
 			}
 			else
 			{
+				log("Reserva ya existe");
 				// 409 Conflict
 				resp.setStatus(409);
 				return "Reserva ya existe";
@@ -134,6 +145,7 @@ public class ReservationController {
 		}
 		catch(Exception e)
 		{
+			log(e.toString());
 			resp.setStatus(500);		
 			return "Error interno";
 		}
@@ -148,8 +160,10 @@ public class ReservationController {
 			@RequestParam (required = false) String status_booking_id ,
 			@RequestParam (required = false) String deleted)
 	{
-
+		logLine();
+		log("Solicitando listado de reservas");
 		if(token.isEmpty()){
+			log("token vacio");
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
@@ -161,13 +175,14 @@ public class ReservationController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
 
 		try {
 
-			// Get the all the Users
+			// Get the all the Users (Filtros)
 			HashMap<String,Object> data = new HashMap<>();
 
 			if(appuser_id!= null)
@@ -191,18 +206,20 @@ public class ReservationController {
 			if(thereserves == null)
 			{
 				//404 not found
+				log("lista de reservas vacia");
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return thereserves;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
-			System.out.println(e);
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
@@ -214,9 +231,12 @@ public class ReservationController {
 			@RequestParam (required = false) String serv_id ,
 			@RequestParam (required = false) String deleted)
 	{
-
+		
+		logLine();
+		log("Solicitando listado de restricciones de reservas");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -227,6 +247,7 @@ public class ReservationController {
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -250,18 +271,20 @@ public class ReservationController {
 			if(thereserveres == null)
 			{
 				//404 not found
+				log("listado de restricciones vacio");
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
 			res.setStatus(200);
+			log("OK");
 			return thereserveres;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
-			System.out.println(e);
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
@@ -270,6 +293,8 @@ public class ReservationController {
 	
 	@RequestMapping("/status_booking")
 	private List<Status_booking> getAllBookingRestrictions(HttpServletResponse res,@RequestHeader("token") String token){
+		logLine();
+		log("solicitando listado de estados de reserva");
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
@@ -277,6 +302,7 @@ public class ReservationController {
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 		try {
@@ -285,11 +311,13 @@ public class ReservationController {
 
 			if(status == null){
 				// 404 Not Found
+				log("listado de estados vacio");
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return status;
 
@@ -297,18 +325,22 @@ public class ReservationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
 	
 	@RequestMapping("/store_schedule")
 	private List<Store_schedule> getAllStoreSchedule(HttpServletResponse res,@RequestHeader("token") String token){
+		logLine();
+		log("solicitando listado de horarios de tienda");
 		List<String> typesAllowed = new ArrayList<String>();
 		typesAllowed.add("ADM");
 		typesAllowed.add("VEN");
 		typesAllowed.add("CAJ");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -317,11 +349,13 @@ public class ReservationController {
 			List<Store_schedule> schedules = reserveService.getAllStoreSchedule();
 
 			if(schedules == null){
+				log("lista de horarios vacia");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
 			}
 
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return schedules;
@@ -330,6 +364,7 @@ public class ReservationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -339,8 +374,11 @@ public class ReservationController {
 	@RequestMapping(value="/bookings/{Id}", method = {RequestMethod.GET})
 	private Optional<Booking> getSpecificBooking(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
 	{
+		logLine();
+		log("solicitando reserva");
 		if(id.isEmpty() || token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -350,6 +388,7 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -361,17 +400,20 @@ public class ReservationController {
 			// If there is no matching Booking
 			if(!booking.isPresent()){
 				// 404 Not Found
+				log("lista de reservas vacia");
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return booking;
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
@@ -380,8 +422,11 @@ public class ReservationController {
 	@RequestMapping(value="/booking_restrictions/{Id}", method = {RequestMethod.GET})
 	private Optional<Booking_restriction> getSpecificBookingRestriction(HttpServletResponse res, @PathVariable("Id") String id, @RequestHeader("token") String token)
 	{
+		logLine();
+		log("Solicitando restriccion de reserva");
 		if(id.isEmpty() || token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -391,6 +436,7 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -401,12 +447,14 @@ public class ReservationController {
 
 			// If there is no matching Restriction
 			if(!restriction.isPresent()){
+				log("lista de restricciones vacia");
 				// 404 Not Found
 				res.setStatus(404);
 				return null;
 			}
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return restriction;
 
@@ -414,6 +462,7 @@ public class ReservationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -423,7 +472,10 @@ public class ReservationController {
 	@RequestMapping(value= "/bookings/{Id}", method = {RequestMethod.POST})
 	private String UpdateBooking(HttpServletResponse res,@PathVariable String Id, @RequestBody Booking booking,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Modificando reserva");
 		if(token.isEmpty()){
+			log("token vacio");
 			// 400 Bad Request
 			res.setStatus(400);
 			return null;
@@ -434,6 +486,7 @@ public class ReservationController {
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
@@ -443,6 +496,7 @@ public class ReservationController {
 			// If there is no matching booking
 			if(!optBooking.isPresent()){
 				// 404 Not Found
+				log("lista de reservas vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -455,6 +509,7 @@ public class ReservationController {
 			reserveService.updateBooking(booking);
 	
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Reserva actualizada exitosamente";
 		
@@ -462,6 +517,7 @@ public class ReservationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -469,8 +525,11 @@ public class ReservationController {
 	@RequestMapping(value= "/store_schedule/update", method = {RequestMethod.POST})
 	private String UpdateStoreSchedule(HttpServletResponse res, @RequestBody Store_schedule schedule,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Modificando horario de la tienda");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -479,6 +538,7 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -489,6 +549,7 @@ public class ReservationController {
 			// If there is no matching booking
 			if(theSchedules.isEmpty()){
 				// 404 Not Found
+				log("Listado de horarios vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -499,7 +560,7 @@ public class ReservationController {
 			schedule.setCreated_at(theSchedule.getCreated_at());
 			schedule.setUpdated_at(new Date());
 			reserveService.updateStoreSchedule(schedule);
-	
+			log("OK");
 			// 200 OK
 			res.setStatus(200);
 			return "Reserva actualizada exitosamente";
@@ -507,6 +568,7 @@ public class ReservationController {
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
@@ -515,8 +577,11 @@ public class ReservationController {
 	@RequestMapping(value= "/booking_restrictions/{Id}", method = {RequestMethod.POST})
 	private String UpdateBookingRestrictions(HttpServletResponse res,@PathVariable String Id, @RequestBody Booking_restriction bookingRestriction,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Modificando restriccion de reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -526,6 +591,7 @@ public class ReservationController {
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
 			res.setStatus(401);
+			log("no autorizado");
 			return null;
 		}
 
@@ -535,6 +601,7 @@ public class ReservationController {
 			// If there is no matching booking restriction
 			if(!optBookingRestriction.isPresent()){
 				// 404 Not Found
+				log("listado de restricciones vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -547,6 +614,7 @@ public class ReservationController {
 			reserveService.updateBookingRestriction(bookingRestriction);
 	
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Restriccion actualizada exitosamente";
 		
@@ -554,6 +622,7 @@ public class ReservationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -563,8 +632,10 @@ public class ReservationController {
 	@RequestMapping(value = "/bookings/{Id}/change-status", method = {RequestMethod.POST})
 	private String ChangeStatus(HttpServletResponse res, @PathVariable String Id ,@RequestParam("status")String status,@RequestHeader("token") String token)
 	{
+		logLine();
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -573,6 +644,7 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -581,9 +653,10 @@ public class ReservationController {
 			// Get the User
 			Optional<Booking> booking = reserveService.getOneBooking(Id);
 
-			// If there is no matching User
+			// If there is no matching reserve
 			if(!booking.isPresent()){
 				// 404 Not Found
+				log("listado de reservas vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -595,12 +668,14 @@ public class ReservationController {
 			reserveService.updateBooking(updateBooking);
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Status actualizado exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}
@@ -611,8 +686,11 @@ public class ReservationController {
 	@RequestMapping(value= "/bookings/{Id}", method = {RequestMethod.DELETE})
 	private String DeleteBooking(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("eliminando reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -621,6 +699,7 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -632,6 +711,7 @@ public class ReservationController {
 			// If there is no matching Booking
 			if(!booking.isPresent()){
 				// 404 Not Found
+				log("listado de reservas vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -642,12 +722,14 @@ public class ReservationController {
 			
 			// 200 OK
 			res.setStatus(200);
+			log("OK");
 			return "Reserva Eliminada Exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -655,9 +737,12 @@ public class ReservationController {
 	@RequestMapping(value= "/booking_restrictions/{Id}", method = {RequestMethod.DELETE})
 	private String DeleteBookingRestrictions(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		logLine();
+		log("Eliminando restriccion de reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
+			log("token vacio");
 			return null;
 		}
 
@@ -665,6 +750,7 @@ public class ReservationController {
 		typesAllowed.add("ADM");
 		if(!auth.Authorize(token, typesAllowed)){
 //			// 401 Unauthorized
+			log("no autorizado");
 			res.setStatus(401);
 			return null;
 		}
@@ -673,9 +759,10 @@ public class ReservationController {
 			// Get the Restriction
 			Optional<Booking_restriction> bookingRestriction = reserveService.getOneBookingRestriction(Id);
 
-			// If there is no matching Booking
+			// If there is no matching Booking restrictions
 			if(!bookingRestriction.isPresent()){
 				// 404 Not Found
+				log("listado de restricciones vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -686,12 +773,14 @@ public class ReservationController {
 			
 			// 200 OK
 			res.setStatus(200);
+			log("OK");
 			return "Restriccion Eliminada Exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -701,9 +790,11 @@ public class ReservationController {
 	@RequestMapping(value= "/bookings/{Id}/restore", method = {RequestMethod.PUT})
 	private String RestoreBookings(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		log("restaurando reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
 			res.setStatus(400);
+			log("token vacio");
 			return null;
 		}
 
@@ -719,9 +810,10 @@ public class ReservationController {
 			// Get the Publication
 			Optional<Booking> booking = reserveService.getOneBooking(Id);
 
-			// If there is no matching Publication
+			// If there is no matching reserve
 			if(!booking.isPresent()){
 				// 404 Not Found
+				log("listado de reservas vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -731,6 +823,7 @@ public class ReservationController {
 			if(!resBoking.isDeleted()){
 				// 409 Conflict
 				res.setStatus(409);
+				log("La reserva no esta eliminada");
 				return "La Reserva no está Eliminada";
 			}
 			
@@ -738,6 +831,7 @@ public class ReservationController {
 			reserveService.updateBooking(resBoking);
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Reserva Restaurada Exitosamente";
 
@@ -745,6 +839,7 @@ public class ReservationController {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
 			res.setStatus(500);
+			log(e.toString());
 			return null;
 		}
 	}
@@ -752,8 +847,10 @@ public class ReservationController {
 	@RequestMapping(value= "/booking_restrictions/{Id}/restore", method = {RequestMethod.PUT})
 	private String RestoreBookingRestrictions(HttpServletResponse res,@PathVariable String Id,@RequestHeader("token") String token)
 	{
+		log("Restaurando restriccion de reserva");
 		if(token.isEmpty()){
 			// 400 Bad Request
+			log("token vacio");
 			res.setStatus(400);
 			return null;
 		}
@@ -770,9 +867,10 @@ public class ReservationController {
 			// Get the Publication
 			Optional<Booking_restriction> bookingRestriction = reserveService.getOneBookingRestriction(Id);
 
-			// If there is no matching Publication
+			// If there is no matching restriction
 			if(!bookingRestriction.isPresent()){
 				// 404 Not Found
+				log("listado de restricciones vacia");
 				res.setStatus(404);
 				return null;
 			}
@@ -781,6 +879,7 @@ public class ReservationController {
 
 			if(!resRestriction.isDeleted()){
 				// 409 Conflict
+				log("La restriccion no esta eliminada");
 				res.setStatus(409);
 				return "La Restriccion no está Eliminada";
 			}
@@ -789,12 +888,14 @@ public class ReservationController {
 			reserveService.updateBookingRestriction(resRestriction);
 
 			// 200 OK
+			log("OK");
 			res.setStatus(200);
 			return "Restriccion Restaurada Exitosamente";
 
 		} catch (Exception e) {
 			// If There was an error connecting to the server
 			// 500 Internal Server Error
+			log(e.toString());
 			res.setStatus(500);
 			return null;
 		}

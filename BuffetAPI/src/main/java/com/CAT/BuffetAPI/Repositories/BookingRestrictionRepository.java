@@ -11,5 +11,6 @@ import com.CAT.BuffetAPI.Entities.Booking_restriction;
 
 @RepositoryRestResource
 public interface BookingRestrictionRepository extends JpaRepository<Booking_restriction,String> {
+	//vease impl para ver implementacion de filtros
 	List<Booking_restriction> getData(HashMap<String,Object> Conditions);
 }
